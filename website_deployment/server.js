@@ -4,13 +4,13 @@ const { exec } = require('child_process');
 const root = __dirname;
 app.use(express.static(root));
 const port = 3030;
-// albi
+
 app.use(express.urlencoded({ extended: true })); // req.body
 app.set('view engine','pug');
 app.set('views',root);
 
 
-app.get('/generate', (req, res) => {
+app.get('/', (req, res) => {
   res.render('generateSite');
 });
 
