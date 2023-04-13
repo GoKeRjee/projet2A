@@ -3,16 +3,16 @@
 
 ### **Intall Generator Site**
 
- Dans ce dossier il y a installer.sh. Ce fichier va contenir tout ce qui est installation des librairie et autres mais il va aussi faire la création des fichier du site de géneration de site.
+ Dans ce dossier il y a installer.sh. Ce fichier va contenir tout ce qui est installation des librairie et autres mais il va aussi faire la création des fichier du site de géneration de site.  
 
  Pour lancer l'installeur :
 
   - chmod -R a+rwx installer.sh
   - ./installer.sh
 
-A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site.
+A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site.  
 
-Comme on est en localhost si on éteint la machine alors le serveur va aussi s'éteindre.
+Comme on est en localhost si on éteint la machine alors le serveur va aussi s'éteindre.  
 Pour le relancer, il faut ouvrir un terminal dans le répertoire "TheGenerator" et taper la commande suivante :
 
 node server.js & google-chrome http://localhost:3030/
@@ -28,7 +28,7 @@ Pour lancer le serveur et tester le bon fonctonnement du site il faut ouvrir le 
 
   - node server.js & google-chrome http://localhost:3030/
 
-A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site avec directement la page de création de site. Il suffira ensuite d'écrire le nom du répertoire dans lequel on veut créer le site et d'indiquer le port dans lequel sera le site.
+A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site avec directement la page de création de site. Il suffira ensuite d'écrire le nom du répertoire dans lequel on veut créer le site et d'indiquer le port dans lequel sera le site.  
 Avant l'appuie du bonton "Create" il faut s'assurer que le serveur MongoDB tourne en tapant sur un terminal la commande :
 
   - sudo systemctl status mongod
