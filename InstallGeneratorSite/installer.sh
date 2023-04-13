@@ -8,7 +8,6 @@ if [ ! -d "$directory_name" ]; then
   mkdir "$directory_name"
 fi
 
-echo "hello" > "$directory_name/script.txt"
 
 # Initialise the folder as a Node.js project and install Express
 cd "$directory_name"/
@@ -18,7 +17,14 @@ npm i -D pug
 cd ../
 
 # script 
-cp ./script.sh "$directory_name"/
+# ajouter le script final qu'on aura fait dans website_deployement
+
+###############################################################################
+
+echo '##!/bin/bash' > "$directory_name/script.sh"
+
+
+###############################################################################
 
 # Creation of files for the original site
 

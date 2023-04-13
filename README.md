@@ -17,6 +17,8 @@ Pour le relancer, il faut ouvrir un terminal dans le répertoire "TheGenerator" 
 
 node server.js & google-chrome http://localhost:3030/
 
+Si on veut utiliser un autre navigateur il suffit d'aller sur : http://localhost:3030/
+
 
 - website_deployment
 
