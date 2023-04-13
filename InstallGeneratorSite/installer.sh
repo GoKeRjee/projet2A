@@ -1,31 +1,26 @@
 #!/bin/bash
 
-# Demander le nom du répertoire
-echo "Nom du répertoire : $1"
-echo "Port : $2"
+# The name of the directory in whiwh we create the files
+directory_name="TheGenerator"
 
-directory_name="$1"
-port="$2"
-
-# Créer le répertoire s'il n'existe pas déjà
+# Create the directory if it does not already exist
 if [ ! -d "$directory_name" ]; then
   mkdir "$directory_name"
 fi
 
+echo "hello" > "$directory_name/script.txt"
+
+# Initialise the folder as a Node.js project and install Express
 cd "$directory_name"/
-
-# Initialiser le dossier en tant que projet Node.js et installer Express
-
 yes "" | npm init
 npm install express --save
 npm i -D pug
-
-
 cd ../
 
+# script 
 cp ./script.sh "$directory_name"/
 
-# Création des fichiers pour le site originel
+# Creation of files for the original site
 
 echo "body {
 	background: rgb(255, 255, 255);
@@ -57,38 +52,49 @@ a, .btn-link, a:hover, .btn-link:hover {
 	text-decoration: none;
 	color: rgb(3, 1, 1);
 	font-style: italic;
-}
-" > "$directory_name/template.css"
+}" > "$directory_name/template.css"
 
 echo "html
 	head
-		meta(charset="utf-8")
-		meta(name="viewport",content="width=device-width,initial-scale=1")
-		title Test
-		link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css",rel="stylesheet")
-		link(href="/template.css",rel="stylesheet")
+		meta(charset='utf-8')
+		meta(name='viewport',content='width=device-width,initial-scale=1')
+		title The Generator
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css",rel="stylesheet')
+		link(href='/template.css',rel='stylesheet')
 	body
 		.container
 			.row
 				.col.text-center
-					h1#title Le meilleur site
+					h1#The Generator
 			.row
 				.col
 					block content
-			div#footer Fait par albi
-" > "$directory_name/template.pug"
+			div#footer" > "$directory_name/template.pug"
 
-echo "extends template
-block content
-	form(action="/generateSite",method="POST")
-		.form-group
-			label Nom du répertoire :
-			input(name="nom").form-control
-		.form-group
-			label Port
-			input(name="port").form-control
-		button.btn.btn-link Create
-" > "$directory_name/generateSite.pug"
+echo "html
+	head
+		meta(charset='utf-8')
+		meta(name='viewport',content='width=device-width,initial-scale=1')
+		title TheGenerator
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
+		link(href='/template.css',rel='stylesheet')
+	body
+		.container
+			.row
+				.col.text-center
+					h1#title Generate New Site
+			.row
+				.col
+					block content
+						form(action='/generateSite',method='POST')
+							.form-group
+								label Nom du répertoire :
+								input(name='nom').form-control
+							.form-group
+								label Port
+								input(name='port').form-control
+							button.btn.btn-link Create
+			div#footer" > "$directory_name/generateSite.pug"
 
 
 chmod -R a+rwx "$directory_name"/script.sh
@@ -97,13 +103,14 @@ chmod -R a+rwx "$directory_name"/template.pug
 chmod -R a+rwx "$directory_name"/generateSite.pug
 
 
-# Créer le fichier serveur.js
+# # Site generation server : server.js
+
 echo "const express = require('express');
 const app = express();
 const { exec } = require('child_process');
 const root = __dirname;
 app.use(express.static(root));
-const port = "$port";
+const port = "3030";
 
 app.use(express.urlencoded({ extended: true })); // req.body
 app.set('view engine','pug');
@@ -121,11 +128,15 @@ app.post('/generateSite',(req,res)=>{
 	res.redirect('/generate');
 });
 
+app.get('/',(req,res)=>{
+	res.redirect('/generate');
+});
+
 app.listen(port, () => {
   console.log(\`Server listening at http://localhost:\${port}\`);
 });" > "$directory_name/server.js"
 
 # Confirmer la création des fichiers
-echo "Site généré dans le répertoire $directory_name."
+echo "Site generated in the folder $directory_name."
 
-node "$directory_name"/server.js
+node "$directory_name"/server.js & google-chrome http://localhost:3030/generate
