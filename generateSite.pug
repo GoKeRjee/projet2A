@@ -1,0 +1,10 @@
+extends template
+block content
+	form(action="/generateSite",method="POST")
+		.form-group
+			label Nom du répertoire :
+			input(name="nom").form-control
+		.form-group
+			label Port
+			input(name="port").form-control
+		button.btn.btn-link Create
