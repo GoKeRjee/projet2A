@@ -16,7 +16,7 @@ cd "$directory_name"/
 
 # Initialiser le dossier en tant que projet Node.js et installer Express
 
-sudo systemctl start mongod
+# sudo systemctl start mongod
 
 yes "" | npm init
 npm install express --save

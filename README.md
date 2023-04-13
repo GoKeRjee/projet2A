@@ -8,7 +8,7 @@
  Pour lancer l'installeur :
 
   - chmod -R a+rwx installer.sh
-  - ./installer
+  - ./installer.sh
 
 A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site.
 
@@ -26,7 +26,15 @@ Ce dossier est enfaite un exemple de ce que va construire le fichier installer.s
 
 Pour lancer le serveur et tester le bon fonctonnement du site il faut ouvrir le terminal et aller dans ce répertoire puis taper la commande suivante :
 
- - node server.js & google-chrome http://localhost:3030/
+  - node server.js & google-chrome http://localhost:3030/
 
-A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site directement la page de création de site. Il suffira ensuite d'écrire le nom du répertoire dans lequel on veut créer le site et d'indiquer le port dans lequel sera le site.
+A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site avec directement la page de création de site. Il suffira ensuite d'écrire le nom du répertoire dans lequel on veut créer le site et d'indiquer le port dans lequel sera le site.
+Avant l'appuie du bonton "Create" il faut s'assurer que le serveur MongoDB tourne en tapant sur un terminal la commande :
+
+  - sudo systemctl status mongod
+
+Si cette commande n'affiche pas "active" alors utiliser cette commande pour lancer le serveur : 
+
+  - sudo systemctl start mongod
+
 Après avoir appuiyé sur "Create" il faudra attendre le temps des installations et un nouvel onglet s'ouvrira dans le nouveau site que vous venez de créer.
