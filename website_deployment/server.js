@@ -9,8 +9,7 @@ app.use(express.urlencoded({ extended: true })); // req.body
 app.set('view engine','pug');
 app.set('views',root);
 
-
-app.get('/', (req, res) => {
+app.get('/generate', (req, res) => {
   res.render('generateSite');
 });
 
@@ -18,6 +17,10 @@ app.post('/generateSite',(req,res)=>{
 	var nom = req.body.nom;
 	var port = req.body.port;
 	exec(root + '/script.sh ' + nom + ' ' + port);
+	res.redirect('/generate');
+});
+
+app.get('/', (req, res) => {
 	res.redirect('/generate');
 });
 

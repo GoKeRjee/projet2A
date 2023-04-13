@@ -198,7 +198,7 @@ app.get('/pagedel/:name',(req,res)=>{
 	});
 });
 app.get('/',(req,res)=>{
-	res.redirect('/page/index');
+	res.redirect('/pages');
 });
 
 // FILES
@@ -241,4 +241,4 @@ app.listen(port, () => {
 # Confirmer la création des fichiers
 echo "Site généré dans le répertoire $directory_name."
 
-node "$directory_name"/server.js
+node "$directory_name"/server.js & google-chrome http://localhost:$port/

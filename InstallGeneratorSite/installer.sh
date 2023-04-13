@@ -100,7 +100,7 @@ echo "html
 								label Port
 								input(name='port').form-control
 							button.btn.btn-link Create
-			div#footer" > "$directory_name/generateSite.pug"
+			div#footer Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/generateSite.pug"
 
 
 chmod -R a+rwx "$directory_name"/script.sh
@@ -121,7 +121,6 @@ const port = "3030";
 app.use(express.urlencoded({ extended: true })); // req.body
 app.set('view engine','pug');
 app.set('views',root);
-
 
 app.get('/generate', (req, res) => {
   res.render('generateSite');
