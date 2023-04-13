@@ -139,4 +139,4 @@ app.listen(port, () => {
 # Confirmer la création des fichiers
 echo "Site generated in the folder $directory_name."
 
-node "$directory_name"/server.js & google-chrome http://localhost:3030/generate
+node "$directory_name"/server.js & google-chrome http://localhost:3030/

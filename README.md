@@ -5,6 +5,18 @@ Projet web - 2A
 
  Dans ce dossier il y a installer.sh. Ce fichier va contenir tout ce qui est installation des librairie et autres mais il va aussi faire la création des fichier du site de géneration de site.
 
+ Pour lancer l'installeur :
+
+ chmod -R a+rwx installer.sh
+ ./installer
+
+A l'execution de l'installeur, un onglet se lancera, mettant à disposition le site.
+
+Comme on est en localhost si on éteint la machine alors le serveur va aussi s'éteindre.
+Pour le relancer, il faut ouvrir un terminal dans le répertoire "TheGenerator" et taper la commande suivante :
+
+node server.js & google-chrome http://localhost:3030/
+
 
 - website_deployment
 
