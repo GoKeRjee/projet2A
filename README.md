@@ -1,7 +1,7 @@
 # projet2A
 Projet web - 2A
 
- - IntallGeneratorSite
+ - intallGeneratorSite
 
  Dans ce dossier il y a installer.sh. Ce fichier va contenir tout ce qui est installation des librairie et autres mais il va aussi faire la création des fichier du site de géneration de site.
 
