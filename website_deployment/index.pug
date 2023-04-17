@@ -1,0 +1,32 @@
+doctype html
+head
+  link(href='/template.css' rel='stylesheet' type='text/css')
+  meta(http-equiv='Content-Type' content='text/html' charset='UTF-8')
+  title Site Generator
+.content
+  ul.ul-navbar
+    li
+      a#home-link.active(href='index') HOME
+    li
+      a#create-link(href='create') CREATE
+    li
+      a#edit-link(href='edit') EDIT
+    li
+      a#list-link(href='list') LIST
+img#welcome-logo(src='img/welcome.png')
+#welcome-message
+  img#equipe(src='img/equipe.png')
+  p#welcome-title Welcome to the site!
+  | The site is divided into several parts, and so that you do not get lost, we will accompany you: 
+  br
+  | - In the 
+  span.texteBlue &quot;create&quot;
+  |  section, you can create a website. 
+  br
+  | - In the 
+  span.texteBlue &quot;edit&quot;
+  |  section you can make all the necessary modifications to your creations (modifications on a site, etc) 
+  br
+  | - If you are a greedy tester who got lost in the list of created websites, the 
+  span.texteBlue &quot;list&quot;
+  |  section will allow you to find all your creations. 

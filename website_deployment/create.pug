@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    link(href='/template.css', rel='stylesheet', type='text/css')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title Site Generator
+  body
+    .content
+      ul.ul-navbar
+        li
+          a#home-link.active(href='index') HOME
+        li
+          a#create-link(href='create') CREATE
+        li
+          a#edit-link(href='edit') EDIT
+        li
+          a#list-link(href='list') LIST
+    .container
+      .row
+        .col.text-center
+          h1#title Generate New Site
+      .row
+        .col
+          block content
+            form(action='/generateSite', method='POST')
+              .form-group
+                label Nom du répertoire :
+                input(name='nom', class='form-control')
+              .form-group
+                label Port
+                input(name='port', class='form-control')
+              button.btn.btn-link Create
+    #footer Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
