@@ -25,11 +25,11 @@ app.get('/list', (req, res) => {
   res.render('list');
 });
 
-app.post('/generateSite',(req,res)=>{
+app.post('/createSite',(req,res)=>{
 	var nom = req.body.nom;
 	var port = req.body.port;
 	exec(root + '/script.sh ' + nom + ' ' + port);
-	res.redirect('/generate');
+	res.redirect('/create');
 });
 
 app.get('/', (req, res) => {
