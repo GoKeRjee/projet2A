@@ -28,7 +28,29 @@ npm install monk --save
 
 cd ../
 
-cp ./template.css "$directory_name"/
+echo "body {
+	background: rgb(255, 255, 255);
+	color: rgb(19, 1, 1);
+	font-size: larger; 
+}
+
+.container {
+	max-width: 800px;
+}
+
+#title {
+	height: 85px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	border: 1px solid;
+}
+
+#footer {
+	position: fixed;
+	width: 100%;
+	bottom: 10px;
+	left: 0;" > "$directory_name/template.css"
 
 # Creation du fichier template
 echo "html
