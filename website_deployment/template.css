@@ -46,6 +46,7 @@ li a:hover {
   border: none;
   color: white;
   padding: 5px 8px;
+  margin-top: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -270,11 +271,11 @@ li a:hover {
 	height: 200px;
 }
 
-#equipe{
+#inge{
 	width: 90px;
 	height: 90px;
 	position: absolute;
-	margin-left: 850px;
+	margin-left: 870px;
 }
 
 #welcome-title{
@@ -319,21 +320,12 @@ tbody tr:nth-child(even){
 
 footer{
   text-align: center;
-  padding: 3px;
+  padding: 20px;
   background-color: #333;
   color: white;
-  margin-bottom: 15px;
   margin-top : 15px;
   bottom: 0; left: 0; right: 0;
-}
-
-.footer-fix{
-  text-align: center;
-  padding: 3px;
-  background-color: #333;
-  color: white;
-  position: relative;
-  bottom: 0; left: 0; right: 0;
+  position: fixed;
 }
 
 .notebook-list-content form {
