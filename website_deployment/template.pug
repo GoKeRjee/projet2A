@@ -1,0 +1,25 @@
+html
+  head
+    meta(charset='UTF-8')
+    title Site Generator
+    link(href='/template.css', rel='stylesheet', type='text/css')
+  body
+    .navbar
+      ul.ul-navbar
+        li
+          a#home-link.active(href='index') HOME
+        li
+          a#create-link(href='create') CREATE
+        li
+          a#edit-link(href='edit') EDIT
+        li
+          a#list-link(href='list') LIST
+    .container
+      .row
+        .col.text-center
+            block title
+      .row
+        .col
+          block content
+      #footer
+        | Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr

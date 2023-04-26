@@ -26,9 +26,9 @@ app.get('/list', (req, res) => {
 });
 
 app.post('/createSite',(req,res)=>{
-	var nom = req.body.nom;
+	var name = req.body.name;
 	var port = req.body.port;
-	exec(root + '/script.sh ' + nom + ' ' + port);
+	exec(root + '/script.sh ' + name + ' ' + port);
 	res.redirect('/create');
 });
 
