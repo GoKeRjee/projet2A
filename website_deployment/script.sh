@@ -55,24 +55,6 @@ echo "body {
 	bottom: 10px;
 	left: 0;" > "$directory_name/template.css"
 
-# Creation du fichier template
-echo "html
-	head
-		meta(charset='utf-8')
-		meta(name='viewport',content='width=device-width,initial-scale=1')
-		title <LOGO>
-		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
-		link(href='/template.css',rel='stylesheet')
-	body
-		.container
-			.row
-				.col.text-center
-					h1#title <HEADER>
-			.row
-				.col
-					block content
-			div#footer <FOOTER>" > "$directory_name/template"
-
 # Creation du fichier template.pug
 echo "html
 	head
