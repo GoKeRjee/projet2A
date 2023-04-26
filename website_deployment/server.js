@@ -26,9 +26,10 @@ app.get('/list', (req, res) => {
 });
 
 app.post('/createSite',(req,res)=>{
+	var directory = req.body.directory;
 	var name = req.body.name;
 	var port = req.body.port;
-	exec(root + '/script.sh ' + name + ' ' + port);
+	exec(root + '/script.sh ' + directory + ' ' + port + ' "' + name + '"');
 	res.redirect('/create');
 });
 

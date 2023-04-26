@@ -3,9 +3,12 @@
 # Demander le nom du répertoire
 echo "Nom du répertoire : $1"
 echo "Port : $2"
+echo "nom de site : $3"
 
 directory_name="$1"
 port="$2"
+website_name="$3"
+
 
 # Créer le répertoire s'il n'existe pas déjà
 if [ ! -d "$directory_name" ]; then
@@ -75,14 +78,14 @@ echo "html
 	head
 		meta(charset='utf-8')
 		meta(name='viewport',content='width=device-width,initial-scale=1')
-		title $directory_name
+		title $website_name
 		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
 		link(href='/template.css',rel='stylesheet')
 	body
 		.container
 			.row
 				.col.text-center
-					h1#title $directory_name
+					h1#title $website_name
 			.row
 				.col
 					block content
