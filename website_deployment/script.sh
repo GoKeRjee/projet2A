@@ -195,7 +195,7 @@ app.get('/pageedit/:name',(req,res)=>{
 });
 app.post('/pageedit',(req,res)=>{
 	var page = req.body;
-	pages.update({'name':page.name},{'$set':page}).then(()=>{
+	pages.update({'name':page.name},{"'$set'":page}).then(()=>{
 		res.redirect('/page/'+page.name);
 	});
 });
