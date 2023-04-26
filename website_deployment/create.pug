@@ -3,11 +3,17 @@ block title
   h1 Generate your site
 block content
   div.form
-    form(action='/createSite', method='POST')
+    form(onsubmit='submitForm(event)', action='/createSite', method='POST')
       Directory Name:
       input#name(type='text', name='name', class='form-control')
       br
       label(for='port') Port:
       input#port(type='text', name='port', class='form-control')
       br
-      button.button-style(type='submit') Create
+      div.center
+        button#button-submit(type='submit') Create
+        script. 
+          function submitForm(event) {
+            // Affichez un message de confirmation
+            alert('La demande a bien été prise en compte.');
+          }
