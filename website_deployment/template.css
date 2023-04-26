@@ -40,6 +40,15 @@ li a:hover {
   background-color: #111;
 }
 
+.form{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	color: black;
+	padding: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+}
 
 .button-style{
   background-color: #4CAF50; /* Green */
@@ -102,80 +111,6 @@ li a:hover {
 	filter: brightness(0.85);
 }
 
-.create-test-content{
-	width: 610px;
-	margin-left: auto;
-    margin-right: auto;
-}
-
-#test-name{
-	width : 570px;
-}
-
-#test-set-name{
-	width : 570px;
-}
-
-.report-test-content{
-	text-align: left;
-}
-
-.details-execution-content {
-	text-align: left;
-}
-
-.report-test-content li{
-	float: none;
-}
-
-.report-test-set-content{
-	text-align: left;
-}
-
-.report-test-set-content li{
-	float: none;
-}
-
-.report-notebook-content{
-	text-align: left;
-}
-
-.report-notebook-content li{
-	float: none;
-}
-
-.list-tests-content{
-	text-align: left;
-}
-
-.list-test-sets-content{
-	text-align: left;
-}
-
-.list-test-sets-content li{
-	text-align: left;
-	float: none;
-}
-
-.notebook-content li {
-	float: none;
-	text-align: left;
-}
-
-.edit-test-content{
-	width: 580px;
-	margin-left: auto;
-    margin-right: auto;
-}
-
-.edit-test-set-content li{
-	float: none;
-}
-
-.container-edit{
-	text-align: left;
-}
-
 .execute-testset-content{
 	text-align: left;
 	width: 500px;
@@ -189,9 +124,6 @@ li a:hover {
 	padding: 5px;
 	margin-bottom: 5px;
 	box-shadow: 8px 8px 5px #444;
-}
-.execute-testset-content li{
-	float: none;
 }
 
 .yellow-banner {
@@ -234,18 +166,6 @@ li a:hover {
 	border-color: white;
 	padding: 5px;
 	margin-bottom: 5px;
-}
-
-.container-edit{
-	margin-bottom : 50px;
-}
-
-#button-execute-next-test{
-	margin-left: 200px;
-}
-
-#button-end-execute-test-set{
-	margin-left: 220px;
 }
 
 #welcome-message{
@@ -328,6 +248,27 @@ footer{
   position: fixed;
 }
 
-.notebook-list-content form {
-	display: inline;
-}
+input[type=text], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+	width: 100%;
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+	background-color: #45a049;
+  }

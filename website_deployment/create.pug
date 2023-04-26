@@ -1,12 +1,13 @@
 extends template
 block title
-  h1 Create your site
+  h1 Generate your site
 block content
-  form(action='/createSite', method='POST')
-    label(for='name') Directory Name:
-    input#name(type='text', name='name', class='form-control')
-    br
-    label(for='port') Port:
-    input#port(type='text', name='port', class='form-control')
-    br
-    button.button-style(type='submit') Create
+  div.form
+    form(action='/createSite', method='POST')
+      Directory Name:
+      input#name(type='text', name='name', class='form-control')
+      br
+      label(for='port') Port:
+      input#port(type='text', name='port', class='form-control')
+      br
+      button.button-style(type='submit') Create
