@@ -25,6 +25,14 @@ app.get('/list', (req, res) => {
   res.render('list');
 });
 
+app.get('/login', (req, res) => {
+	res.render('login');
+  });
+
+  app.get('/registration', (req, res) => {
+	res.render('registration');
+  });
+
 app.post('/createSite',(req,res)=>{
 	var directory = req.body.directory;
 	var name = req.body.name;

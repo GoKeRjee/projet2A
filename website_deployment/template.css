@@ -1,10 +1,19 @@
+/*========================================================================
+                         Default Font Configuration
+========================================================================*/
+
+/*========================================================================
+                         Body Configuration
+========================================================================*/
 body{
 	font-family: sans-serif;
 	background-color: #E4E4E4;
 	text-align : center;
 }
-
-.active {
+/*========================================================================
+                         NavBar Styling
+========================================================================*/
+.active-green {
   background-color: #04AA6D;
 }
 
@@ -35,13 +44,23 @@ li a {
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: #111;
 }
 
+#log-link{
+	position: fixed;
+	margin-left: 1000px;
+	background-color: #008CBA;
+}
+
+#log-link:hover{
+	background-color: #197390;
+  }
+
 h1{
-	margin-top: 60px;
+	margin-top: 40px;
+	text-align: center;
 }
 
 .form{
@@ -58,13 +77,15 @@ h1{
 .center{
 	text-align:center;
 }
-
+/*======================================================================
+                          Button styling
+=======================================================================*/
 #button-submit{
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
-  padding: 5px 8px;
-  margin-top: 5px;
+  padding: 10px 13px;
+  margin-top: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -79,7 +100,8 @@ h1{
   background-color: #f44336; /* Red */
   border: none;
   color: white;
-  padding: 5px 8px;
+  padding: 10px 13px;
+  margin-top: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -94,7 +116,8 @@ h1{
   background-color: #FF9933; /* Yellow */
   border: none;
   color: white;
-  padding: 5px 8px;
+  padding: 10px 13px;
+  margin-top: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -109,7 +132,8 @@ h1{
   background-color: #008CBA; /* Blue */
   border: none;
   color: white;
-  padding: 5px 8px;
+  padding: 10px 13px;
+  margin-top: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -129,7 +153,9 @@ h1{
 	padding: 5px;
 	margin-bottom: 5px;
 }
-
+/*======================================================================
+                          Index styling
+=======================================================================*/
 #welcome-message{
 	text-align: justify;
 	width: 1000px;
@@ -171,7 +197,9 @@ h1{
 	color: #00FF61;
 	font-weight: bold;
 }
-
+/*========================================================================
+                         List tab styling
+========================================================================*/
 .tableau-style{
 	border-collapse: collapse;
 	min-width: 400px;
@@ -199,7 +227,9 @@ tbody tr, td, th{
 tbody tr:nth-child(even){
 	background-color: white;
 }
-
+/*========================================================================
+                         Footer styling
+========================================================================*/
 footer{
   text-align: center;
   padding: 20px;
@@ -209,8 +239,20 @@ footer{
   bottom: 0; left: 0; right: 0;
   position: fixed;
 }
-
+/*========================================================================
+                         Form styling
+========================================================================*/
 input[type=text], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+
+  input[type=password], select {
 	width: 100%;
 	padding: 12px 20px;
 	margin: 8px 0;
@@ -234,3 +276,27 @@ input[type=text], select {
   input[type=submit]:hover {
 	background-color: #45a049;
   }
+/*========================================================================
+                         Login/Registration styling
+========================================================================*/
+.login{
+	margin-top: 100px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	padding: 30px;
+	margin-bottom: 5px;
+	text-align: left;
+	background-color: #333;
+	border-radius: 8px;
+	border-style: solid;
+	border-color: white;
+}
+
+#register{
+	text-decoration: none;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+}
