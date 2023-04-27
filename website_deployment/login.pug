@@ -4,10 +4,10 @@ block content
     h1 Log in to administer your sites:
     form(onsubmit='submitForm(event)', action='/login', method='POST')
       label(for='mail') E-mail address:
-      input#directory(type='text', name='login', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", class='form-control' required)
+      input#directory(type='text', name='login', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
       br
       label(for='password') Password:
-      input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", class='form-control' required)
+      input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
       br
       div.center
         button.button-style-blue(type='submit') Log in
