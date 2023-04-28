@@ -1,0 +1,11 @@
+extends template
+block content
+	ul
+		each page in pages
+			li
+				a(href='/page/'+page.name)=page.name
+				|  (
+				a(href='/pagedel/'+page.name) del
+				| )
+		li(style='list-style-type:none')
+			a(href='/pagenew') new

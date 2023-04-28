@@ -1,1 +1,25 @@
 extends template
+block title 
+    h1 List of created sites
+block content
+    table
+      thead
+        tr
+          th Nom du site
+          th Port
+          th Actions
+      tbody
+        each site in sites
+          tr
+            td= site.name
+            td= site.port
+            td.actions
+              form(action='/deleteSite', method='post')
+                input(type='hidden', name='name', value=site.name)
+                button(type='submit') Supprimer
+              form(action='/stopSite', method='post')
+                input(type='hidden', name='name', value=site.name)
+                button(type='submit') Arrêter
+              form(action='/startSite', method='post')
+                input(type='hidden', name='name', value=site.name)
+                button(type='submit') Démarrer

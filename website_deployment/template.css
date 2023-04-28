@@ -201,6 +201,7 @@ h1{
                          List tab styling
 ========================================================================*/
 .tableau-style{
+	text-align: center;
 	border-collapse: collapse;
 	min-width: 400px;
 	width: auto; 

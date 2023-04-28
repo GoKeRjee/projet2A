@@ -1,0 +1,10 @@
+extends template
+block content
+	form(action='/pagenew',method='POST')
+		.form-group
+			label Name
+			input(name='name').form-control
+		.form-group
+			label Content
+			textarea(name='content',rows=15).form-control
+		button.btn.btn-link save

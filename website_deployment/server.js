@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true })); // req.body
 app.set('view engine','pug');
 app.set('views',root);
 
+const db = require('monk')('127.0.0.1:27017/mySites');
+const sitesColletion = db.get('sites');
+
 app.get('/index', (req, res) => {
 	res.render('index');
   });
@@ -22,7 +25,10 @@ app.get('/index', (req, res) => {
   });
 
 app.get('/list', (req, res) => {
-  res.render('list');
+	sitesColletion.find({}, function(err, sites) {
+		if (err) throw err;
+		res.render('list', { sites: sites })
+	});
 });
 
 app.get('/login', (req, res) => {
@@ -38,6 +44,15 @@ app.post('/createSite',(req,res)=>{
 	var name = req.body.name;
 	var port = req.body.port;
 	exec(root + '/script.sh ' + directory + ' ' + port + ' "' + name + '"');
+
+	// save data on db
+	const newSite = {
+		directory: directory,
+		name: name,
+		port: port
+	}
+	sitesColletion.insert(newSite);
+
 	res.redirect('/create');
 });
 
