@@ -248,4 +248,6 @@ app.listen(port, () => {
 # Confirmer la création des fichiers
 echo "Site généré dans le répertoire $directory_name."
 
-node "$directory_name"/server.js & google-chrome http://localhost:$port/
+node "$directory_name"/server.js &
+sleep 2
+google-chrome http://localhost:$port/

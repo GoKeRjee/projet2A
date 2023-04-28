@@ -61,11 +61,40 @@ app.post('/deleteSite', (req, res)=> {
 	sitesColletion.findOne({_id: id})
     .then((site) => {
 		const directory = site.directory;
+		const portSite = site.port
+		exec(root + '/stop.sh ' + portSite);
 		exec(root + '/delete.sh ' + directory);
 		sitesColletion.remove({ _id: id }, function(err) {
 			if (err) throw err;
         	res.redirect('list');
-      	})
+      	});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post('/stopSite', (req, res)=> {
+	const id = req.body.id;
+	sitesColletion.findOne({_id: id})
+    .then((site) => {
+		const portSite = site.port;
+		exec(root + '/stop.sh ' + portSite);
+		res.redirect('list');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post('/startSite', (req, res)=> {
+	const id = req.body.id;
+	sitesColletion.findOne({_id: id})
+    .then((site) => {
+		const directory = site.directory;
+		const portSite = site.port;
+		exec(root + '/start.sh ' + directory + ' ' + portSite);
+		res.redirect('list');
     })
     .catch((err) => {
       console.log(err);
