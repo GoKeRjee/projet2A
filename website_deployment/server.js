@@ -14,15 +14,15 @@ const sitesColletion = db.get('sites');
 
 app.get('/index', (req, res) => {
 	res.render('index');
-  });
+});
 
-  app.get('/create', (req, res) => {
+app.get('/create', (req, res) => {
 	res.render('create');
-  });
+});
 
-  app.get('/edit', (req, res) => {
+app.get('/edit', (req, res) => {
 	res.render('edit');
-  });
+});
 
 app.get('/list', (req, res) => {
 	sitesColletion.find({}, function(err, sites) {
@@ -33,11 +33,11 @@ app.get('/list', (req, res) => {
 
 app.get('/login', (req, res) => {
 	res.render('login');
-  });
+});
 
-  app.get('/registration', (req, res) => {
+app.get('/registration', (req, res) => {
 	res.render('registration');
-  });
+});
 
 app.post('/createSite',(req,res)=>{
 	var directory = req.body.directory;
@@ -56,10 +56,18 @@ app.post('/createSite',(req,res)=>{
 	res.redirect('/create');
 });
 
+app.post('/deleteSite', (req, res)=> {
+	const name = req.body.name;
+	sitesColletion.remove({ name: name }, function(err) {
+		if (err) throw err;
+		res.redirect('list');
+	})
+});
+
 app.get('/', (req, res) => {
 	res.redirect('/index');
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+	console.log(`Server listening at http://localhost:${port}`);
 });
