@@ -2,26 +2,25 @@ extends template
 block title 
     h1 List of created sites
 block content
-    table
+    table.tableau-style
       thead
         tr
           th Name of websites
           th Port
           th Actions
+          th Status
       tbody
         each site in sites
           tr
             td= site.name
             td= site.port
-            td.actions
-              form(action='/deleteSite', method='post')
+            td
+              form.form-inline(action='/deleteSite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button(type='submit') Delete
-              form(action='/stopSite', method='post')
+                button.button-style-red(type='submit') Delete
+              form.form-inline(action='/stopSite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button(type='submit') Stop
-              form(action='/startSite', method='post')
+                button.button-style-yellow(type='submit') Stop
+              form.form-inline(action='/startSite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button(type='submit') Start
-
-        
+                button#button-submit(type='submit') Start

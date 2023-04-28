@@ -153,6 +153,7 @@ h1{
 	padding: 5px;
 	margin-bottom: 5px;
 }
+
 /*======================================================================
                           Index styling
 =======================================================================*/
@@ -201,7 +202,6 @@ h1{
                          List tab styling
 ========================================================================*/
 .tableau-style{
-	text-align: center;
 	border-collapse: collapse;
 	min-width: 400px;
 	width: auto; 
@@ -228,6 +228,12 @@ tbody tr, td, th{
 tbody tr:nth-child(even){
 	background-color: white;
 }
+
+.form-inline {
+	display: inline-block;
+	margin-right: 5px;
+  }
+  
 /*========================================================================
                          Footer styling
 ========================================================================*/
