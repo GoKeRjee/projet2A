@@ -15,11 +15,11 @@ block content
             td= site.port
             td.actions
               form(action='/deleteSite', method='post')
-                input(type='hidden', name='name', value=site.name)
+                input(type='hidden', name='id', value=site._id)
                 button(type='submit') Supprimer
               form(action='/stopSite', method='post')
-                input(type='hidden', name='name', value=site.name)
+                input(type='hidden', name='id', value=site._id)
                 button(type='submit') Arrêter
               form(action='/startSite', method='post')
-                input(type='hidden', name='name', value=site.name)
+                input(type='hidden', name='id', value=site._id)
                 button(type='submit') Démarrer

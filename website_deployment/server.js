@@ -57,11 +57,19 @@ app.post('/createSite',(req,res)=>{
 });
 
 app.post('/deleteSite', (req, res)=> {
-	const name = req.body.name;
-	sitesColletion.remove({ name: name }, function(err) {
-		if (err) throw err;
-		res.redirect('list');
-	})
+	const id = req.body.id;
+	sitesColletion.findOne({_id: id})
+    .then((site) => {
+		const directory = site.directory;
+		exec(root + '/delete.sh ' + directory);
+		sitesColletion.remove({ _id: id }, function(err) {
+			if (err) throw err;
+        	res.redirect('list');
+      	})
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.get('/', (req, res) => {

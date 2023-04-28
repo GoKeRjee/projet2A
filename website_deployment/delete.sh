@@ -19,6 +19,10 @@ fi
 echo "Suppression du contenu de $repertoire_a_supprimer..."
 rm -r "${repertoire_a_supprimer:?}"/*
 
+# Supprimer le répertoire lui-même
+echo "Suppression de $repertoire_a_supprimer..."
+rmdir "${repertoire_a_supprimer:?}"
+
 # Vérifier si la suppression a réussi
 if [ $? -eq 0 ]; then
     echo "Le contenu de $repertoire_a_supprimer a été supprimé avec succès."
