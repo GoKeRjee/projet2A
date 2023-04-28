@@ -2,31 +2,31 @@
 
 # Vérifier si un argument a été fourni
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <répertoire_à_supprimer>"
+    echo "Usage: $0 <directory_to_delete>"
     exit 1
 fi
 
 # Récupérer l'argument fourni (le répertoire à supprimer)
-repertoire_a_supprimer=$1
+directory_to_delete=$1
 
 # Vérifier si le répertoire existe
-if [ ! -d "$repertoire_a_supprimer" ]; then
-    echo "Erreur: Le répertoire $repertoire_a_supprimer n'existe pas."
+if [ ! -d "$directory_to_delete" ]; then
+    echo "Error: The directory $directory_to_delete does not exist."
     exit 1
 fi
 
 # Supprimer le contenu du répertoire spécifié
-echo "Suppression du contenu de $repertoire_a_supprimer..."
-rm -r "${repertoire_a_supprimer:?}"/*
+echo "Deleting the contents of $directory_to_delete..."
+rm -r "${directory_to_delete:?}"/*
 
 # Supprimer le répertoire lui-même
-echo "Suppression de $repertoire_a_supprimer..."
-rmdir "${repertoire_a_supprimer:?}"
+echo "Deleting of $directory_to_delete..."
+rmdir "${directory_to_delete:?}"
 
 # Vérifier si la suppression a réussi
 if [ $? -eq 0 ]; then
-    echo "Le contenu de $repertoire_a_supprimer a été supprimé avec succès."
+    echo "The contents of $directory_to_delete have been successfully deleted."
 else
-    echo "Une erreur s'est produite lors de la suppression du contenu de $repertoire_a_supprimer."
+    echo "An error occurred while deleting the contents of $directory_to_delete."
     exit 1
 fi
