@@ -1,6 +1,0 @@
-extends template
-block content
-	form(action='/pageedit',method='POST')
-		input(name='name',value=name,type='hidden')
-		textarea(name='content',rows=15).form-control= content
-		button.btn.btn-link save

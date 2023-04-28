@@ -1,9 +1,0 @@
-
-extends template
-block content
-	ul
-		each file in files
-			li
-				a(href='/'+file)=file
-		li(style='list-style-type:none')
-			a(href='/upload') upload
