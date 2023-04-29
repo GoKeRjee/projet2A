@@ -13,7 +13,10 @@ fi
 cd "$directory_name"/
 yes "" | npm init
 npm install express --save
-npm i -D pug
+npm install net --save
+npm install child_process --save
+npm install monk --save
+
 cd ../
 
 # script 
@@ -103,13 +106,25 @@ echo "html
 			div#footer Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/generateSite.pug"
 
 
+# Give all permisions for this files
+
 chmod -R a+rwx "$directory_name"/script.sh
+chmod -R a+rwx "$directory_name"/delete.sh
+chmod -R a+rwx "$directory_name"/start.sh
+chmod -R a+rwx "$directory_name"/stop.sh
+
+chmod -R a+rwx "$directory_name"/index.pug
+chmod -R a+rwx "$directory_name"/create.pug
+chmod -R a+rwx "$directory_name"/edit.pug
+chmod -R a+rwx "$directory_name"/list.pug
+chmod -R a+rwx "$directory_name"/login.pug
+chmod -R a+rwx "$directory_name"/registration.pug
+
 chmod -R a+rwx "$directory_name"/template.css
 chmod -R a+rwx "$directory_name"/template.pug
-chmod -R a+rwx "$directory_name"/generateSite.pug
 
 
-# # Site generation server : server.js
+# Site generation server : server.js
 
 echo "const express = require('express');
 const app = express();
@@ -141,7 +156,8 @@ app.listen(port, () => {
   console.log(\`Server listening at http://localhost:\${port}\`);
 });" > "$directory_name/server.js"
 
-# Confirmer la création des fichiers
+# Confirm the creation of the folders
 echo "Site generated in the folder $directory_name."
 
+# Launch the service
 node "$directory_name"/server.js & google-chrome http://localhost:3030/
