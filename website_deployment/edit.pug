@@ -1,4 +1,31 @@
 extends template
+
 block title
   h1 Edit your site
+
 block content
+  if noSites
+    p No sites available.
+  else
+    div.form
+      form(action='/updateSite', method='POST')
+        label(for="site") Site:
+        select(name='site', id='site', onchange='updateSiteId()')
+          each site in sites
+            option(value=site._id) #{site.name}
+        input(type='hidden', name='id', id='id', value=sites[0]._id)
+
+        label(for="name") New Name:
+        input(type='text', name='name', required)
+
+        label(for="port") New Port:
+        input(type='text', name='port', required)
+
+        input(type='submit', value='Update Site')
+
+        script.
+          function updateSiteId() {
+            const siteSelect = document.getElementById('site');
+            const idInput = document.getElementById('id');
+            idInput.value = siteSelect.value;
+          }

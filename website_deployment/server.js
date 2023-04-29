@@ -21,9 +21,14 @@ app.get('/create', (req, res) => {
 	res.render('create');
 });
 
-app.get('/edit', (req, res) => {
-	res.render('edit');
-});
+app.get('/edit', async (req, res) => {
+	try {
+	  const sites = await sitesColletion.find({});
+	  res.render('edit', { sites, noSites: sites.length === 0 });
+	} catch (err) {
+	  throw err;
+	}
+  });  
 
 app.get('/list', async (req, res) => {
 	try {
@@ -131,8 +136,35 @@ const isPortUsed = (port) => {
 	});
 };
 
+app.post('/updateSite', async (req, res) => {
+  const id = req.body.id;
+  const newName = req.body.name;
+  const newPort = req.body.port;
 
+  try {
+    const site = await sitesColletion.findOne({ _id: id });
+    if (site) {
+      const oldPort = site.port;
+      const directory = site.directory;
 
+      // Update site in the database
+      await sitesColletion.update({ _id: id }, { $set: { name: newName, port: newPort } });
+
+      // Update the site configuration
+      exec(root + '/update.sh ' + directory + ' ' + oldPort + ' ' + newPort + ' "' + newName + '"');
+
+      setTimeout(() => {
+        res.redirect('/list');
+      }, 1000);
+    } else {
+      res.status(404).send('Site not found');
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+  
 app.get('/', (req, res) => {
 	res.redirect('/index');
 });
