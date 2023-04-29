@@ -50,11 +50,14 @@ echo "body {
 	border: 1px solid;
 }
 
-#footer {
+#footer{
+	text-align: center;
+	padding: 20px;
+	color: dark;
+	margin-top : 15px;
+	bottom: 0; left: 0; right: 0;
 	position: fixed;
-	width: 100%;
-	bottom: 10px;
-	left: 0;" > "$directory_name/template.css"
+}" > "$directory_name/template.css"
 
 # Creation of the template file
 echo "html
@@ -91,7 +94,7 @@ echo "html
 			.row
 				.col
 					block content
-			div#footer Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/template.pug"
+			div#footer &copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/template.pug"
 
 # Creation of the page.pug file
 echo "extends template
