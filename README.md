@@ -38,3 +38,6 @@ Si cette commande n'affiche pas "active" alors utiliser cette commande pour lanc
   - sudo systemctl start mongod
 
 Après avoir appuyé sur "Create" il faudra attendre le temps des installations et un nouvel onglet s'ouvrira dans le nouveau site que vous venez de créer.
+
+### **Created Website**
+Il s'agit du répertoire dans lequel nous développons la template des sites clients crées à partir du site de gestion. Ce dossier est un intermédiaire pour les développeurs et n'apparaitra plus dans la version finale du dépôt git : elle sera condensée dans un fichier script. 
