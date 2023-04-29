@@ -1,0 +1,26 @@
+body {
+	background: rgb(255, 255, 255);
+	color: rgb(19, 1, 1);
+	font-size: larger; 
+}
+
+.container {
+	max-width: 800px;
+}
+
+#title {
+	height: 85px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	border: 1px solid;
+}
+
+#footer{
+	text-align: center;
+	padding: 20px;
+	color: dark;
+	margin-top : 15px;
+	bottom: 0; left: 0; right: 0;
+	position: fixed;
+}

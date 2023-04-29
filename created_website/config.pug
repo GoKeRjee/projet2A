@@ -1,0 +1,13 @@
+extends template
+block content
+	form(action='/config',method='POST')
+		.form-group
+			label Logo
+			input(name='logo').form-control
+		.form-group
+			label Header
+			input(name='header').form-control
+		.form-group
+			label Footer
+			input(name='footer').form-control
+		button.btn.btn-link update
