@@ -7,13 +7,14 @@ block content
         tr
           th Name of websites
           th Port
-          th Actions
           th Status
+          th Actions
       tbody
         each site in sites
           tr
             td= site.name
             td= site.port
+            td= site.status
             td
               form.form-inline(action='/deleteSite', method='post')
                 input(type='hidden', name='id', value=site._id)

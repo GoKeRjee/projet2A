@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const net = require('net');
 const { exec } = require('child_process');
 const root = __dirname;
 app.use(express.static(root));
@@ -24,11 +25,16 @@ app.get('/edit', (req, res) => {
 	res.render('edit');
 });
 
-app.get('/list', (req, res) => {
-	sitesColletion.find({}, function(err, sites) {
-		if (err) throw err;
-		res.render('list', { sites: sites })
-	});
+app.get('/list', async (req, res) => {
+	try {
+	  const sites = await sitesColletion.find({});
+	  for (let site of sites) {
+		site.status = await isPortUsed(site.port) ? 'On' : 'Off';
+	  }
+	  res.render('list', { sites });
+	} catch (err) {
+	  throw err;
+	}
 });
 
 app.get('/login', (req, res) => {
@@ -100,6 +106,28 @@ app.post('/startSite', (req, res)=> {
       console.log(err);
     });
 });
+
+const isPortUsed = (port) => {
+	return new Promise((resolve) => {
+	  const server = net.createServer();
+	  server.once('error', (err) => {
+		if (err.code === 'EADDRINUSE') {
+		  resolve(true);
+		} else {
+		  resolve(false);
+		}
+	  });
+  
+	  server.once('listening', () => {
+		server.close();
+		resolve(false);
+	  });
+  
+	  server.listen(port, '127.0.0.1');
+	});
+};
+
+
 
 app.get('/', (req, res) => {
 	res.redirect('/index');
