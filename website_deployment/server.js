@@ -29,7 +29,7 @@ app.get('/list', async (req, res) => {
 	try {
 	  const sites = await sitesColletion.find({});
 	  for (let site of sites) {
-		site.status = await isPortUsed(site.port) ? 'On' : 'Off';
+		site.status = await isPortUsed(site.port) ? 'ON' : 'OFF';
 	  }
 	  res.render('list', { sites });
 	} catch (err) {

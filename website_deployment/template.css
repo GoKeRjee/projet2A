@@ -234,6 +234,10 @@ tbody tr:nth-child(even){
 	display: inline-block;
 	margin-right: 5px;
   }
+
+  .netstat{
+	font-weight: bold;
+  }
   
 /*========================================================================
                          Footer styling
