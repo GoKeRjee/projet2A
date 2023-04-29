@@ -55,6 +55,25 @@ echo "body {
 	bottom: 10px;
 	left: 0;" > "$directory_name/template.css"
 
+# Creation du fichier template
+echo "html
+	head
+		meta(charset='utf-8')
+		meta(name='viewport',content='width=device-width,initial-scale=1')
+		title <LOGO>
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
+		link(href='/template.css',rel='stylesheet')
+	body
+		.container
+			.row
+				.col.text-center
+					h1#title <HEADER>
+			.row
+				.col
+					block content
+			div#footer <FOOTER>" > "$directory_name/template"
+
+
 # Creation du fichier template.pug
 echo "html
 	head
@@ -128,9 +147,11 @@ block content
 echo '#!/bin/bash
 
 # Use the sed command to replace placeholders in the template file
-sed -e "s#<LOGO>#$LOGO#g" -e "s#<HEADER>#$HEADER#g" -e "s#<FOOTER>#$FOOTER#g" template > template.pug' > "$directory_name/config.sh"
+sed -e "s#<LOGO>#$1#g" -e "s#<HEADER>#$2#g" -e "s#<FOOTER>#$3#g" $4/template > $4/template.pug' > "$directory_name/config.sh"
 
 chmod -R a+rwx "$directory_name"/config.sh
+chmod -R a+rwx "$directory_name"/template
+chmod -R a+rwx "$directory_name"/template.pug
 
 echo "extends template
 block content
@@ -237,7 +258,7 @@ app.post('/config',(req,res)=>{
 	var logo   = req.body.logo;
 	var header = req.body.header;
 	var footer = req.body.footer;
-	exec(root+'/config.sh "'+logo+'" "'+header+'" "'+footer+'"');
+	exec(root+'/config.sh ' + logo +' ' + header + ' '+ footer + ' ' + root);
 	res.redirect('/');
 });
 
