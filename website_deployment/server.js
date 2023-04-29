@@ -86,7 +86,9 @@ app.post('/stopSite', (req, res)=> {
     .then((site) => {
 		const portSite = site.port;
 		exec(root + '/stop.sh ' + portSite);
-		res.redirect('list');
+		setTimeout(function() {
+			res.redirect('list');
+		}, 3000);
     })
     .catch((err) => {
       console.log(err);
@@ -100,7 +102,9 @@ app.post('/startSite', (req, res)=> {
 		const directory = site.directory;
 		const portSite = site.port;
 		exec(root + '/start.sh ' + directory + ' ' + portSite);
-		res.redirect('list');
+		setTimeout(function() {
+			res.redirect('list');
+		}, 3000);
     })
     .catch((err) => {
       console.log(err);

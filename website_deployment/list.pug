@@ -14,7 +14,7 @@ block content
           tr
             td= site.name
             td= site.port
-            td= site.status
+            td.netstat= site.status
             td
               form.form-inline(action='/deleteSite', method='post')
                 input(type='hidden', name='id', value=site._id)
@@ -25,3 +25,14 @@ block content
               form.form-inline(action='/startSite', method='post')
                 input(type='hidden', name='id', value=site._id)
                 button#button-submit(type='submit') Start
+              script.
+                const executions = document.querySelectorAll('.netstat');
+                for (let i = 0; i < executions.length; i++) {
+                  if (executions[i] != null){
+                    if (executions[i].innerHTML == "Off"){
+                      executions[i].style.color = '#FF0000';
+                    } else if (executions[i].innerHTML == "On"){
+                      executions[i].style.color = '#008000';
+                    }
+                  }
+                }
