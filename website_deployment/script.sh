@@ -1,26 +1,23 @@
 #!/bin/bash
 
-# Demander le nom du répertoire
-echo "Nom du répertoire : $1"
+# Ask for the directory name
+echo "Directory name: $1"
 echo "Port : $2"
-echo "nom de site : $3"
+echo "Website name : $3"
 
 directory_name="$1"
 port="$2"
 website_name="$3"
 
 
-# Créer le répertoire s'il n'existe pas déjà
+# Create the path if not exist
 if [ ! -d "$directory_name" ]; then
   mkdir "$directory_name"
 fi
 
 cd "$directory_name"/
 
-# Initialiser le dossier en tant que projet Node.js et installer Express
-
-# sudo systemctl start mongod
-
+# Installation of tools
 yes "" | npm init
 npm install express --save
 npm install pug --save
@@ -28,9 +25,13 @@ npm install markdown-it --save
 npm install multer --save
 npm install monk --save
 
+# Start the MongoDB service
+systemctl start mongod
+
 
 cd ../
 
+# Creation of the css template file
 echo "body {
 	background: rgb(255, 255, 255);
 	color: rgb(19, 1, 1);
@@ -55,7 +56,7 @@ echo "body {
 	bottom: 10px;
 	left: 0;" > "$directory_name/template.css"
 
-# Creation du fichier template
+# Creation of the template file
 echo "html
 	head
 		meta(charset='utf-8')
@@ -74,7 +75,7 @@ echo "html
 			div#footer <FOOTER>" > "$directory_name/template"
 
 
-# Creation du fichier template.pug
+# Creation of the template.pug file
 echo "html
 	head
 		meta(charset='utf-8')
@@ -92,12 +93,13 @@ echo "html
 					block content
 			div#footer Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/template.pug"
 
-# Creation du fichier page.pug
+# Creation of the page.pug file
 echo "extends template
 block content
 	!= content
 	a(href='/pageedit/'+name) edit" > "$directory_name/page.pug"
 
+# Creation of the pageedit.pug file
 echo "extends template
 block content
 	form(action='/pageedit',method='POST')
@@ -105,6 +107,7 @@ block content
 		textarea(name='content',rows=15).form-control= content
 		button.btn.btn-link save" > "$directory_name/pageedit.pug"
 
+# Creation of the pages.pug file
 echo "extends template
 block content
 	ul
@@ -117,6 +120,7 @@ block content
 		li(style='list-style-type:none')
 			a(href='/pagenew') new" > "$directory_name/pages.pug"
 
+# Creation of the pagenew.pug file
 echo "extends template
 block content
 	form(action='/pagenew',method='POST')
@@ -128,8 +132,8 @@ block content
 			textarea(name='content',rows=15).form-control
 		button.btn.btn-link save" > "$directory_name/pagenew.pug"
 
-echo "
-extends template
+# Creation of the files.pug file
+echo "extends template
 block content
 	ul
 		each file in files
@@ -138,21 +142,20 @@ block content
 		li(style='list-style-type:none')
 			a(href='/upload') upload" > "$directory_name/files.pug"
 
+# Creation of the upload.pug file
 echo "extends template
 block content
 	form(action='/upload',method='POST',enctype='multipart/form-data')
 		input(name='file',type='file').form-control
 		button.btn.btn-link upload" > "$directory_name/upload.pug"
 
+# Creation of the config.sh file
 echo '#!/bin/bash
 
 # Use the sed command to replace placeholders in the template file
 sed -e "s#<LOGO>#$1#g" -e "s#<HEADER>#$2#g" -e "s#<FOOTER>#$3#g" $4/template > $4/template.pug' > "$directory_name/config.sh"
 
-chmod -R a+rwx "$directory_name"/config.sh
-chmod -R a+rwx "$directory_name"/template
-chmod -R a+rwx "$directory_name"/template.pug
-
+# Creation of the config.pug file
 echo "extends template
 block content
 	form(action='/config',method='POST')
@@ -167,9 +170,12 @@ block content
 			input(name='footer').form-control
 		button.btn.btn-link update" > "$directory_name/config.pug"
 
+# Give all permisions for this files
+chmod -R a+rwx "$directory_name"/config.sh
+chmod -R a+rwx "$directory_name"/template
+chmod -R a+rwx "$directory_name"/template.pug
 
-
-# Créer le fichier serveur.js
+# Creation of the serveur.js file
 echo "const express = require('express');
 const app = express();
 const root = __dirname;
@@ -193,38 +199,45 @@ app.get('/page/:name',(req,res)=>{
 		res.render('page',{'name':page.name,'content':md.render(page.content)});
 	});
 });
+
 app.get('/pageedit/:name',(req,res)=>{
 	var name = req.params.name;
 	pages.findOne({'name':name}).then(page=>{
 		res.render('pageedit',page);
 	});
 });
+
 app.post('/pageedit',(req,res)=>{
 	var page = req.body;
 	pages.update({'name':page.name},{"'$set'":page}).then(()=>{
 		res.redirect('/page/'+page.name);
 	});
 });
+
 app.get('/pages',(req,res)=>{
 	pages.find().then(pages=>{
 		res.render('pages',{'pages':pages});
 	});
 });
+
 app.get('/pagenew',(req,res)=>{
 	res.render('pagenew');
 });
+
 app.post('/pagenew',(req,res)=>{
 	var page = req.body;
 	pages.insert(page).then(()=>{
 		res.redirect('/page/'+page.name);
 	});
 });
+
 app.get('/pagedel/:name',(req,res)=>{
 	var name = req.params.name;
 	pages.remove({'name':name}).then(()=>{
 		res.redirect('/pages');
 	});
 });
+
 app.get('/',(req,res)=>{
 	res.redirect('/pages');
 });
@@ -233,18 +246,21 @@ app.get('/',(req,res)=>{
 var fs     = require('fs');
 var multer = require('multer');
 var store  = multer.diskStorage({
-  destination: function (req, file, cb) { cb(null, root) },
-  filename: function (req, file, cb) { cb(null, file.originalname) }
+	destination: function (req, file, cb) { cb(null, root) },
+	filename: function (req, file, cb) { cb(null, file.originalname) }
 });
+
 var upload = multer({storage:store});
 
 app.get('/files',(req,res)=>{
 	var files = fs.readdirSync(root);
 	res.render('files',{'files':files});
 });
+
 app.get('/upload',(req,res)=>{
 	res.render('upload');
 });
+
 app.post('/upload',upload.single('file'),(req,res)=>{
 	res.redirect('/files');
 });
@@ -254,6 +270,7 @@ const { exec } = require('child_process');
 app.get('/config',(req,res)=>{
 	res.render('config');
 });
+
 app.post('/config',(req,res)=>{
 	var logo   = req.body.logo;
 	var header = req.body.header;
@@ -263,12 +280,13 @@ app.post('/config',(req,res)=>{
 });
 
 app.listen(port, () => {
-  console.log(\`Server listening at http://localhost:\${port}\`);
+	console.log(\`Server listening at http://localhost:\${port}\`);
 });" > "$directory_name/server.js"
 
-# Confirmer la création des fichiers
+# Confirm the creation of the folders
 echo "Site généré dans le répertoire $directory_name."
 
+# Launch the service
 node "$directory_name"/server.js &
 sleep 2
 google-chrome http://localhost:$port/
