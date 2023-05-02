@@ -21,6 +21,7 @@ escaped_new_name=$(echo "$new_name" | sed -e 's/[\/&]/\\&/g')
 
 # Modifier le titre dans le fichier template.pug
 sed -i "s/\(^[\t ]*h1#title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
+sed -i "s/\(^[\t ]*title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
 
 # Démarrer le site avec le nouveau port
 node "$directory/server.js" &
