@@ -6,13 +6,12 @@
 In the zip folder, you will find a bash script named "installer.sh". You don't need to do any installation or configuration at first. Simply run this script, which will handle the installations for you. To do this, follow these steps:
   - go to the directory where the script is located (the script will create the project folder in the current directory, so make sure the script is in the desired directory)
   - open a terminal
-  - enter the command: ```sudo systemctl start mongod```
   - enter the command: ```chmod -R a+rwx installer.sh```
   - enter the command: ```./installer.sh```
 
 If these steps are followed, the installations will begin. Wait a few minutes and make sure you are connected to the internet, as the script will install modules.
 
-The script is configured so that once the installations are finished, a tab will open with the site. By default, the site launches in Google, so if Google is not installed on your machine, the site may not display. If this is the case, don't panic: launch your preferred browser and type in the following link:
+The script is configured so that once the installations are finished, a tab will open with the site. By default, the site launches in Google Chrome, so if Google Chrome is not installed on your machine, the site may not display. If this is the case, don't panic: launch your preferred browser and type in the following link:
   - http://localhost:3030/
 
 ### 1.2 - Restarting the Site in Case of Problems:
