@@ -49,8 +49,8 @@ li a:hover {
 }
 
 #log-link{
-	position: fixed;
-	margin-left: 1000px;
+	position: absolute;
+	right: 8px;
 	background-color: #008CBA;
 }
 
@@ -154,6 +154,19 @@ h1{
 	padding: 5px;
 	margin-bottom: 5px;
 }
+  .refresh-button {
+	display: inline-block;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 20px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+	position: absolute;
+	top: 55px;
+	right: 10px;
+  }
 
 /*======================================================================
                           Index styling

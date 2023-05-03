@@ -2,6 +2,7 @@ extends template
 block title 
     h1 List of created sites
 block content
+    button.refresh-button(onclick="location.reload()") Refresh
     table.tableau-style
       thead
         tr
@@ -65,6 +66,9 @@ block content
               form.form-inline(action='/startSite', method='post')
                 input(type='hidden', name='id', value=site._id)
                 button#button-submit(type='submit') Start
+              form.form-inline(action='/deploySite', method='post')
+                input(type='hidden', name='id', value=site._id)
+                button.button-style-blue(type='submit') Deploy
               script.
                 document.addEventListener('DOMContentLoaded', function() {
                   const executions = document.querySelectorAll('span.netstat');
