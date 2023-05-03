@@ -5,10 +5,48 @@ block content
     table.tableau-style
       thead
         tr
-          th Name of websites
-          th Port
-          th Status
+          th(onclick="sortTable(0)") Name of websites &#9650;&#9660;
+          th(onclick="sortTable(1)") Port &#9650;&#9660;
+          th(onclick="sortTable(2)") Status &#9650;&#9660;
           th.center Actions
+          script.
+            function sortTable(n) {
+              let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+              table = document.querySelector(".tableau-style");
+              switching = true;
+              dir = "asc";
+              
+              while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                  shouldSwitch = false;
+                  x = rows[i].getElementsByTagName("TD")[n];
+                  y = rows[i + 1].getElementsByTagName("TD")[n];
+                  if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                      shouldSwitch = true;
+                      break;
+                    }
+                  } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                      shouldSwitch = true;
+                      break;
+                    }
+                  }
+                }
+                if (shouldSwitch) {
+                  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                  switching = true;
+                  switchcount++;
+                } else {
+                  if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                  }
+                }
+              }
+            }
       tbody
         each site in sites
           tr
@@ -45,5 +83,3 @@ block content
                     }
                   });
                 });
-
-
