@@ -6,9 +6,9 @@
 In the zip folder, you will find a bash script named "installer.sh". You don't need to do any installation or configuration at first. Simply run this script, which will handle the installations for you. To do this, follow these steps:
   - go to the directory where the script is located (the script will create the project folder in the current directory, so make sure the script is in the desired directory)
   - open a terminal
-  - sudo systemctl start mongod
+  - enter the command: ```sudo systemctl start mongod```
   - enter the command: ```chmod -R a+rwx installer.sh```
-  - enter the command: ./installer.sh
+  - enter the command: ```./installer.sh```
 
 If these steps are followed, the installations will begin. Wait a few minutes and make sure you are connected to the internet, as the script will install modules.
 
@@ -18,14 +18,14 @@ The script is configured so that once the installations are finished, a tab will
 ### 1.2 - Restarting the Site in Case of Problems:
 
 If for any reason your machine turns off or the site becomes inaccessible, you can restart the service by typing the following commands in the terminal (making sure you are in the project directory):
-  - node server.js
-  - sudo systemctl start mongod
+  - enter the command: ```node server.js```
+  - enter the command: ```sudo systemctl start mongod```
 
 ### 1.3 - Troubleshooting:
 If your site is not working and you don't know why, here are some helpful tips:
 
-- If the MongoDB service is not running, this may explain why you cannot connect to the site or access certain pages. You can check the service status with the command: sudo systemctl status mongod
-Start the service if it is not enabled with the command: sudo systemctl start mongod
+- If the MongoDB service is not running, this may explain why you cannot connect to the site or access certain pages. You can check the service status with the command: ```sudo systemctl status mongod```
+Start the service if it is not enabled with the command: ```sudo systemctl start mongod```
 
 ## 2 - User Documentation:
 
