@@ -7,7 +7,7 @@ In the zip folder, you will find a bash script named "installer.sh". You don't n
   - go to the directory where the script is located (the script will create the project folder in the current directory, so make sure the script is in the desired directory)
   - open a terminal
   - sudo systemctl start mongod
-  - enter the command: chmod -R a+rwx installer.sh
+  - enter the command: ```chmod -R a+rwx installer.sh```
   - enter the command: ./installer.sh
 
 If these steps are followed, the installations will begin. Wait a few minutes and make sure you are connected to the internet, as the script will install modules.
