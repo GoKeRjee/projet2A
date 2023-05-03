@@ -1,0 +1,314 @@
+/*========================================================================
+                         Default Font Configuration
+========================================================================*/
+
+/*========================================================================
+                         Body Configuration
+========================================================================*/
+body{
+	font-family: sans-serif;
+	background-color: #E4E4E4;
+	text-align : center;
+}
+/*========================================================================
+                         NavBar Styling
+========================================================================*/
+.active-green {
+  background-color: #04AA6D;
+}
+
+.ul-navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  padding: 13px;
+  min-width: 140px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+#log-link{
+	position: fixed;
+	margin-left: 1000px;
+	background-color: #008CBA;
+}
+
+#log-link:hover{
+	background-color: #197390;
+  }
+
+h1{
+	margin-top: 40px;
+	text-align: center;
+	text-decoration: underline;
+}
+
+.form{
+	margin-top: 50px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	color: black;
+	padding: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+}
+
+.center{
+	text-align:center;
+}
+/*======================================================================
+                          Button styling
+=======================================================================*/
+#button-submit{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 13px;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button-style:hover{
+	filter: brightness(0.85);
+}
+
+.button-style-red{
+  background-color: #f44336; /* Red */
+  border: none;
+  color: white;
+  padding: 10px 13px;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button-style-red:hover{
+	filter: brightness(0.85);
+}
+
+.button-style-yellow{
+  background-color: #FF9933; /* Yellow */
+  border: none;
+  color: white;
+  padding: 10px 13px;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button-style-yellow:hover{
+	filter: brightness(0.85);
+}
+
+.button-style-blue{
+  background-color: #008CBA; /* Blue */
+  border: none;
+  color: white;
+  padding: 10px 13px;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button-style-blue:hover{
+	filter: brightness(0.85);
+}
+
+.form-test-set-name{
+	color: black;
+	background-color: white;
+	border-radius: 8px;
+	border-style: solid;
+	border-color: white;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+/*======================================================================
+                          Index styling
+=======================================================================*/
+#welcome-message{
+	text-align: justify;
+	width: 1000px;
+	margin-left: auto;
+    margin-right: auto;
+    color: white;
+	background-color: grey;
+	border-style: solid;
+	border: 1px solid #333;
+	border-color: grey;
+	padding: 5px;
+	margin-bottom: 5px;
+	box-shadow: 8px 8px 5px #444;
+	font-size: 115%;
+	border-radius: 8px;
+	padding: 20px;
+}
+
+#welcome-logo{
+	width: 250px;
+	height: 200px;
+}
+
+#inge{
+	width: 90px;
+	height: 90px;
+	position: absolute;
+	margin-left: 870px;
+}
+
+#welcome-title{
+	text-align: center;
+	text-decoration: underline;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.texteBlue{
+	color: #00FF61;
+	font-weight: bold;
+}
+/*========================================================================
+                         List tab styling
+========================================================================*/
+.tableau-style{
+	border-collapse: collapse;
+	min-width: 400px;
+	width: auto; 
+	box-shadow: 0, 5px, 50px, rgba(0,0,0,0.15);
+	cursor: pointer;
+	margin: 100px auto;
+	border: 2px solid #04AA6D;
+}
+
+thead tr{
+	background-color: #04AA6D;
+	color: white;
+	text-align: left;
+}
+
+th,td{
+	padding: 15px 20px;
+}
+
+tbody tr, td, th{
+	border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even){
+	background-color: white;
+}
+
+.form-inline {
+	display: inline-block;
+	margin-right: 5px;
+  }
+
+  .netstat{
+	font-weight: bold;
+  }
+  
+/*========================================================================
+                         Footer styling
+========================================================================*/
+footer{
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  margin-top : 15px;
+  bottom: 0; left: 0; right: 0;
+  position: fixed;
+}
+/*========================================================================
+                         Form styling
+========================================================================*/
+input[type=text], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+
+  input[type=password], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+	width: 100%;
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+	background-color: #45a049;
+  }
+/*========================================================================
+                         Login/Registration styling
+========================================================================*/
+.login{
+	margin-top: 100px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	padding: 30px;
+	margin-bottom: 5px;
+	text-align: left;
+	background-color: #333;
+	border-radius: 8px;
+	border-style: solid;
+	border-color: white;
+}
+
+#register{
+	text-decoration: none;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+}
