@@ -17,6 +17,25 @@ app.get('/index', (req, res) => {
 	res.render('index');
 });
 
+app.get('/isPortUsed/:port', async (req, res) => {
+	const port = req.params.port;
+	const portExists = await sitesColletion.findOne({ port: port });
+  
+	res.json({ portUsed: !!portExists });
+  });
+
+  app.get('/isSiteNameUsed/:name', async (req, res) => {
+	try {
+	  const name = req.params.name;
+	  const site = await sitesColletion.findOne({ name });
+	  res.json({ nameUsed: !!site });
+	} catch (err) {
+	  console.error('Error checking site name availability:', err);
+	  res.status(500).json({ nameUsed: false });
+	}
+  });
+  
+
 app.get('/create', (req, res) => {
 	res.render('create');
 });

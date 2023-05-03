@@ -312,3 +312,16 @@ input[type=text], select {
 	text-align: center;
 	color: white;
 }
+
+/*========================================================================
+                         MESSAGES 
+========================================================================*/
+#error-message-name {
+    display: block;
+    margin-top: 5px;
+  }
+
+  #error-message-port {
+    display: block;
+    margin-top: 5px;
+  }
