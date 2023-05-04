@@ -56,7 +56,6 @@ block content
                 nameInput.style.borderColor = 'green';
                 errorMessageSpan.textContent = '';
               }
-              updateSubmitButtonState();
             } catch (error) {
               console.error('Error checking site name availability:', error);
             }
@@ -81,28 +80,10 @@ block content
                 portInput.style.borderColor = 'green';
                 errorMessageSpan.textContent = '';
               }
-              updateSubmitButtonState();
             } catch (error) {
               console.error('Error checking port availability:', error);
             }
           }
-        }
-
-        function updateSubmitButtonState() {
-          const portInput = document.querySelector('#port');
-          const nameInput = document.querySelector('#name');
-          const buttonSubmit = document.querySelector('#button-submit');
-
-          const portValid = portInput.style.borderColor !== 'red';
-          const nameValid = nameInput.style.borderColor !== 'red';
-
-          buttonSubmit.disabled = !portValid || !nameValid;
-
-          if (formIsValid) {
-              buttonSubmit.classList.remove('button-style-red');
-            } else {
-              buttonSubmit.classList.add('button-style-red');
-            }
         }
 
 
