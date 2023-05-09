@@ -2,7 +2,6 @@ extends template
 block title 
     h1 List of created sites
 block content
-    button.refresh-button(onclick="location.reload()") Refresh
     table.tableau-style
       thead
         tr
@@ -50,12 +49,11 @@ block content
             }
       tbody
         each site in sites
-          tr
+          tr(id=`site-${site._id}`)
             td= site.name
             td= site.port
             td 
-              span.netstat= site.status
-
+              span.netstat(id=`status-${site._id}`)= site.status
             td
               form.form-inline(action='/deleteSite', method='post')
                 input(type='hidden', name='id', value=site._id)
@@ -69,21 +67,51 @@ block content
               form.form-inline(action='/deploySite', method='post')
                 input(type='hidden', name='id', value=site._id)
                 button.button-style-blue(type='submit') Deploy
-              script.
-                document.addEventListener('DOMContentLoaded', function() {
-                  const executions = document.querySelectorAll('span.netstat');
-                  console.log(executions.length);
-                  executions.forEach((execution) => {
-                    const status = execution.innerHTML;
-                    switch (status) {
-                      case "OFF":
-                        execution.style.color = '#FF0000';
-                        break;
-                      case "ON":
-                        execution.style.color = '#008000';
-                        break;
-                      default:
-                        execution.style.color = '#000000'; // default color if neither "Off" nor "On"
-                    }
-                  });
-                });
+        script.
+          document.addEventListener('DOMContentLoaded', function() {
+            const executions = document.querySelectorAll('span.netstat');
+            console.log(executions.length);
+            executions.forEach((execution) => {
+              const status = execution.innerHTML;
+              switch (status) {
+                case "OFF":
+                  execution.style.color = '#FF0000';
+                  break;
+                case "ON":
+                  execution.style.color = '#008000';
+                  break;
+                default:
+                  execution.style.color = '#000000'; // default color if neither "Off" nor "On"
+              }
+            });
+          });
+
+          async function updateSiteStatus() {
+            try {
+              const response = await fetch('/siteStatus');
+              const data = await response.json();
+
+              data.forEach(site => {
+                const siteStatusElement = document.querySelector(`#status-${site._id}`);
+                siteStatusElement.textContent = site.status;
+
+                switch (site.status) {
+                  case "OFF":
+                    siteStatusElement.style.color = '#FF0000';
+                    break;
+                  case "ON":
+                    siteStatusElement.style.color = '#008000';
+                    break;
+                  default:
+                    siteStatusElement.style.color = '#000000'; // default color if neither "Off" nor "On"
+                }
+              });
+            } catch (error) {
+              console.error('Erreur lors de la récupération des statuts des sites:', error);
+            }
+          }
+
+          const UPDATE_INTERVAL = 5000; // Temps en millisecondes, ici 5 secondes
+          setInterval(updateSiteStatus, UPDATE_INTERVAL);
+
+

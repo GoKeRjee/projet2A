@@ -49,11 +49,12 @@ app.get('/edit', async (req, res) => {
 	}
   });  
 
+// ...
 app.get('/list', async (req, res) => {
 	try {
 	  const sites = await sitesColletion.find({});
 	  for (let site of sites) {
-		site.status = await isPortUsed(site.port) ? 'ON' : 'OFF';
+		site.status = (await isPortUsed(site.port)) ? 'ON' : 'OFF';
 	  }
 	  res.render('list', { sites });
 	} catch (err) {
@@ -83,7 +84,7 @@ app.post('/createSite',(req,res)=>{
 	}
 	sitesColletion.insert(newSite);
 
-	res.redirect('/create');
+	res.redirect('/list');
 });
 
 app.post('/deleteSite', (req, res)=> {
@@ -139,18 +140,18 @@ const isPortUsed = (port) => {
 	return new Promise((resolve) => {
 	  const server = net.createServer();
 	  server.once('error', (err) => {
-		if (err.code === 'EADDRINUSE') {
+		if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
 		  resolve(true);
 		} else {
 		  resolve(false);
 		}
 	  });
-  
+
 	  server.once('listening', () => {
 		server.close();
 		resolve(false);
 	  });
-  
+
 	  server.listen(port, '127.0.0.1');
 	});
 };
@@ -191,3 +192,19 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);
 });
+
+app.get('/siteStatus', async (req, res) => {
+	try {
+	  const sites = await sitesColletion.find({});
+	  const statusPromises = sites.map(async (site) => {
+		const status = await isPortUsed(site.port) ? 'ON' : 'OFF';
+		return { _id: site._id, status };
+	  });
+	  const statuses = await Promise.all(statusPromises);
+	  res.json(statuses);
+	} catch (err) {
+	  console.error('Erreur lors de la récupération des statuts des sites:', err);
+	  res.status(500).json([]);
+	}
+  });
+  
