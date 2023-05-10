@@ -74,13 +74,15 @@ app.post('/createSite',(req,res)=>{
 	var directory = req.body.directory;
 	var name = req.body.name;
 	var port = req.body.port;
-	exec(root + '/script.sh ' + directory + ' ' + port + ' "' + name + '"');
+	var dbname = req.body.dbname;
+	exec(root + '/script.sh ' + directory + ' ' + port + ' "' + name + '" ' + dbname);
 
 	// save data on db
 	const newSite = {
 		directory: directory,
 		name: name,
-		port: port
+		port: port,
+		dbname: dbname
 	}
 	sitesColletion.insert(newSite);
 

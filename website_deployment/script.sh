@@ -4,10 +4,12 @@
 echo "Directory name: $1"
 echo "Port : $2"
 echo "Website name : $3"
+echo "DB name : $4"
 
 directory_name="$1"
 port="$2"
 website_name="$3"
+db_name="$4"
 
 
 # Create the path if not exist
@@ -189,7 +191,7 @@ app.use(express.urlencoded({ extended: true })); // req.body
 app.set('view engine','pug');
 app.set('views',root);
 
-var db = require('monk')('127.0.0.1:27017/$directory_name');
+var db = require('monk')('127.0.0.1:27017/$db_name');
 var pages = db.get('pages'); 
 
 var md = require('markdown-it')({html:true});
