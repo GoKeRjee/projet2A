@@ -57,16 +57,16 @@ block content
             td
               form.form-inline(action='/deleteSite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button.button-style-red(type='submit') Delete
+                button.button-style-red(type='submit', onclick='return confirmDelete()') Delete
               form.form-inline(action='/stopSite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button.button-style-yellow(type='submit') Stop
+                button.button-style-yellow(type='submit', onclick='return confirmStop()') Stop
               form.form-inline(action='/startSite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button#button-submit(type='submit') Start
+                button#button-submit(type='submit', onclick='return confirmStart()') Start
               form.form-inline(action='/deploySite', method='post')
                 input(type='hidden', name='id', value=site._id)
-                button.button-style-blue(type='submit') Deploy
+                button.button-style-blue(type='submit', onclick='return confirmDeploy()') Deploy
         script.
           document.addEventListener('DOMContentLoaded', function() {
             const executions = document.querySelectorAll('span.netstat');
@@ -113,5 +113,22 @@ block content
 
           const UPDATE_INTERVAL = 5000; // Temps en millisecondes, ici 5 secondes
           setInterval(updateSiteStatus, UPDATE_INTERVAL);
+          
+          function confirmDelete() {
+            return confirm('Êtes-vous sûr de vouloir supprimer ce site ?');
+          }
+
+          function confirmStop() {
+            return confirm('Êtes-vous sûr de vouloir arrêter ce site ?');
+          }
+
+          function confirmStart() {
+            return confirm('Êtes-vous sûr de vouloir démarrer ce site ?');
+          }
+
+          function confirmDeploy() {
+            return confirm('Êtes-vous sûr de vouloir déployer ce site ?');
+          }
+
 
 
