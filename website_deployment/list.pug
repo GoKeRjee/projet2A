@@ -6,8 +6,9 @@ block content
       thead
         tr
           th(onclick="sortTable(0)") Name of websites &#9650;&#9660;
-          th(onclick="sortTable(1)") Port &#9650;&#9660;
-          th(onclick="sortTable(2)") Status &#9650;&#9660;
+          th(onclick="sortTable(1)") Name of databases &#9650;&#9660;
+          th(onclick="sortTable(2)") Port &#9650;&#9660;
+          th(onclick="sortTable(3)") Status &#9650;&#9660;
           th.center Actions
           script.
             function sortTable(n) {
@@ -51,6 +52,7 @@ block content
         each site in sites
           tr(id=`site-${site._id}`)
             td= site.name
+            td= site.dbname
             td= site.port
             td 
               span.netstat(id=`status-${site._id}`)= site.status
