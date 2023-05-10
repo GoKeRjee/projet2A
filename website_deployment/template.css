@@ -329,12 +329,7 @@ input[type=text], select {
 /*========================================================================
                          MESSAGES 
 ========================================================================*/
-#error-message-name {
-    display: block;
-    margin-top: 5px;
-  }
-
-  #error-message-port {
+#error-message-name, #error-message-port, #error-message-dbname {
     display: block;
     margin-top: 5px;
   }
