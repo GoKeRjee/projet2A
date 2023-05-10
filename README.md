@@ -39,7 +39,8 @@ There is a form to provide information about the site to create:
 - site directory
 - site title
 - desired port
-- database name
+- database name  
+
 Please note that if the desired port or site name is already in use, the site will notify you, and you will have to consider another port/site name. Also, make sure to read the instructions for creation. For example, special characters and blank spaces are not accepted in the "directory name" field.
 After clicking the create button, a confirmation message appears, and the site is created within the next 15 seconds. It is then possible to check the status of the site (ON or OFF).
 
