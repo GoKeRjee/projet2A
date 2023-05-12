@@ -1,18 +1,36 @@
-extends template
-block content
-  div.login
-    h1 Log in to administer your sites:
-    form(onsubmit='submitForm(event)', action='/login', method='POST')
-      label(for='mail') E-mail address:
-      input#directory(type='text', name='login', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
-      br
-      label(for='password') Password:
-      input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
-      br
-      div.center
-        button.button-style-blue(type='submit') Log in
-      br
-      p
-      | You are not registered? Register
-      a#register(href="/registration")= " here "
-      |!
+html
+  head
+    meta(charset='UTF-8')
+    title Site Generator
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    link(href='/template.css', rel='stylesheet', type='text/css')
+  body
+    .navbar
+      ul.ul-navbar
+        li 
+          a#log-link.active-blue(href='signup') Sign up
+    .container
+      .row
+        .col
+          block content
+            div.login
+              h1 Log in
+              if error
+                p.error #{error}
+              form(onsubmit='submitForm(event)', action='/login', method='POST')
+                label(for='email') E-mail address:
+                input#directory(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
+                br
+                label(for='password') Password:
+                input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+                br
+                div.center
+                  button.button-style-blue(type='submit') Log in
+                br
+                p
+                | You are not registered? Register
+                a#register(href="/signup")= " here "
+                |!
+  footer
+    | &copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
+

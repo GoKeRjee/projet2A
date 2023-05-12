@@ -1,25 +1,45 @@
-extends template
-block content
-  div.login
-    h1 Register yourself:
-    // Bloc pour l'affichage des erreurs
-    div#errors
-      if errors
-        each error in errors
-          p.error= error.msg
-    form(onsubmit='submitForm(event)', action='/register', method='POST')
-      label(for='email') E-mail address:
-      input#directory(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
-      br
-      label(for='password') Password:
-      input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
-      br
-      label(for='confirm-password') Confirm Password:
-      input#name(type='password', name='confirm-password', placeholder="************", onfocus="this.placeholder = ''", title="Cofirm password", class='form-control' required)
-      br
-      div.center
-        button.button-style-blue(type='submit') Register
-      p
-      | Are you already registered? Log in
-      a#register(href="/login")= " here "
-      |!
+html
+  head
+    meta(charset='UTF-8')
+    title Site Generator
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    link(href='/template.css', rel='stylesheet', type='text/css')
+  body
+    .navbar
+      ul.ul-navbar
+        li 
+          a#log-link.active-blue(href='login') Log in
+    .container
+      .row
+        .col.text-center
+            block title
+      .row
+        .col
+          block content
+            div.login
+              h1 Sign up
+              // Bloc pour l'affichage des erreurs
+              div#errors
+                if errors
+                  each error in errors
+                    p.error= error.msg
+              form(onsubmit='submitForm(event)', action='/signup', method='POST')
+                label(for='email') E-mail address:
+                input#directory(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
+                br
+                label(for='password') Password:
+                input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+                br
+                label(for='confirm-password') Confirm Password:
+                input#name(type='password', name='confirm-password', placeholder="************", onfocus="this.placeholder = ''", title="Cofirm password", class='form-control' required)
+                br
+                div.center
+                  button.button-style-blue(type='submit') Register
+                p
+                | Are you already registered? Log in
+                a#register(href="/login")= " here "
+                |!
+  footer
+    |&copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
+
+
