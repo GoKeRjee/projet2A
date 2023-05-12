@@ -11,7 +11,8 @@ app.set('view engine','pug');
 app.set('views',root);
 
 const db = require('monk')('127.0.0.1:27017/mySites');
-const sitesColletion = db.get('sites');
+const sitesCollection = db.get('sites');
+const usersCollection = db.get('users');
 
 app.get('/index', (req, res) => {
 	res.render('index');
@@ -19,7 +20,7 @@ app.get('/index', (req, res) => {
 
 app.get('/isPortUsed/:port', async (req, res) => {
 	const port = req.params.port;
-	const portExists = await sitesColletion.findOne({ port });
+	const portExists = await sitesCollection.findOne({ port });
   
 	res.json({ portUsed: !!portExists });
 });
@@ -27,7 +28,7 @@ app.get('/isPortUsed/:port', async (req, res) => {
 app.get('/isSiteNameUsed/:name', async (req, res) => {
 try {
 	const name = req.params.name;
-	const site = await sitesColletion.findOne({ name });
+	const site = await sitesCollection.findOne({ name });
 	res.json({ nameUsed: !!site });
 } catch (err) {
 	console.error('Error checking site name availability:', err);
@@ -37,7 +38,7 @@ try {
 
 app.get('/isDbNameUsed/:dbname', async (req, res) => {
 	const dbname = req.params.dbname;
-	const dbnameExists = await sitesColletion.findOne({ dbname });
+	const dbnameExists = await sitesCollection.findOne({ dbname });
 	res.json({ dbnameUsed: !!dbnameExists });
 });  
 
@@ -47,7 +48,7 @@ app.get('/create', (req, res) => {
 
 app.get('/edit', async (req, res) => {
 	try {
-	  const sites = await sitesColletion.find({});
+	  const sites = await sitesCollection.find({});
 	  res.render('edit', { sites, noSites: sites.length === 0 });
 	} catch (err) {
 	  throw err;
@@ -56,7 +57,7 @@ app.get('/edit', async (req, res) => {
 
 app.get('/list', async (req, res) => {
 	try {
-	  const sites = await sitesColletion.find({});
+	  const sites = await sitesCollection.find({});
 	  for (let site of sites) {
 		site.status = (await isPortUsed(site.port)) ? 'ON' : 'OFF';
 	  }
@@ -88,20 +89,20 @@ app.post('/createSite',(req,res)=>{
 		port: port,
 		dbname: dbname
 	}
-	sitesColletion.insert(newSite);
+	sitesCollection.insert(newSite);
 
 	res.redirect('/list');
 });
 
 app.post('/deleteSite', (req, res)=> {
 	const id = req.body.id;
-	sitesColletion.findOne({_id: id})
+	sitesCollection.findOne({_id: id})
     .then((site) => {
 		const directory = site.directory;
 		const portSite = site.port
 		exec(root + '/stop.sh ' + portSite);
 		exec(root + '/delete.sh ' + directory);
-		sitesColletion.remove({ _id: id }, function(err) {
+		sitesCollection.remove({ _id: id }, function(err) {
 			if (err) throw err;
         	res.redirect('list');
       	});
@@ -113,7 +114,7 @@ app.post('/deleteSite', (req, res)=> {
 
 app.post('/stopSite', (req, res)=> {
 	const id = req.body.id;
-	sitesColletion.findOne({_id: id})
+	sitesCollection.findOne({_id: id})
     .then((site) => {
 		const portSite = site.port;
 		exec(root + '/stop.sh ' + portSite);
@@ -128,7 +129,7 @@ app.post('/stopSite', (req, res)=> {
 
 app.post('/startSite', (req, res)=> {
 	const id = req.body.id;
-	sitesColletion.findOne({_id: id})
+	sitesCollection.findOne({_id: id})
     .then((site) => {
 		const directory = site.directory;
 		const portSite = site.port;
@@ -168,13 +169,13 @@ app.post('/updateSite', async (req, res) => {
   const newPort = req.body.port;
 
   try {
-    const site = await sitesColletion.findOne({ _id: id });
+    const site = await sitesCollection.findOne({ _id: id });
     if (site) {
       const oldPort = site.port;
       const directory = site.directory;
 
       // Update site in the database
-      await sitesColletion.update({ _id: id }, { $set: { name: newName, port: newPort } });
+      await sitesCollection.update({ _id: id }, { $set: { name: newName, port: newPort } });
 
       // Update the site configuration
       exec(root + '/update.sh ' + directory + ' ' + oldPort + ' ' + newPort + ' "' + newName + '"');
@@ -201,7 +202,7 @@ app.listen(port, () => {
 
 app.get('/siteStatus', async (req, res) => {
 	try {
-	  const sites = await sitesColletion.find({});
+	  const sites = await sitesCollection.find({});
 	  const statusPromises = sites.map(async (site) => {
 		const status = await isPortUsed(site.port) ? 'ON' : 'OFF';
 		return { _id: site._id, status };
