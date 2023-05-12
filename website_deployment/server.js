@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const net = require('net');
 const { exec } = require('child_process');
+const bcrypt = require('bcryptjs');
+const { body, validationResult } = require('express-validator');
+
 const root = __dirname;
 app.use(express.static(root));
 const port = 3030;
@@ -73,7 +76,55 @@ app.get('/login', (req, res) => {
 
 app.get('/registration', (req, res) => {
 	res.render('registration');
-});
+});	
+
+app.post('/register',
+  [
+    body('email').isEmail()
+      .withMessage('Please enter a valid email.')
+      .custom(async (value, { req }) => {
+        const userDoc = await usersCollection.findOne({ email: value });
+        if (userDoc) {
+          throw new Error('E-Mail address already exists!');
+        }
+      })
+      .normalizeEmail(),
+    body('password').trim().isLength({ min: 5 }).withMessage('Password must be at least 5 characters long.'),
+	body('confirm-password').custom((value, { req }) => {
+		if (value !== req.body.password) {
+		  throw new Error('Password confirmation does not match password');
+		}
+		// Indicates the success of this synchronous custom validator
+		return true;
+	  })
+  ],
+  async (req, res) => {
+    try {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+		  const errorData = errors.array().map(error => {
+			return { type: 'field', value: error.value, msg: error.msg, path: error.param, location: 'body' };
+		  });
+		  // Rediriger vers la page "registration" et passer les erreurs à la vue
+		  return res.render('registration', { errors: errorData });
+		}
+
+      const email = req.body.email;
+      const password = req.body.password;
+      const hashedPw = await bcrypt.hash(password, 12);
+      const newUser = {
+        email: email,
+        password: hashedPw
+      };
+      usersCollection.insert(newUser);
+      res.redirect('/login');
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+    }
+  }
+);
 
 app.post('/createSite',(req,res)=>{
 	var directory = req.body.directory;
