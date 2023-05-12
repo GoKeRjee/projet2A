@@ -7,8 +7,8 @@ html
   body
     .navbar
       ul.ul-navbar
-        li 
-          a#log-link.active-blue(href='signup') Sign up
+        li
+            a#signup-link.active-green(href='signup') Sign Up
     .container
       .row
         .col
@@ -19,10 +19,10 @@ html
                 p.error #{error}
               form(onsubmit='submitForm(event)', action='/login', method='POST')
                 label(for='email') E-mail address:
-                input#directory(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
+                input#email(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
                 br
                 label(for='password') Password:
-                input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+                input#password(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
                 br
                 div.center
                   button.button-style-blue(type='submit') Log in

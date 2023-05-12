@@ -25,16 +25,16 @@ html
                     p.error= error.msg
               form(onsubmit='submitForm(event)', action='/signup', method='POST')
                 label(for='email') E-mail address:
-                input#directory(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
+                input#email(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
                 br
                 label(for='password') Password:
-                input#name(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+                input#password(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
                 br
                 label(for='confirm-password') Confirm Password:
-                input#name(type='password', name='confirm-password', placeholder="************", onfocus="this.placeholder = ''", title="Cofirm password", class='form-control' required)
+                input#confirm-password(type='password', name='confirm-password', placeholder="************", onfocus="this.placeholder = ''", title="Confirm password", class='form-control' required)
                 br
                 div.center
-                  button.button-style-blue(type='submit') Register
+                  button.button-style-blue(type='submit') Sign Up
                 p
                 | Are you already registered? Log in
                 a#register(href="/login")= " here "
