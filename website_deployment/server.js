@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-
 const root = __dirname;
 app.use(express.static(root));
 const port = 3030;
@@ -27,14 +26,16 @@ const isAuth = (req, res, next) => {
 	if (req.cookies && req.cookies.token) {
 		const token = req.cookies.token;
 		if (!token) {
-			const error = new Error('Not authenticated. No token found.');
-			error.statusCode = 401;
-			throw error;
+			return res.status(401).redirect('/login');
 		}
 		let decodedToken;
 		try {
 			decodedToken = jwt.verify(token, `${process.env.SECRET_KEY}`);
 		} catch (err) {
+			if (err instanceof jwt.TokenExpiredError) {
+				res.clearCookie('token');
+				return res.status(401).redirect('/login');
+			}
 			err.statusCode = 500;
 			throw err;
 		}
@@ -48,6 +49,23 @@ const isAuth = (req, res, next) => {
 	} else {
 		res.redirect('/login');
 	}
+};
+
+const isAdmin = (req, res, next) => {
+	const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).send('Access denied. Please log in.');
+    }
+    try {
+        const decoded = jwt.verify(token, `${process.env.SECRET_KEY}`);
+        req.user = decoded;
+        if (req.user.status !== 'admin') {
+            return res.status(403).redirect('/index');
+        }
+        next();
+    } catch (err) {
+        return res.status(401).send('Invalid token.');
+    }
 };
 
 // Pages
@@ -116,6 +134,9 @@ app.post('/login', async(req, res) => {
         if (!user) {
             return res.render('login', { error: 'A user with this email could not be found.' });
         }
+		if (!user.approved) {
+			return res.render('login', { error: 'Your account is not approved yet. Please wait for admin approval.' });
+		}
         const isEqual = await bcrypt.compare(password, user.password);
         if(!isEqual) {
             return res.render('login', { error: 'Invalid password.' });
@@ -123,7 +144,8 @@ app.post('/login', async(req, res) => {
         loadedUser = user;
         const token = jwt.sign({
                 email: loadedUser.email,
-                userId: loadedUser._id.toString()
+                userId: loadedUser._id.toString(),
+				status: loadedUser.status
             },
             `${process.env.SECRET_KEY}`,
             { expiresIn: '1h' }
@@ -180,7 +202,9 @@ app.post('/signup',
       	const hashedPw = await bcrypt.hash(password, 12);
       	const newUser = {
 			email: email,
-        	password: hashedPw
+        	password: hashedPw,
+			status: "user",
+			approved: false
       	};
       	usersCollection.insert(newUser);
       	res.redirect('/login');
@@ -318,4 +342,56 @@ app.get('/siteStatus', isAuth, async (req, res) => {
 
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);
+});
+
+
+app.get('/admin', isAuth, isAdmin, async (req, res) => {
+	try {
+		const users = await usersCollection.find({});
+		const unproveUsers = [];
+		const approvedUsers = [];
+		for (let user of users) {
+			if (user.approved == false)
+				unproveUsers.push(user);
+			if (user.approved == true)
+				approvedUsers.push(user);
+		}
+	  	res.render('admin', { unproveUsers, approvedUsers });
+	} catch (err) {
+	  	throw err;
+	}
+});
+
+app.post('/approveUser', isAuth, isAdmin, async (req, res) => {
+	const id = req.body.id;
+	try {
+		const user = await usersCollection.update({ _id: id }, { $set: { approved: true } });
+		if (!user) return res.status(404).send('User not found.');
+		res.redirect('/admin');
+	} catch (err) {
+	  	throw err;
+	}
+});
+
+app.post('/unproveUser', isAuth, isAdmin, async (req, res) => {
+	const id = req.body.id;
+	try {
+		const user = await usersCollection.update({ _id: id }, { $set: { approved: false } });
+		if (!user) return res.status(404).send('User not found.');
+		res.redirect('/admin');
+	} catch (err) {
+	  	throw err;
+	}
+});
+
+app.post('/updateUser', isAuth, isAdmin, async (req, res) => {
+	const userId = req.body.id;
+	const newStatus = req.body.status;
+	try {
+		const user = await usersCollection.update({ _id: userId }, { $set: { status: newStatus } });
+		if (!user) return res.status(404).send('User not found.');
+		res.redirect('/admin');
+	} catch(err) {
+	  	throw err;
+	}
 });
