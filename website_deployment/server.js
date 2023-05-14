@@ -68,6 +68,14 @@ const isAdmin = (req, res, next) => {
     }
 };
 
+const isNotAuth = (req, res, next) => {
+    const token = req.cookies.token;
+    if (token) {
+        return res.redirect('/index');
+    }
+    next();
+};
+
 // Pages
 app.get('/index', isAuth, (req, res) => {
 	res.render('index');
@@ -121,11 +129,11 @@ app.get('/list', isAuth, async (req, res) => {
 	}
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', isNotAuth, (req, res) => {
 	res.render('login');
 });
 
-app.post('/login', async(req, res) => {
+app.post('/login', isNotAuth, async(req, res) => {
 	const email = req.body.email;
     const password = req.body.password;
 	let loadedUser;
@@ -164,11 +172,11 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.get('/signup', (req, res) => {
+app.get('/signup', isNotAuth, (req, res) => {
 	res.render('registration');
 });	
 
-app.post('/signup',
+app.post('/signup', isNotAuth,
   [
     body('email').isEmail()
       .withMessage('Please enter a valid email.')
