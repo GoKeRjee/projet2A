@@ -56,7 +56,17 @@ li a:hover {
 
 #log-link:hover{
 	background-color: #197390;
-  }
+}
+
+#logout-link{
+	position: absolute;
+	right: 8px;
+	background-color: #c3292e;
+}
+
+#logout-link:hover{
+	background-color: #910b0b;
+}
 
 h1{
 	margin-top: 40px;
