@@ -48,3 +48,7 @@ block content
                 form.form-inline(action='/unproveUser', method='post')
                     input(type='hidden', name='id', value=user._id)
                     button.button-style-red(type='submit') Unprove
+                form.form-inline(action='/deleteUser', method='post')
+                    input(type='hidden', name='id', value=user._id)
+                    button.delete-button(type='submit')
+                      i.fas.fa-trash-alt

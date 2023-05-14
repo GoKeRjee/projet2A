@@ -348,11 +348,6 @@ app.get('/siteStatus', isAuth, async (req, res) => {
 	}
 });
 
-app.listen(port, () => {
-	console.log(`Server listening at http://localhost:${port}`);
-});
-
-
 app.get('/admin', isAuth, isAdmin, async (req, res) => {
 	try {
 		const users = await usersCollection.find({});
@@ -402,4 +397,19 @@ app.post('/updateUser', isAuth, isAdmin, async (req, res) => {
 	} catch(err) {
 	  	throw err;
 	}
+});
+
+app.post('/deleteUser', isAuth, isAdmin, async (req, res) => {
+	const userId = req.body.id;
+	try {
+		const user = await usersCollection.remove({ _id: userId });
+		if (!user) return res.status(404).send('User not found.');
+		res.redirect('/admin');
+	} catch(err) {
+	  	throw err;
+	}
+});
+
+app.listen(port, () => {
+	console.log(`Server listening at http://localhost:${port}`);
 });
