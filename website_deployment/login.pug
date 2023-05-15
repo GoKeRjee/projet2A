@@ -20,12 +20,9 @@ html
                 input#password(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
                 br
                 div.center
-                  button.button-style-blue(type='submit') Log in
-                br
-                p
-                | You are not registered? Register
-                a#register(href="/signup")= " here "
-                |!
+                  button.button-login(type='submit') LOG IN
+                div.trait
+                a.button-register(href="/signup") REGISTER
   footer
     | &copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
 
