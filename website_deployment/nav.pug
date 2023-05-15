@@ -1,0 +1,31 @@
+html
+  head
+    meta(charset='UTF-8')
+    title Site Generator
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    link(href='/template.css', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css', integrity='sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==', crossorigin='anonymous')
+
+  body
+    .navbar
+      ul.ul-navbar
+        li
+          a#home-link.active-green(href='index')
+            i.fas.fa-home
+        li
+          a#create-link(href='create') CREATE
+        li
+          a#edit-link(href='edit') EDIT
+        li
+          a#list-link(href='list') LIST
+        li 
+          a#log-link.active-blue(href='login') LOG IN
+    .container
+      .row
+        .col.text-center
+            block title
+      .row
+        .col
+          block content
+      footer
+        | &copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
