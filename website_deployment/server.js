@@ -183,17 +183,17 @@ app.post('/signup', isNotAuth,
       .custom(async (value, { req }) => {
         const userDoc = await usersCollection.findOne({ email: value });
         if (userDoc) {
-          throw new Error('E-Mail address already exists!');
+			throw new Error('E-Mail address already exists!');
         }
       })
       .normalizeEmail(),
     body('password').trim().isLength({ min: 5 }).withMessage('Password must be at least 5 characters long.'),
 	body('confirm-password').custom((value, { req }) => {
 		if (value !== req.body.password) {
-		  throw new Error('Password confirmation does not match password');
+			throw new Error('Password confirmation does not match password');
 		}
 		return true;
-	  })
+	})
   ],
   async (req, res) => {
     try {
@@ -218,7 +218,7 @@ app.post('/signup', isNotAuth,
       	res.redirect('/login');
     } catch (err) {
 		if (!err.statusCode) err.statusCode = 500;
-	  	return res.render('registration', { errors: 'An unexpected error occurred. Please try again.' });
+	  	return res.render('registration', { errors: [{ msg: 'An unexpected error occurred. Please try again.'}] });
     }
 });
 
@@ -408,6 +408,49 @@ app.post('/deleteUser', isAuth, isAdmin, async (req, res) => {
 	} catch(err) {
 	  	throw err;
 	}
+});
+
+app.get('/settings', isAuth, async (req, res) => {
+  	res.render('settings');
+});
+
+app.post('/updatePassword', isAuth,
+	[
+		body('new-password').trim().isLength({ min: 5 }).withMessage('Password must be at least 5 characters long.'),
+		body('confirm-password').custom((value, { req }) => {
+			if (value !== req.body['new-password']) {
+			  throw new Error('Password confirmation does not match password');
+			}
+			return true;
+		})
+	], 
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			const errorData = errors.array().map(error => {
+				return { type: 'field', value: error.value, msg: error.msg, path: error.param, location: 'body' };
+		  	});
+		  	return res.render('settings', { errors: errorData });
+		}
+		const token = req.cookies.token;
+		const currenPassword = req.body['current-password'];
+		const newPassword = req.body['new-password'];
+		if (!token) return res.status(401).send('Access denied. Please log in.');
+		try {
+			const decoded = jwt.verify(token, `${process.env.SECRET_KEY}`);
+			const userId = decoded.userId;
+			const user = await usersCollection.findOne({ _id: userId });
+			if (!user) return res.status(404).send('User not found.');
+			const isEqual = await bcrypt.compare(currenPassword, user.password);
+        	if(!isEqual) return res.render('settings', { errors: [{ msg: 'Invalid current password.' }] });
+			const hashedPw = await bcrypt.hash(newPassword, 12);
+			const update = await usersCollection.update({ _id: userId }, { $set: { password: hashedPw } });
+			if (!update) return res.status(404).send('Error update.');
+			const successMessage = "Password updated successfully";
+			res.render('settings', { success: successMessage });
+		} catch(err) {
+			throw err;
+		}
 });
 
 app.listen(port, () => {

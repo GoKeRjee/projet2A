@@ -1,0 +1,23 @@
+extends template
+
+block title
+    h1 Settings
+
+block content
+    div.login
+        if errors
+            each error in errors
+                p.error= error.msg
+        if success
+            p.success= success
+        form(onsubmit='submitForm(event)', action='/updatePassword', method='POST')
+            label(for='directory') Current password:
+            input#current-password(type='password', name='current-password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+            br
+            label(for='name') New password:
+            input#new-password(type='password', name='new-password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+            label(for='dbname') Retype new password:
+            input#confirm-password(type='password', name='confirm-password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+            br
+            div.center
+                button#button-submit(type='submit') Change Password

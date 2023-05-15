@@ -499,4 +499,15 @@ input[type=text], select {
 	border-radius: 5px; 
 	text-align: center;
 }
+
+.success {
+	color: green; 
+	font-weight: bold; 
+	background-color: #ffe6e6;  
+	padding: 10px; 
+	margin-bottom: 10px;  
+	border: 1px solid green;  
+	border-radius: 5px; 
+	text-align: center;
+}
   
