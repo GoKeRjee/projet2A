@@ -2,9 +2,8 @@ extends template
 
 block title
     h1 Settings
-
 block content
-    div.login
+    div.form
         if errors
             each error in errors
                 p.error= error.msg

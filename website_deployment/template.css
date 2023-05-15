@@ -23,15 +23,26 @@ body{
   padding: 0;
   overflow: hidden;
   background-color: #333;
+  display: flex;
 }
 
 li {
-  float: left;
   border-right: 1px solid #bbb;
+  float: left; 
 }
 
 li:last-child {
   border-right: none;
+}
+
+.right-float {
+	margin-left: auto;
+}
+
+.right-float ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 li a {
@@ -49,9 +60,8 @@ li a:hover {
 }
 
 #log-link{
-	position: absolute;
-	right: 8px;
 	background-color: #008CBA;
+	min-width: 50px;
 }
 
 #log-link:hover{
@@ -59,13 +69,11 @@ li a:hover {
 }
 
 #logout-link{
-	position: absolute;
-	right: 8px;
 	background-color: #c3292e;
 	min-width: 50px;
 }
 
-#logout-link i {
+#logout-link i, #log-link i {
 	font-size: 20px;
 	transition: transform 0.5s;
 }
@@ -74,7 +82,7 @@ li a:hover {
 	background-color: #910b0b;
 }
 
-#logout-link:hover i {
+#logout-link:hover i, #log-link:hover i {
 	transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
 }
 
@@ -306,6 +314,14 @@ h1{
 	margin-top: -20px;
 }
 
+#inge-me{
+	width: 90px;
+	height: 80px;
+	position: absolute;
+	margin-left: 970px;
+	margin-top: -20px;
+}
+
 #welcome-title{
 	text-align: center;
 	text-decoration: underline;
@@ -321,6 +337,22 @@ h1{
 .texteRed{
 	color: red;
 	font-weight: bold;
+}
+
+#me{
+	text-align: justify;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+    color: white;
+	background-color: #333;
+	border-style: solid;
+	border: 3px solid;
+	border-color: white;
+	font-size: 115%;
+	border-radius: 8px;
+	padding: 46px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 /*========================================================================
                          List tab styling

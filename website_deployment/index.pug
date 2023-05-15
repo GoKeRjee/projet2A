@@ -2,8 +2,8 @@ extends template
 block content
   img#welcome-logo(src='img/welcome.png')
   div.index-container
-    #welcome-message
-      img#inge(src='img/inge.png')
+    #me
+      img#inge-me(src='img/inge.png')
       p#welcome-title Welcome to the site!
       | The site is divided into several parts, and so that you do not get lost, we will accompany you: 
       br
@@ -18,3 +18,11 @@ block content
       | - If you are a greedy tester who got lost in the list of created websites, the 
       span.texteBlue &quot;list&quot;
       |  section will allow you to find all your creations.
+      div.trait
+      | If you are a user 
+      span.texteRed without rights
+      |, you will not be able to 
+      span.texteRed perform actions 
+      | on the sites. Only an administrator or an authorized user has the 
+      br
+      | ability to stop, reactivate, delete or validate a site. However, you can absolutely create your own website and start it without authorization.

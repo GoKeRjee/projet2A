@@ -23,9 +23,15 @@ html
           li
             a#list-link(href='admin') ADMIN
         if isAuthenticated
-          li 
-            a#logout-link.active-red(href='/logout')
-              i.fa.fa-sign-out-alt
+          .right-float 
+            li
+              a#log-link(href='settings')
+                i.fas.fa-cog
+            li
+              a#logout-link.active-red(href='/logout')
+                i.fa.fa-sign-out-alt
+
+
 
     .container
       .row
