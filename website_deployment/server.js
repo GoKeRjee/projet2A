@@ -45,6 +45,8 @@ const isAuth = (req, res, next) => {
 			throw error;
 		}
 		req.userId = decodedToken.userId;
+		req.isAuthenticated = true;
+		req.isAdmin = decodedToken.status === 'admin';
 		next();
 	} else {
 		res.redirect('/login');
@@ -76,9 +78,19 @@ const isNotAuth = (req, res, next) => {
     next();
 };
 
+const attachAuthInfo = (req, res, next) => {
+	if (!req.isAuthenticated) {
+		req.isAuthenticated = false;
+		req.isAdmin = false;
+	}
+	next();
+};
+
+app.use(attachAuthInfo);
 // Pages
+  
 app.get('/index', isAuth, (req, res) => {
-	res.render('index');
+	res.render('index', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
 });
 
 app.get('/isPortUsed/:port', isAuth, async (req, res) => {
@@ -105,13 +117,13 @@ app.get('/isDbNameUsed/:dbname', isAuth, async (req, res) => {
 });  
 
 app.get('/create', isAuth, (req, res) => {
-	res.render('create');
+	res.render('create', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
 });
 
 app.get('/edit', isAuth, async (req, res) => {
 	try {
 	  	const sites = await sitesCollection.find({});
-	  	res.render('edit', { sites, noSites: sites.length === 0 });
+	  	res.render('edit', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin, sites, noSites: sites.length === 0 });
 	} catch (err) {
 	  	throw err;
 	}
@@ -123,14 +135,14 @@ app.get('/list', isAuth, async (req, res) => {
 	  	for (let site of sites) {
 			site.status = (await isPortUsed(site.port)) ? 'ON' : 'OFF';
 	  	}
-	  	res.render('list', { sites });
+	  	res.render('list', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin, sites });
 	} catch (err) {
 	  	throw err;
 	}
 });
 
 app.get('/login', isNotAuth, (req, res) => {
-	res.render('login');
+	res.render('login', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
 });
 
 app.post('/login', isNotAuth, async(req, res) => {
@@ -359,7 +371,7 @@ app.get('/admin', isAuth, isAdmin, async (req, res) => {
 			if (user.approved == true)
 				approvedUsers.push(user);
 		}
-	  	res.render('admin', { unproveUsers, approvedUsers });
+	  	res.render('admin', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin, unproveUsers, approvedUsers });
 	} catch (err) {
 	  	throw err;
 	}
@@ -411,7 +423,7 @@ app.post('/deleteUser', isAuth, isAdmin, async (req, res) => {
 });
 
 app.get('/settings', isAuth, async (req, res) => {
-  	res.render('settings');
+  	res.render('settings', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
 });
 
 app.post('/updatePassword', isAuth,

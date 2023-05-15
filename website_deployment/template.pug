@@ -12,17 +12,21 @@ html
         li
           a#home-link.active-green(href='index')
             i.fas.fa-home
-        li
-          a#create-link(href='create') CREATE
-        li
-          a#edit-link(href='edit') EDIT
-        li
-          a#list-link(href='list') LIST
-        li
-          a#list-link(href='admin') ADMIN
-        li 
-          a#logout-link.active-red(href='/logout')
-            i.fa.fa-sign-out-alt
+        if isAuthenticated
+          li
+            a#create-link(href='create') CREATE
+          li
+            a#edit-link(href='edit') EDIT
+          li
+            a#list-link(href='list') LIST
+        if isAdmin
+          li
+            a#list-link(href='admin') ADMIN
+        if isAuthenticated
+          li 
+            a#logout-link.active-red(href='/logout')
+              i.fa.fa-sign-out-alt
+
     .container
       .row
         .col.text-center
