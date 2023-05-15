@@ -1,19 +1,40 @@
 extends template
 block content
   img#welcome-logo(src='img/welcome.png')
-  #welcome-message
-    img#inge(src='img/inge.png')
-    p#welcome-title Welcome to the site!
-    | The site is divided into several parts, and so that you do not get lost, we will accompany you: 
-    br
-    | - In the 
-    span.texteBlue &quot;create&quot;
-    |  section, you can create a website. 
-    br
-    | - In the 
-    span.texteBlue &quot;edit&quot;
-    |  section you can make all the necessary modifications to your creations (modifications on a site, etc) 
-    br
-    | - If you are a greedy tester who got lost in the list of created websites, the 
-    span.texteBlue &quot;list&quot;
-    |  section will allow you to find all your creations. 
+  div.index-container
+    #welcome-message
+      img#inge(src='img/inge.png')
+      p#welcome-title Welcome to the site!
+      | The site is divided into several parts, and so that you do not get lost, we will accompany you: 
+      br
+      | - In the 
+      span.texteBlue &quot;create&quot;
+      |  section, you can create a website. 
+      br
+      | - In the 
+      span.texteBlue &quot;edit&quot;
+      |  section you can make all the necessary modifications to your creations (modifications on a site, etc) 
+      br
+      | - If you are a greedy tester who got lost in the list of created websites, the 
+      span.texteBlue &quot;list&quot;
+      |  section will allow you to find all your creations. 
+      div.trait
+      |  If you want to browse the site, you must first log in. If you are not registered on the site, you will have to register then wait for an administrator to 
+      span.texteRed validate your registration request
+      |
+      
+    div.index-login
+      if error
+        p.error #{error}
+      form(onsubmit='submitForm(event)', action='/login', method='POST')
+        label(for='email') E-mail address:
+        input#email(type='text', name='email', placeholder="Example: jack.roma@gmail.com", onfocus="this.placeholder = ''", title="E-mail address", class='form-control' required)
+        br
+        label(for='password') Password:
+        input#password(type='password', name='password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
+        br
+        div.center
+          button.button-login(type='submit') LOG IN
+        div.trait
+        a.button-register(href="/signup") REGISTER
+
