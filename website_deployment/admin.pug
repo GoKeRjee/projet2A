@@ -2,53 +2,57 @@ extends template
 
 block title
   h1 Admin Page
-
 block content
-  h2 Unprove Users
-  if unproveUsers.length === 0
-    p The list is empty.
-  else
-    table.tableau-style
-      thead
-        tr 
-          th Email
-          th Status
-          th Actions
-      tbody
-        each user in unproveUsers
-          tr
-            td= user.email
-            td= user.status
-            td
-              form.form-inline(action='/approveUser', method='post')
-                input(type='hidden', name='id', value=user._id)
-                button#button-submit(type='submit') Approve
-
-  h2 Approve Users
-  if approvedUsers.length === 0
-    p The list is empty.
-  else
-  table.tableau-style
-    thead
-        tr
-            th Email
-            th Status
-            th Actions
-    tbody
-        each user in approvedUsers
+  br
+  .tables-container
+    .table-container
+      h2 Unprove Users
+      if unproveUsers.length === 0
+        p The list is empty.
+      else
+        table.tableau-style
+          thead
+            tr 
+              th Email
+              th Status
+              th Actions
+          tbody
+            each user in unproveUsers
+              tr
+                td= user.email
+                td= user.status
+                td
+                  form.form-inline(action='/approveUser', method='post')
+                    input(type='hidden', name='id', value=user._id)
+                    button#button-submit(type='submit') Approve
+                  form.form-inline(action='/deleteUser', method='post')
+                    input(type='hidden', name='id', value=user._id)
+                    button.button-style-red(type='submit') Delete
+    .table-container
+      h2 Approve Users
+      if approvedUsers.length === 0
+        p The list is empty.
+      else
+        table.tableau-style
+          thead
             tr
-            td= user.email
-            td
+              th Email
+              th Status
+              th Actions
+          tbody
+            each user in approvedUsers
+              tr
+              td= user.email
+              td
                 form.form-inline(action='/updateUser', method='post')
-                    input(type='hidden', name='id', value=user._id)
-                    select#status(name='status', onchange="this.form.submit()")
-                        option(value='user', selected=user.status === 'user') User
-                        option(value='admin', selected=user.status === 'admin') Admin
-            td
+                  input(type='hidden', name='id', value=user._id)
+                  select#status(name='status', onchange="this.form.submit()")
+                    option(value='user', selected=user.status === 'user') User
+                    option(value='admin', selected=user.status === 'admin') Admin
+              td
                 form.form-inline(action='/unproveUser', method='post')
-                    input(type='hidden', name='id', value=user._id)
-                    button.button-style-red(type='submit') Unprove
+                  input(type='hidden', name='id', value=user._id)
+                  button.button-style-yellow(type='submit') Unprove
                 form.form-inline(action='/deleteUser', method='post')
-                    input(type='hidden', name='id', value=user._id)
-                    button.delete-button(type='submit')
-                      i.fas.fa-trash-alt
+                  input(type='hidden', name='id', value=user._id)
+                  button.button-style-red(type='submit') Delete
