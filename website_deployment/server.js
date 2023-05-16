@@ -22,7 +22,7 @@ const sitesCollection = db.get('sites');
 const usersCollection = db.get('users');
 
 // Auth middleware
-const isAuth = (req, res, next) => {
+const isAuth = async (req, res, next) => {
 	if (req.cookies && req.cookies.token) {
 		const token = req.cookies.token;
 		if (!token) {
@@ -44,6 +44,11 @@ const isAuth = (req, res, next) => {
 			error.statusCode = 401;
 			throw error;
 		}
+		const user = await usersCollection.findOne({ _id: decodedToken.userId });
+    	if (user.tokenVersion !== decodedToken.tokenVersion) {
+        	res.clearCookie('token');
+  			return res.status(401).redirect('/login');
+    	}
 		req.userId = decodedToken.userId;
 		req.isAuthenticated = true;
 		req.isAdmin = decodedToken.status === 'admin';
@@ -165,6 +170,7 @@ app.post('/login', isNotAuth, async(req, res) => {
         const token = jwt.sign({
                 email: loadedUser.email,
                 userId: loadedUser._id.toString(),
+				tokenVersion: loadedUser.tokenVersion,
 				status: loadedUser.status
             },
             `${process.env.SECRET_KEY}`,
@@ -224,7 +230,8 @@ app.post('/signup', isNotAuth,
 			email: email,
         	password: hashedPw,
 			status: "user",
-			approved: false
+			approved: false,
+			tokenVersion: 0
       	};
       	usersCollection.insert(newUser);
       	res.redirect('/login');
@@ -456,10 +463,9 @@ app.post('/updatePassword', isAuth,
 			const isEqual = await bcrypt.compare(currenPassword, user.password);
         	if(!isEqual) return res.render('settings', { errors: [{ msg: 'Invalid current password.' }] });
 			const hashedPw = await bcrypt.hash(newPassword, 12);
-			const update = await usersCollection.update({ _id: userId }, { $set: { password: hashedPw } });
+			const update = await usersCollection.update({ _id: userId }, { $set: { password: hashedPw, tokenVersion: user.tokenVersion + 1 } });
 			if (!update) return res.status(404).send('Error update.');
-			const successMessage = "Password updated successfully";
-			res.render('settings', { success: successMessage });
+			res.redirect('/login');
 		} catch(err) {
 			throw err;
 		}

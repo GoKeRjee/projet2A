@@ -8,8 +8,6 @@ block content
         if errors
             each error in errors
                 p.error= error.msg
-        if success
-            p.success= success
         form(onsubmit='submitForm(event)', action='/updatePassword', method='POST')
             label(for='directory') Current password:
             input#current-password(type='password', name='current-password', placeholder="************", onfocus="this.placeholder = ''", title="Password", class='form-control' required)
