@@ -1,29 +1,31 @@
 #!/bin/bash
 
+# Check if the number of arguments is correct
 if [ "$#" -ne 4 ]; then
   echo "Usage: $0 <path/to/directory> <oldPort> <newPort> <newName>"
   exit 1
 fi
 
+# Store the command-line arguments in variables
 directory="$1"
 old_port="$2"
 new_port="$3"
 new_name="$4"
 
-# Arrêter le site qui utilise l'ancien port
+# Stop the site using the old port
 fuser -k $old_port/tcp
 
-# Modifier le port dans le fichier server.js
+# Modify the port in the server.js file
 sed -i "s/$old_port/$new_port/g" "$directory/server.js"
 
-# Échapper les caractères spéciaux dans le nouveau titre
+# Escape special characters in the new name
 escaped_new_name=$(echo "$new_name" | sed -e 's/[\/&]/\\&/g')
 
-# Modifier le titre dans le fichier template.pug
+# Modify the title in the template.pug file
 sed -i "s/\(^[\t ]*h1#title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
 sed -i "s/\(^[\t ]*title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
 
-# Démarrer le site avec le nouveau port
+# Start the site with the new port
 node "$directory/server.js" &
 sleep 2
 google-chrome http://localhost:$new_port/
