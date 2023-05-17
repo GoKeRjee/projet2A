@@ -11,7 +11,6 @@ port="$2"
 website_name="$3"
 db_name="$4"
 
-
 # Create the path if not exist
 if [ ! -d "$directory_name" ]; then
   mkdir "$directory_name"
@@ -26,10 +25,6 @@ npm install pug --save
 npm install markdown-it --save
 npm install multer --save
 npm install monk --save
-
-# Start the MongoDB service
-systemctl start mongod
-
 
 cd ../
 
