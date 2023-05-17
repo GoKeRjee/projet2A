@@ -1,29 +1,29 @@
 #!/bin/bash
 
-# Vérifier si un argument a été fourni
+# Check if an argument has been supplied
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <directory_to_delete>"
     exit 1
 fi
 
-# Récupérer l'argument fourni (le répertoire à supprimer)
+# Retrieve the supplied argument (the directory to be deleted)
 directory_to_delete=$1
 
-# Vérifier si le répertoire existe
+# Check if the directory exists
 if [ ! -d "$directory_to_delete" ]; then
     echo "Error: The directory $directory_to_delete does not exist."
     exit 1
 fi
 
-# Supprimer le contenu du répertoire spécifié
+# Delete the contents of the specified directory
 echo "Deleting the contents of $directory_to_delete..."
 rm -r "${directory_to_delete:?}"/*
 
-# Supprimer le répertoire lui-même
+# Delete the directory itself
 echo "Deleting of $directory_to_delete..."
 rmdir "${directory_to_delete:?}"
 
-# Vérifier si la suppression a réussi
+# Check if the deletion was successful
 if [ $? -eq 0 ]; then
     echo "The contents of $directory_to_delete have been successfully deleted."
 else
