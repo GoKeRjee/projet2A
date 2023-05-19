@@ -2245,6 +2245,10 @@ app.listen(port, () => {
 });
 EOF
 
+# Move the folder img to "TheGenerator" folder
+chmod -R a+rwx img
+mv img $directory_name
+
 # Confirm the creation of the folders
 echo "Site generated in the folder $directory_name."
 
