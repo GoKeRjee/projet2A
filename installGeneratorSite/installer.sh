@@ -5,6 +5,7 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
+# Check if Curl is installed
 if ! command_exists curl; then
   echo "Curl is not installed. Installing..."
   # Install Curl
