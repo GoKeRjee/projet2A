@@ -1,5 +1,106 @@
 #!/bin/bash
 
+# Function to check if a command is available
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+if ! command_exists curl; then
+  echo "Curl is not installed. Installing..."
+  # Install Curl
+  sudo apt install curl
+else
+  echo "Curl is already installed."
+fi
+
+# Check if MongoDB is installed
+if ! command_exists mongod; then
+  echo "MongoDB is not installed. Installing..."
+
+  # Install MongoDB
+  sudo apt-get install gnupg
+  curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | sudo gpg --dearmor --output /usr/share/keyrings/mongodb-archive-keyring.gpg
+  echo "deb [signed-by=/usr/share/keyrings/mongodb-archive-keyring.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+  sudo apt-get update
+  sudo apt-get install -y mongodb-org
+
+  echo "mongodb-org hold" | sudo dpkg --set-selections
+  echo "mongodb-org-database hold" | sudo dpkg --set-selections
+  echo "mongodb-org-server hold" | sudo dpkg --set-selections
+  echo "mongodb-mongosh hold" | sudo dpkg --set-selections
+  echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
+  echo "mongodb-org-tools hold" | sudo dpkg --set-selections
+
+  echo "MongoDB installed successfully."
+else
+  echo "MongoDB is already installed."
+fi
+
+# Check if Node.js is installed
+if ! command_exists node; then
+  echo "Node.js is not installed. Installing..."
+
+  # Check if nvm is installed
+  if ! command_exists nvm; then
+    echo "nvm is not installed. Installing..."
+    # Install nvm (Node Version Manager)
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    # Load nvm into the script
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    echo "nvm installed successfully."
+  else
+    echo "nvm is already installed."
+  fi
+  # Install the latest version of Node.js
+  nvm install node
+  echo "Node.js installed successfully."
+else
+  echo "Node.js is already installed."
+fi
+
+# Check if npm is installed
+if ! command_exists npm; then
+  echo "Npm is not installed. Installing..."
+  # Install npm
+  sudo apt install -y npm
+else
+  echo "Npm is already installed."
+fi
+
+# Check if fuser is installed
+if ! command_exists fuser; then
+  echo "fuser is not installed. Installing..."
+  # Install fuser
+  sudo apt install -y psmisc
+  echo "fuser installed successfully."
+else
+  echo "fuser is already installed."
+fi
+
+# Check if Google Chrome is installed
+if ! command_exists google-chrome-stable; then
+  echo "Google Chrome is not installed. Installing..."
+  # Install Google Chrome
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo dpkg -i google-chrome-stable_current_amd64.deb
+  sudo apt-get install -f
+  rm google-chrome-stable_current_amd64.deb
+else
+  echo "Google Chrome is already installed."
+fi
+
+# Check installed versions
+echo "Installed versions:"
+mongod --version
+node --version
+npm --version
+fuser --version
+google-chrome-stable --version
+
+# Start the MongoDB service
+sudo systemctl start mongod
+
 # The name of the directory in whiwh we create the files
 directory_name="TheGenerator"
 
@@ -8,10 +109,9 @@ if [ ! -d "$directory_name" ]; then
   mkdir "$directory_name"
 fi
 
-
 # Initialise the folder as a Node.js project and install Express
 cd "$directory_name"/
-yes "" | npm init
+npm init -y
 npm install express --save
 npm install net --save
 npm install child_process --save
@@ -2253,4 +2353,6 @@ mv img $directory_name
 echo "Site generated in the folder $directory_name."
 
 # Launch the service
-#node "$directory_name"/server.js & google-chrome http://localhost:3030/
+node "$directory_name"/server.js &
+sleep 2
+google-chrome http://localhost:3030/
