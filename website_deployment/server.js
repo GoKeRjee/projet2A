@@ -512,6 +512,7 @@ app.get('/admin', isAuth, isAdmin, async (req, res) => {
 	// If no token is found, send a 401 Unauthorized response
 	if (!token) return res.status(401).send('Access denied. Please log in.');
 	try {
+		// Verify the token using the secret key
 		const decoded = jwt.verify(token, `${process.env.SECRET_KEY}`);
 		// Get userIf from the token
 		const userId = decoded.userId;

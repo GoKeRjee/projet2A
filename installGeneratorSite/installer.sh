@@ -557,9 +557,9 @@ cat << 'EOF' > "$directory_name/template.css"
                          Body Configuration
 ========================================================================*/
 body{
-  font-family: sans-serif;
-  background-color: #E4E4E4;
-  text-align : center;
+	font-family: sans-serif;
+	background-color: #E4E4E4;
+	text-align : center;
 }
 /*========================================================================
                          NavBar Styling
@@ -587,13 +587,13 @@ li:last-child {
 }
 
 .right-float {
-  margin-left: auto;
+	margin-left: auto;
 }
 
 .right-float ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 li a {
@@ -611,72 +611,72 @@ li a:hover {
 }
 
 #log-link{
-  background-color: #008CBA;
-  min-width: 50px;
+	background-color: #008CBA;
+	min-width: 50px;
 }
 
 #log-link:hover{
-  background-color: #197390;
+	background-color: #197390;
 }
 
 #logout-link{
-  background-color: #c3292e;
-  min-width: 50px;
+	background-color: #c3292e;
+	min-width: 50px;
 }
 
 #logout-link i, #log-link i {
-  font-size: 20px;
-  transition: transform 0.5s;
+	font-size: 20px;
+	transition: transform 0.5s;
 }
 
 #logout-link:hover{
-  background-color: #910b0b;
+	background-color: #910b0b;
 }
 
 #logout-link:hover i, #log-link:hover i {
-  transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
+	transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
 }
 
 
 #home-link {
-  min-width: 50px;
+	min-width: 50px;
 }
 
 #home-link i{
-  font-size: 20px;
-  transition: transform 0.5s;
+	font-size: 20px;
+	transition: transform 0.5s;
 }
 
 #home-link:hover i {
-  transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
+	transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
 }
 
 
 h1{
-  margin-top: 40px;
-  text-align: center;
-  text-decoration: underline;
+	margin-top: 40px;
+	text-align: center;
+	text-decoration: underline;
 }
 
 .form{
-  margin-top: 50px;
-  width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-  padding: 5px;
-  margin-bottom: 5px;
-  text-align: left;
-  background-color: #333;
+	margin-top: 50px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	padding: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+	background-color: #333;
     border-radius: 8px;
     border-style: solid;
     border-color: white;
-  padding: 30px;
-  transition: transform 0.5s ease;
+	padding: 30px;
+	transition: transform 0.5s ease;
 }
 
 .center{
-  text-align:center;
+	text-align:center;
 }
 /*======================================================================
                           Button styling
@@ -694,7 +694,7 @@ h1{
 }
 
 #button-submit:hover{
-  filter: brightness(0.85);
+	filter: brightness(0.85);
 }
 
 .button-style-red{
@@ -710,7 +710,7 @@ h1{
 }
 
 .button-style-red:hover{
-  filter: brightness(0.85);
+	filter: brightness(0.85);
 }
 
 .button-style-yellow{
@@ -726,7 +726,7 @@ h1{
 }
 
 .button-style-yellow:hover{
-  filter: brightness(0.85);
+	filter: brightness(0.85);
 }
 
 .button-style-blue{
@@ -742,86 +742,86 @@ h1{
 }
 
 .button-style-blue:hover{
-  filter: brightness(0.85);
+	filter: brightness(0.85);
 }
 
 .button-login{
-  background-color: #008CBA; /* Blue */
-  border: none;
-  color: white;
-  padding: 15px 13px;
-  margin-top: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 8px;
-  width: 100%;
-  font-weight: bold;
+	background-color: #008CBA; /* Blue */
+	border: none;
+	color: white;
+	padding: 15px 13px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 8px;
+	width: 100%;
+	font-weight: bold;
   }
   
   .button-login:hover{
-    filter: brightness(0.85);
+	  filter: brightness(0.85);
   }
 
   .button-register{
-  background-color: green;
-  border: none;
-  color: white;
-  padding: 15px 13px;
-  margin-top: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 8px;
-  width: 96%;
-  font-weight: bold;
+	background-color: green;
+	border: none;
+	color: white;
+	padding: 15px 13px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 8px;
+	width: 96%;
+	font-weight: bold;
   }
   
   .button-register:hover{
-    filter: brightness(0.85);
+	  filter: brightness(0.85);
   }
 
 .form-test-set-name{
-  color: black;
-  background-color: white;
-  border-radius: 8px;
-  border-style: solid;
-  border-color: white;
-  padding: 5px;
-  margin-bottom: 5px;
+	color: black;
+	background-color: white;
+	border-radius: 8px;
+	border-style: solid;
+	border-color: white;
+	padding: 5px;
+	margin-bottom: 5px;
 }
 .refresh-button {
-  display: inline-block;
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 20px 20px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 14px;
-  position: absolute;
-  top: 55px;
-  right: 10px;
+	display: inline-block;
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 20px 20px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 14px;
+	position: absolute;
+	top: 55px;
+	right: 10px;
 }
 
 .delete-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 }
   
 .delete-button i {
-  color: red;
-  font-size: 20px;
-  padding: 10px;
-  transition: transform 0.5s;
+	color: red;
+	font-size: 20px;
+	padding: 10px;
+	transition: transform 0.5s;
 }
 
 .delete-button:hover i {
-  transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
+	transform: scale(1.2); /* Agrandit l'icône de 20% lors du survol. */
 }
 
 
@@ -829,121 +829,139 @@ h1{
                           Index styling
 =======================================================================*/
 #welcome-message{
-  flex: 1;
-  flex-grow: 6;
-  flex-basis: 50%;
-  text-align: justify;
-  width: 70%;
-  margin-left: 3%;
-  margin-right: 1%;
+	flex: 1;
+	flex-grow: 6;
+	flex-basis: 50%;
+	text-align: justify;
+	width: 70%;
+	margin-left: 3%;
+	margin-right: 1%;
     color: white;
-  background-color: #333;
-  border-style: solid;
-  border: 3px solid;
-  border-color: white;
-  font-size: 115%;
-  border-radius: 8px;
-  padding: 46px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.5s ease;
+	background-color: #333;
+	border-style: solid;
+	border: 3px solid;
+	border-color: white;
+	font-size: 115%;
+	border-radius: 8px;
+	padding: 46px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+	transition: transform 0.5s ease;
 }
 
 #welcome-message:hover, .index-login:hover {
-  transform: scale(1.05);
+	transform: scale(1.05);
   }
 
 #welcome-logo{
-  width: 250px;
-  height: 200px;
+	width: 250px;
+	height: 200px;
 }
 
 #inge{
-  width: 90px;
-  height: 80px;
-  position: absolute;
-  margin-left: 870px;
-  margin-top: -20px;
+	width: 90px;
+	height: 80px;
+	position: absolute;
+	margin-left: 870px;
+	margin-top: -20px;
 }
 
 #inge-me{
-  width: 90px;
-  height: 80px;
-  position: absolute;
-  margin-left: 970px;
-  margin-top: -20px;
+	width: 90px;
+	height: 80px;
+	position: absolute;
+	margin-left: 970px;
+	margin-top: -20px;
 }
 
 #welcome-title{
-  text-align: center;
-  text-decoration: underline;
-  font-size: 120%;
-  font-weight: bold;
+	text-align: center;
+	text-decoration: underline;
+	font-size: 120%;
+	font-weight: bold;
 }
 
 .texteBlue{
-  color: #00FF61;
-  font-weight: bold;
+	color: #00FF61;
+	font-weight: bold;
 }
 
 .texteRed{
-  color: red;
-  font-weight: bold;
+	color: red;
+	font-weight: bold;
 }
 
 #me{
-  text-align: justify;
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
+	text-align: justify;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
     color: white;
-  background-color: #333;
-  border-style: solid;
-  border: 3px solid;
-  border-color: white;
-  font-size: 115%;
-  border-radius: 8px;
-  padding: 46px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+	background-color: #333;
+	border-style: solid;
+	border: 3px solid;
+	border-color: white;
+	font-size: 115%;
+	border-radius: 8px;
+	padding: 46px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 /*========================================================================
                          List tab styling
 ========================================================================*/
 .tableau-style{
-  border-collapse: collapse;
-  min-width: 400px;
-  width: auto; 
-  box-shadow: 0, 5px, 50px, rgba(0,0,0,0.15);
-  cursor: pointer;
-  margin: 100px auto;
-  border: 2px solid #04AA6D;
+	border-collapse: collapse;
+	min-width: 400px;
+	width: auto; 
+	box-shadow: 0, 5px, 50px, rgba(0,0,0,0.15);
+	cursor: pointer;
+	margin: 100px auto;
+	border: 2px solid #04AA6D;
 }
 
 thead tr{
-  background-color: #04AA6D;
-  color: white;
-  text-align: left;
+	background-color: #04AA6D;
+	color: white;
+	text-align: left;
 }
 
 th,td{
-  padding: 15px 20px;
+	padding: 15px 20px;
 }
 
 tbody tr, td, th{
-  border: 1px solid #ddd;
+	border: 1px solid #ddd;
 }
 
 tbody tr:nth-child(even){
-  background-color: white;
+	background-color: white;
 }
 
 .form-inline {
-  display: inline-block;
-  margin-right: 5px;
+	display: inline-block;
+	margin-right: 5px;
   }
 
   .netstat{
-  font-weight: bold;
+	font-weight: bold;
   }
+  
+.tables-container {
+	display: flex;
+	justify-content: space-around;
+}
+  
+.table-container {
+	width: 45%; /* ajustez cette valeur en fonction de vos besoins */
+}
+  
+.table-container:first-child {
+	border-right: 2px solid #dadde1;
+	padding-right: 20px; /* ajouter un espace à droite du tableau */
+}
+  
+.table-container:last-child {
+	padding-left: 20px; /* ajouter un espace à gauche du tableau */
+}
   
 /*========================================================================
                          Footer styling
@@ -961,66 +979,66 @@ footer{
                          Form styling
 ========================================================================*/
 input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
   }
 
   input[type=password], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
   }
   
   input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+	width: 100%;
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
   }
   
   input[type=submit]:hover {
-  background-color: #45a049;
+	background-color: #45a049;
   }
 /*========================================================================
                          Login/Registration styling
 ========================================================================*/
 .index-login{
-  flex: 1;
-  flex-grow: 3;
-  flex-basis: 30%;
-  width: 10%;
-  margin-right: 3%;
-  margin-left: 1%;
-  color: white;
-  padding: 30px;
-  text-align: left;
-  background-color: #333;
-  border-radius: 8px;
-  border-style: solid;
-  border-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.5s ease;
+	flex: 1;
+	flex-grow: 3;
+	flex-basis: 30%;
+	width: 10%;
+	margin-right: 3%;
+	margin-left: 1%;
+	color: white;
+	padding: 30px;
+	text-align: left;
+	background-color: #333;
+	border-radius: 8px;
+	border-style: solid;
+	border-color: white;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+	transition: transform 0.5s ease;
 }
 
 .login{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
     color: white;
     padding: 30px;
     margin-bottom: 5px;
@@ -1029,22 +1047,22 @@ input[type=text], select {
     border-radius: 8px;
     border-style: solid;
     border-color: white;
-  transition: transform 0.5s ease;
+	transition: transform 0.5s ease;
 }
 
 #register{
-  text-decoration: none;
-  font-weight: bold;
-  text-align: center;
-  color: white;
+	text-decoration: none;
+	font-weight: bold;
+	text-align: center;
+	color: white;
 }
 
 .index-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-left: 1%;
-  margin-right: 1%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-left: 1%;
+	margin-right: 1%;
 }
 
   .trait {
@@ -1065,25 +1083,25 @@ input[type=text], select {
   }
 
 .error {
-  color: red; 
-  font-weight: bold; 
-  background-color: #ffe6e6;  
-  padding: 10px; 
-  margin-bottom: 10px;  
-  border: 1px solid red;  
-  border-radius: 5px; 
-  text-align: center;
+	color: red; 
+	font-weight: bold; 
+	background-color: #ffe6e6;  
+	padding: 10px; 
+	margin-bottom: 10px;  
+	border: 1px solid red;  
+	border-radius: 5px; 
+	text-align: center;
 }
 
 .success {
-  color: green; 
-  font-weight: bold; 
-  background-color: #ffe6e6;  
-  padding: 10px; 
-  margin-bottom: 10px;  
-  border: 1px solid green;  
-  border-radius: 5px; 
-  text-align: center;
+	color: green; 
+	font-weight: bold; 
+	background-color: #ffe6e6;  
+	padding: 10px; 
+	margin-bottom: 10px;  
+	border: 1px solid green;  
+	border-radius: 5px; 
+	text-align: center;
 }
 EOF
 
@@ -1449,16 +1467,16 @@ block content
           td
             form.form-inline(action='/deleteSite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-red(type='submit', onclick='return confirmDelete()') Delete
+              button.button-style-red(type='submit', onclick='return confirmDelete()', disabled=!isAdmin) Delete
             form.form-inline(action='/stopSite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-yellow(type='submit', onclick='return confirmStop()') Stop
+              button.button-style-yellow(type='submit', onclick='return confirmStop()', disabled=!isAdmin) Stop
             form.form-inline(action='/startSite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button#button-submit(type='submit', onclick='return confirmStart()') Start
+              button#button-submit(type='submit', onclick='return confirmStart()', disabled=!isAdmin) Start
             form.form-inline(action='/deploySite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-blue(type='submit', onclick='return confirmDeploy()') Deploy
+              button.button-style-blue(type='submit', onclick='return confirmDeploy()', disabled=!isAdmin) Deploy
       script.
         document.addEventListener('DOMContentLoaded', function() {
           const executions = document.querySelectorAll('span.netstat');
@@ -2211,13 +2229,23 @@ app.post('/updateSite', isAuth, async (req, res) => {
 
 // Handle GET request for '/admin' route
 app.get('/admin', isAuth, isAdmin, async (req, res) => {
+  // Retrieve the token from the request cookies
+	const token = req.cookies.token;
+	// If no token is found, send a 401 Unauthorized response
+	if (!token) return res.status(401).send('Access denied. Please log in.');
 	try {
+    // Verify the token using the secret key
+		const decoded = jwt.verify(token, `${process.env.SECRET_KEY}`);
+		// Get userIf from the token
+		const userId = decoded.userId;
 		// Retrieve all documents from the 'usersCollection' collection
 		const users = await usersCollection.find({});
 		// Separation of approved and unapproved users in two different tables
 		const unapprovedUsers = [];
 		const approvedUsers = [];
 		for (let user of users) {
+      if (user._id == userId)
+				continue;
 			if (user.approved == false)
 				unapprovedUsers.push(user);
 			if (user.approved == true)
@@ -2414,6 +2442,7 @@ echo "Site generated in the folder $directory_name."
 node "$directory_name"/createAdmin.js
 
 # Launch the service
-node "$directory_name"/server.js &
+cd "$directory_name"/
+node server.js &
 sleep 2
 google-chrome http://localhost:3030/
