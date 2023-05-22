@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#This script is an installer that will set up a site from which it will be possible to create and control others in a few clicks. 
+#A certain number of modules and packages will be installed, then the site files as well as the static resources.
+
 # Function to check if a command is available
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -63,7 +66,7 @@ fi
 # Check if npm is installed
 if ! command_exists npm; then
   echo "Npm is not installed. Installing..."
-  # Install npm
+# Install npm
   sudo apt install -y npm
 else
   echo "Npm is already installed."
@@ -422,6 +425,7 @@ google-chrome http://localhost:$port/
 EOF
 
 #########################################
+# Create the script that allows to start a site
 cat << 'EOF' > "$directory_name/start.sh"
 #!/bin/bash
 
@@ -442,6 +446,7 @@ google-chrome http://localhost:$port/
 EOF
 
 ######################
+# Create the script that allows to stop a site
 cat << 'EOF' > "$directory_name/stop.sh"
 #!/bin/bash
 
@@ -468,6 +473,7 @@ fi
 EOF
 
 #############################
+# Create the script that allows to delete a site
 cat << 'EOF' > "$directory_name/delete.sh"
 #!/bin/bash
 # Check if an argument has been supplied
@@ -503,6 +509,7 @@ fi
 EOF
 
 #####################################
+# Create the script that allows to update a site
 cat << 'EOF' > "$directory_name/update.sh"
 #!/bin/bash
 
@@ -538,7 +545,8 @@ google-chrome http://localhost:$new_port/
 EOF
 
 # Creation of files for the original site
-#################
+#####################################
+# Create the CSS file
 
 cat << 'EOF' > "$directory_name/template.css"
 /*========================================================================
@@ -1080,6 +1088,7 @@ input[type=text], select {
 EOF
 
 ##################
+# Create the template file which contains the nav-bar and the footer
 cat << 'EOF' > "$directory_name/template.pug"
 html
   head
@@ -1124,6 +1133,7 @@ html
 EOF
 
 ###############
+# Create the index.pug file
 cat << 'EOF' > "$directory_name/index.pug"
 extends template
 block content
@@ -1156,6 +1166,7 @@ block content
 EOF
 
 ###########################
+# Create the create.pug file (in which you can create sites)
 cat << 'EOF' > "$directory_name/create.pug"
 extends template
 block title
@@ -1274,6 +1285,7 @@ block content
 EOF
 
 ################
+# Create the edit.pug file ( in which you can modify your site parameters)
 cat << 'EOF' > "$directory_name/edit.pug"
 extends template
 block title
@@ -1374,7 +1386,7 @@ block content
 EOF
 
 ##################
-
+# Create the list.pug file ( list of created sites)
 cat << 'EOF' > "$directory_name/list.pug"
 extends template
 block title 
@@ -1512,6 +1524,7 @@ block content
 EOF
 
 ##########
+# Create the admin.pug file
 cat << 'EOF' > "$directory_name/admin.pug"
 extends template
 block title
@@ -1573,6 +1586,7 @@ block content
 EOF
 
 ##############
+# Create the settings.pug file ( in case the user wants to change his password)
 cat << 'EOF' > "$directory_name/settings.pug"
 extends template
 block title
@@ -1597,6 +1611,7 @@ block content
 EOF
 
 ###################
+# Create the login.pug file
 cat << 'EOF' > "$directory_name/login.pug"
 extends template
 block content
@@ -1640,6 +1655,7 @@ block content
 EOF
 
 ################
+# Create the registration.pug file
 cat << 'EOF' > "$directory_name/registration.pug"
 extends template
 block content
