@@ -3,6 +3,9 @@
 #This script is an installer that will set up a site from which it will be possible to create and control others in a few clicks. 
 #A certain number of modules and packages will be installed, then the site files as well as the static resources.
 
+# Update the package lists
+sudo apt-get update -y
+
 # Function to check if a command is available
 command_exists() {
   command -v "$1" >/dev/null 2>&1
