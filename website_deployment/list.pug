@@ -59,16 +59,16 @@ block content
           td
             form.form-inline(action='/deleteSite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-red(type='submit', onclick='return confirmDelete()') Delete
+              button.button-style-red(type='submit', onclick='return confirmDelete()', disabled=!isAdmin) Delete
             form.form-inline(action='/stopSite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-yellow(type='submit', onclick='return confirmStop()') Stop
+              button.button-style-yellow(type='submit', onclick='return confirmStop()', disabled=!isAdmin) Stop
             form.form-inline(action='/startSite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button#button-submit(type='submit', onclick='return confirmStart()') Start
+              button#button-submit(type='submit', onclick='return confirmStart()', disabled=!isAdmin) Start
             form.form-inline(action='/deploySite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-blue(type='submit', onclick='return confirmDeploy()') Deploy
+              button.button-style-blue(type='submit', onclick='return confirmDeploy()', disabled=!isAdmin) Deploy
       script.
         document.addEventListener('DOMContentLoaded', function() {
           const executions = document.querySelectorAll('span.netstat');

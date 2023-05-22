@@ -507,13 +507,22 @@ app.post('/updateSite', isAuth, async (req, res) => {
 
 // Handle GET request for '/admin' route
 app.get('/admin', isAuth, isAdmin, async (req, res) => {
+	// Retrieve the token from the request cookies
+	const token = req.cookies.token;
+	// If no token is found, send a 401 Unauthorized response
+	if (!token) return res.status(401).send('Access denied. Please log in.');
 	try {
+		const decoded = jwt.verify(token, `${process.env.SECRET_KEY}`);
+		// Get userIf from the token
+		const userId = decoded.userId;
 		// Retrieve all documents from the 'usersCollection' collection
 		const users = await usersCollection.find({});
 		// Separation of approved and unapproved users in two different tables
 		const unapprovedUsers = [];
 		const approvedUsers = [];
 		for (let user of users) {
+			if (user._id == userId)
+				continue;
 			if (user.approved == false)
 				unapprovedUsers.push(user);
 			if (user.approved == true)
