@@ -60,38 +60,96 @@ echo "body {
 echo "html
 	head
 		meta(charset='utf-8')
-		meta(name='viewport',content='width=device-width,initial-scale=1')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
 		title <LOGO>
-		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
-		link(href='/template.css',rel='stylesheet')
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css', rel='stylesheet')
+		link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel='stylesheet')
+		link(href='/template.css', rel='stylesheet')
 	body
 		.container
-			.row
-				.col.text-center
+			.row.text-center
+				.col
 					h1#title <HEADER>
+			nav.navbar.navbar-expand-lg.navbar-light.bg-light
+				.container-fluid
+					button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+						span.navbar-toggler-icon
+					.collapse.navbar-collapse#navbarNav
+						ul.navbar-nav.ml-auto.mx-auto
+							li.nav-item
+								a.nav-link(href='/page/index')
+									i.fas.fa-home
+									|  Home
+							li.nav-item
+								a.nav-link(href='/pages')
+									i.fas.fa-list-ul
+									|  List
+							li.nav-item
+								a.nav-link(href='/upload')
+									i.fas.fa-cloud-upload-alt
+									|  Upload
+							li.nav-item
+								a.nav-link(href='/files')
+									i.fas.fa-folder-open
+									|  Files
+							li.nav-item
+								a.nav-link(href='/config')
+									i.fas.fa-cog
+									|  Settings
 			.row
 				.col
 					block content
-			div#footer <FOOTER>" > "$directory_name/template"
+			div#footer <FOOTER>
 
+		script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')" > "$directory_name/tempalte"
 
 # Creation of the template.pug file
 echo "html
 	head
 		meta(charset='utf-8')
-		meta(name='viewport',content='width=device-width,initial-scale=1')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
 		title $website_name
-		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
-		link(href='/template.css',rel='stylesheet')
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css', rel='stylesheet')
+		link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel='stylesheet')
+		link(href='/template.css', rel='stylesheet')
 	body
 		.container
-			.row
-				.col.text-center
+			.row.text-center
+				.col
 					h1#title $website_name
+			nav.navbar.navbar-expand-lg.navbar-light.bg-light
+				.container-fluid
+					button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+						span.navbar-toggler-icon
+					.collapse.navbar-collapse#navbarNav
+						ul.navbar-nav.ml-auto.mx-auto
+							li.nav-item
+								a.nav-link(href='/page/index')
+									i.fas.fa-home
+									|  Home
+							li.nav-item
+								a.nav-link(href='/pages')
+									i.fas.fa-list-ul
+									|  List
+							li.nav-item
+								a.nav-link(href='/upload')
+									i.fas.fa-cloud-upload-alt
+									|  Upload
+							li.nav-item
+								a.nav-link(href='/files')
+									i.fas.fa-folder-open
+									|  Files
+							li.nav-item
+								a.nav-link(href='/config')
+									i.fas.fa-cog
+									|  Settings
 			.row
 				.col
 					block content
-			div#footer &copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/template.pug"
+			div#footer &copy; 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
+
+		script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')"> "$directory_name/template.pug"
+
 
 # Creation of the page.pug file
 echo "extends template
@@ -175,6 +233,47 @@ chmod -R a+rwx "$directory_name"/config.sh
 chmod -R a+rwx "$directory_name"/template
 chmod -R a+rwx "$directory_name"/template.pug
 
+# Create index page
+echo "const db = require('monk')('127.0.0.1:27017/toto');
+const pages = db.get('pages');
+
+const createIndexPage = async () => {
+  	try {
+		// Check if the admin account already exists
+		const indexDoc = await pages.findOne({ name: 'index' });
+		if (indexDoc) {
+			console.log('The page already exists.');
+			return;
+		}
+    	const name = 'index';
+    	const content = '# In ora Phaethon ab nisi sine ignem\n\n'
+    		+ '## Facta vertebar nec artes\n\n'
+      		+ 'Lorem markdownum. Alii ornum at ipse ab ferox fontis, ego membris victor\n'
+     		+ 'dicimus, non. **Annua omnibus est** fetu tibi. Ferarum qui fera\n'
+      		+ '[fontibus](http://turris-dixit.com/mox.php), in dabat sinunt quod opus iungere\n'
+      		+ 'corpore. Sororem accessi Susurri **at superas** membra Iuppiter abit protinus,\n'
+     		+ 'et.\n\n'
+     		+ '## Verba quae qui non\n\n'
+      		+ 'Nos virgo, graniferumque auro: suos mensae ferit aquilonibus misit coluit. Et\n'
+      		+ 'lato toro habe, non colubris: Nereida, segnior. Supplex magno qua colla\n';
+
+    	const newPage = {
+      		name: name,
+      		content: content
+    	};
+    	await pages.insert(newPage);
+    	console.log('New page created successfully!');
+  	} catch (err) {
+    	console.error('An error occurred while creating the page:', err);
+  	} finally {
+    	db.close();
+  	}
+};
+
+// Call the function to create a new page
+createIndexPage();" > "$directory_name/createIndexPage.js"
+
+
 # Creation of the serveur.js file
 echo "const express = require('express');
 const app = express();
@@ -239,7 +338,7 @@ app.get('/pagedel/:name',(req,res)=>{
 });
 
 app.get('/',(req,res)=>{
-	res.redirect('/pages');
+	res.redirect('/page/index');
 });
 
 // FILES
@@ -285,6 +384,9 @@ app.listen(port, () => {
 
 # Confirm the creation of the folders
 echo "Site généré dans le répertoire $directory_name."
+
+# Create the index page
+node "$directory_name"/createIndexPage.js 
 
 # Launch the service
 node "$directory_name"/server.js &
