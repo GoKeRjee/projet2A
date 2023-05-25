@@ -234,7 +234,7 @@ chmod -R a+rwx "$directory_name"/template
 chmod -R a+rwx "$directory_name"/template.pug
 
 # Create index page
-echo "const db = require('monk')('127.0.0.1:27017/toto');
+echo "const db = require('monk')('127.0.0.1:27017/$db_name');
 const pages = db.get('pages');
 
 const createIndexPage = async () => {
