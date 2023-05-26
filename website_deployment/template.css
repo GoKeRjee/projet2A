@@ -278,6 +278,7 @@ h1{
                           Index styling
 =======================================================================*/
 #welcome-message{
+	position: relative;
 	flex: 1;
 	flex-grow: 6;
 	flex-basis: 50%;
@@ -310,8 +311,8 @@ h1{
 	width: 90px;
 	height: 80px;
 	position: absolute;
-	margin-left: 870px;
-	margin-top: -20px;
+	top: 0;
+	right: 0;
 }
 
 #inge-me{
@@ -508,6 +509,7 @@ input[type=text], select {
 
 .index-container {
 	display: flex;
+	position: relative;
 	justify-content: space-between;
 	align-items: flex-start;
 	margin-left: 1%;
