@@ -472,4 +472,4 @@ node "$directory_name"/createIndexPage.js
 # Launch the service
 node "$directory_name"/server.js &
 sleep 2
-google-chrome http://localhost:$port/
+firefox http://localhost:$port/

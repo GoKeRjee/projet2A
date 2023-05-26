@@ -411,7 +411,7 @@ echo "Site généré dans le répertoire $directory_name."
 # Launch the service
 node "$directory_name"/server.js &
 sleep 2
-google-chrome http://localhost:$port/
+firefox http://localhost:$port/
 EOF
 
 #########################################
@@ -432,7 +432,7 @@ port="$2"
 # Start the server.js script
 node "$directory_name"/server.js & 
 sleep 2
-google-chrome http://localhost:$port/
+firefox http://localhost:$port/
 EOF
 
 ######################
@@ -531,7 +531,7 @@ sed -i "s/\(^[\t ]*title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
 # Start the site with the new port
 node "$directory/server.js" &
 sleep 2
-google-chrome http://localhost:$new_port/
+firefox http://localhost:$new_port/
 EOF
 
 # Creation of files for the original site

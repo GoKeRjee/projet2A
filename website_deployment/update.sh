@@ -28,4 +28,4 @@ sed -i "s/\(^[\t ]*title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
 # Start the site with the new port
 node "$directory/server.js" &
 sleep 2
-google-chrome http://localhost:$new_port/
+firefox http://localhost:$new_port/
