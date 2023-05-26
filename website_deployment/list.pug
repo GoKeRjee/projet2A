@@ -68,7 +68,7 @@ block content
               button#button-submit(type='submit', onclick='return confirmStart()', disabled=!isAdmin) Start
             form.form-inline(action='/deploySite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-blue(type='submit', onclick='return confirmDeploy()', disabled=!isAdmin) Deploy
+              button.button-style-blue(type='submit', onclick='return confirmDeploy()', disabled=true) Deploy
       script.
         document.addEventListener('DOMContentLoaded', function() {
           const executions = document.querySelectorAll('span.netstat');

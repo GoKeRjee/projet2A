@@ -29,28 +29,110 @@ npm install monk --save
 cd ../
 
 # Creation of the css template file
-echo "body {
-	background: rgb(255, 255, 255);
+echo "/*========================================================================
+                         Body Configuration
+========================================================================*/
+body {
+	font-family: sans-serif;
+	background-color: #E4E4E4;
 	color: rgb(19, 1, 1);
 	font-size: larger; 
 }
 
+/*========================================================================
+                         Body content
+========================================================================*/
+
 .container {
-	max-width: 800px;
+	max-width: 1000px;
 }
 
 #title {
 	height: 85px;
 	margin-top: 20px;
-	margin-bottom: 20px;
 	padding-top: 20px;
 	border: 1px solid;
+	background-color: #333;
+	color: white;
+	font-family: Arial, sans-serif;
+    font-size: 2.5em;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    line-height: 1.2;
 }
 
-#footer{
+.row {
+	margin-top: 20px;
+}
+
+.form-group{
+	margin-top : 15px;
+}
+
+/*======================================================================
+                          Button styling
+=======================================================================*/
+.btn.btn-link{
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 13px;
+	margin: 30px auto;
+	display: block;
+	text-decoration: none;
+	font-size: 16px;
+	text-align: center;
+}
+
+.btn.btn-link:hover{
+	filter: brightness(0.85);
+}
+
+.btn-blue{
+	background-color: #008CBA; /* Blue */
+	border: none;
+	color: white;
+	padding: 10px 13px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+.btn-blue:hover{
+	filter: brightness(0.85);
+}
+
+.btn-delete {
+	margin-left: 5px;
+    display: inline-block;
+    color: red;
+    padding: 10px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.btn-delete:hover {
+    transform: scale(1.1);
+}
+
+.btn-delete i {
+    margin-right: 5px;
+}
+
+
+/*========================================================================
+                         Footer styling
+========================================================================*/
+
+#footer {
 	text-align: center;
 	padding: 20px;
-	color: dark;
+	background-color: #333;
+	color: white;
 	margin-top : 15px;
 	bottom: 0; left: 0; right: 0;
 	position: fixed;
@@ -155,7 +237,7 @@ echo "html
 echo "extends template
 block content
 	!= content
-	a(href='/pageedit/'+name) edit" > "$directory_name/page.pug"
+	a(href='/pageedit/'+name, class='btn-blue') edit" > "$directory_name/page.pug"
 
 # Creation of the pageedit.pug file
 echo "extends template
@@ -172,11 +254,10 @@ block content
 		each page in pages
 			li
 				a(href='/page/'+page.name)=page.name
-				|  (
-				a(href='/pagedel/'+page.name) del
-				| )
+				a(href='/pagedel/'+page.name, class='btn-delete')
+					i.fas.fa-trash
 		li(style='list-style-type:none')
-			a(href='/pagenew') new" > "$directory_name/pages.pug"
+			a(href='/pagenew', class='btn-blue') new page" > "$directory_name/pages.pug"
 
 # Creation of the pagenew.pug file
 echo "extends template
@@ -198,7 +279,7 @@ block content
 			li
 				a(href='/'+file)=file
 		li(style='list-style-type:none')
-			a(href='/upload') upload" > "$directory_name/files.pug"
+			a(href='/upload', class='btn-blue') upload" > "$directory_name/files.pug"
 
 # Creation of the upload.pug file
 echo "extends template
@@ -245,17 +326,17 @@ const createIndexPage = async () => {
 			console.log('The page already exists.');
 			return;
 		}
-    	const name = 'index';
-    	const content = '# In ora Phaethon ab nisi sine ignem\n\n'
-    		+ '## Facta vertebar nec artes\n\n'
-      		+ 'Lorem markdownum. Alii ornum at ipse ab ferox fontis, ego membris victor\n'
-     		+ 'dicimus, non. **Annua omnibus est** fetu tibi. Ferarum qui fera\n'
-      		+ '[fontibus](http://turris-dixit.com/mox.php), in dabat sinunt quod opus iungere\n'
-      		+ 'corpore. Sororem accessi Susurri **at superas** membra Iuppiter abit protinus,\n'
-     		+ 'et.\n\n'
-     		+ '## Verba quae qui non\n\n'
-      		+ 'Nos virgo, graniferumque auro: suos mensae ferit aquilonibus misit coluit. Et\n'
-      		+ 'lato toro habe, non colubris: Nereida, segnior. Supplex magno qua colla\n';
+		const name = 'index';
+		const content = '# Welcome to your new site!\n\n'
+			+ '## Website guide\n\n'
+			+ 'There is a navigation menu above from which you can navigate through the pages:\n'
+			+ '- the home section will bring you back to the homepage.\n'
+			+ '- the list section will redirect you to a page that will exhaustively list your page creations.\n'
+			+ '- the upload page allows you to upload files to the site.\n'
+			+ '- the files section is a list of the files that make up your site.\n'
+			+ '- finally, the settings section will allow you to change general information about your site such as the site logo, the site name, etc.\n\n'
+			+ '## Let\'s start!\n\n'
+			+ 'You can start personalizing your site by editing your welcome message or by going to the list section to create a new page';
 
     	const newPage = {
       		name: name,
