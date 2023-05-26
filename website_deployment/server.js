@@ -186,6 +186,21 @@ app.get('/isDbNameUsed/:dbname', isAuth, async (req, res) => {
 	}
 });
 
+// Handle GET request to check if a directory name is used
+app.get('/isDirectoryNameUsed/:dtname', isAuth, async (req, res) => {
+	try {
+	  	const dtname = req.params.directory;
+	  	// Check if a site with the specified directory name exists in the database
+	  	const dtnameExists = await sitesCollection.findOne({ dtname });
+	  	// Return a JSON response indicating whether the directory name is used or not
+	  	res.json({ dtnameUsed: !!dtnameExists });
+	} catch (err) {
+	  	console.error('Error checking directory name availability:', err);
+	  	// Return a 500 Internal Server Error response if an error occurs
+	  	res.status(500).json({ dtnameUsed: false });
+	}
+});
+
 // Handle GET request for '/login' route
 app.get('/login', isNotAuth, (req, res) => {
 	res.render('login', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
