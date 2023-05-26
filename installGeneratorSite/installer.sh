@@ -85,25 +85,12 @@ else
   echo "fuser is already installed."
 fi
 
-# Check if Google Chrome is installed
-if ! command_exists google-chrome-stable; then
-  echo "Google Chrome is not installed. Installing..."
-  # Install Google Chrome
-  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  sudo dpkg -i google-chrome-stable_current_amd64.deb
-  sudo apt-get install -f
-  rm google-chrome-stable_current_amd64.deb
-else
-  echo "Google Chrome is already installed."
-fi
-
 # Check installed versions
 echo "Installed versions:"
 mongod --version
 node --version
 npm --version
 fuser --version
-google-chrome-stable --version
 
 # Start the MongoDB service
 sudo systemctl start mongod
@@ -2457,4 +2444,4 @@ node "$directory_name"/createAdmin.js
 cd "$directory_name"/
 node server.js &
 sleep 2
-google-chrome http://localhost:3030/
+firefox http://localhost:3030/
