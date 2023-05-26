@@ -14,4 +14,3 @@ port="$2"
 node "$directory_name"/server.js & 
 sleep 2
 firefox http://localhost:$port/
-

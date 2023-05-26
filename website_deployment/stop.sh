@@ -16,7 +16,7 @@ pid=$(fuser -n tcp -k $port 2> /dev/null)
 # Check if the process has been found and killed
 if [ -n "$pid" ]
 then
-  echo "Processus arrêté avec succès (PID : $pid)"
+  echo "Process stopped successfully (PID: $pid)"
 else
-  echo "Aucun processus en cours d'exécution sur le port $port"
+  echo "No processes running on the port $port"
 fi

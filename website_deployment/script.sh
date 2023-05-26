@@ -183,7 +183,7 @@ echo "html
 					block content
 			div#footer <FOOTER>
 
-		script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')" > "$directory_name/tempalte"
+		script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')" > "$directory_name/template"
 
 # Creation of the template.pug file
 echo "html
