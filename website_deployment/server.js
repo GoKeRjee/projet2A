@@ -186,6 +186,21 @@ app.get('/isDbNameUsed/:dbname', isAuth, async (req, res) => {
 	}
 });
 
+// Handle GET request to check if a directory name is used
+app.get('/isDirectoryNameUsed/:dtname', isAuth, async (req, res) => {
+	try {
+	  	const dtname = req.params.directory;
+	  	// Check if a site with the specified directory name exists in the database
+	  	const dtnameExists = await sitesCollection.findOne({ dtname });
+	  	// Return a JSON response indicating whether the directory name is used or not
+	  	res.json({ dtnameUsed: !!dtnameExists });
+	} catch (err) {
+	  	console.error('Error checking directory name availability:', err);
+	  	// Return a 500 Internal Server Error response if an error occurs
+	  	res.status(500).json({ dtnameUsed: false });
+	}
+});
+
 // Handle GET request for '/login' route
 app.get('/login', isNotAuth, (req, res) => {
 	res.render('login', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
@@ -356,68 +371,77 @@ app.get('/list', isAuth, async (req, res) => {
 });
 
 // Handle POST request for '/deleteSite' route
-app.post('/deleteSite', isAuth, (req, res) => {
+app.post('/deleteSite', isAuth, async (req, res) => {
 	// Extract the value of 'id' from the request body
 	const id = req.body.id;
-	// Find the site by its ID in the sites collection
-	sitesCollection.findOne({ _id: id })
-		.then((site) => {
-			const directory = site.directory;
-			const portSite = site.port;
-			// Execute a shell command to stop the site using the specified port
-			exec(root + '/stop.sh ' + portSite);
-			// Execute a shell command to delete the site directory
-			exec(root + '/delete.sh ' + directory);
-			// Remove the site from the sites collection
-			sitesCollection.remove({ _id: id }, function (err) {
-				if (err) throw err;
-				res.redirect('list');
-			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		// Find the site by its ID in the sites collection	
+		const site = await sitesCollection.findOne({ _id: id });
+		const directory = site.directory;
+		const portSite = site.port;
+		const dbSiteName = site.dbname;
+		// Execute a shell command to stop the site using the specified port
+		exec(root + '/stop.sh ' + portSite);
+		// Execute a shell command to delete the site directory
+		exec(root + '/delete.sh ' + directory);
+		// Remove the site db
+		const MongoClient = require('mongodb').MongoClient;
+		const mongoURL = 'mongodb://127.0.0.1:27017/' + dbSiteName;
+		const client = new MongoClient(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
+		// Connect to the MongoDB server
+		await client.connect();
+		// Access the database
+		const dbSite = client.db();
+		// Drop the database associated with the site
+		await dbSite.dropDatabase();
+		// Close the database connection
+		await client.close();
+		// Remove the site from the sites collection
+		await sitesCollection.remove({ _id: id });
+		// Redirect to the 'list' page
+		res.redirect('list');
+	} catch (err) {
+	  	console.error(err);
+	}
 });
 
 // Handle POST request for '/stopSite' route
-app.post('/stopSite', isAuth, (req, res) => {
+app.post('/stopSite', isAuth, async (req, res) => {
 	// Extract the value of 'id' from the request body
 	const id = req.body.id;
-	// Find the site by its ID in the sites collection
-	sitesCollection.findOne({ _id: id })
-		.then((site) => {
-			const portSite = site.port;
-			// Execute a shell command to stop the site using the specified port
-			exec(root + '/stop.sh ' + portSite);
-			// Delay the redirect to the 'list' page by 1 second
-			setTimeout(function() {
-				res.redirect('list');
-			}, 1000);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		// Find the site by its ID in the sites collection
+		const site = await sitesCollection.findOne({ _id: id });
+		const portSite = site.port;
+		// Execute a shell command to stop the site using the specified port
+		exec(root + '/stop.sh ' + portSite);
+		// Delay the redirect to the 'list' page by 1 second
+		setTimeout(function() {
+			res.redirect('list');
+		}, 1000);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 // Handle POST request for '/startSite' route
-app.post('/startSite', isAuth, (req, res) => {
+app.post('/startSite', isAuth, async (req, res) => {
 	// Extract the value of 'id' from the request body
 	const id = req.body.id;
-	// Find the site by its ID in the sites collection
-	sitesCollection.findOne({ _id: id })
-		.then((site) => {
-			const directory = site.directory;
-			const portSite = site.port;
-			// Execute a shell command to start the site using the specified directory and port
-			exec(root + '/start.sh ' + directory + ' ' + portSite);
-			// Delay the redirect to the 'list' page by 1 second
-			setTimeout(function() {
-				res.redirect('list');
-			}, 1000);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		// Find the site by its ID in the sites collection
+		const site = await sitesCollection.findOne({ _id: id })
+		const directory = site.directory;
+		const portSite = site.port;
+		// Execute a shell command to start the site using the specified directory and port
+		exec(root + '/start.sh ' + directory + ' ' + portSite);
+		// Delay the redirect to the 'list' page by 1 second
+		setTimeout(function() {
+			res.redirect('list');
+		}, 1000);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 const isPortUsed = (port) => {

@@ -13,5 +13,4 @@ port="$2"
 # Start the server.js script
 node "$directory_name"/server.js & 
 sleep 2
-google-chrome http://localhost:$port/
-
+firefox http://localhost:$port/

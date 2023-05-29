@@ -85,25 +85,12 @@ else
   echo "fuser is already installed."
 fi
 
-# Check if Google Chrome is installed
-if ! command_exists google-chrome-stable; then
-  echo "Google Chrome is not installed. Installing..."
-  # Install Google Chrome
-  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  sudo dpkg -i google-chrome-stable_current_amd64.deb
-  sudo apt-get install -f
-  rm google-chrome-stable_current_amd64.deb
-else
-  echo "Google Chrome is already installed."
-fi
-
 # Check installed versions
 echo "Installed versions:"
 mongod --version
 node --version
 npm --version
 fuser --version
-google-chrome-stable --version
 
 # Start the MongoDB service
 sudo systemctl start mongod
@@ -164,28 +151,110 @@ npm install monk --save
 cd ../
 
 # Creation of the css template file
-echo "body {
-	background: rgb(255, 255, 255);
+echo "/*========================================================================
+                         Body Configuration
+========================================================================*/
+body {
+	font-family: sans-serif;
+	background-color: #E4E4E4;
 	color: rgb(19, 1, 1);
 	font-size: larger; 
 }
 
+/*========================================================================
+                         Body content
+========================================================================*/
+
 .container {
-	max-width: 800px;
+	max-width: 1000px;
 }
 
 #title {
 	height: 85px;
 	margin-top: 20px;
-	margin-bottom: 20px;
 	padding-top: 20px;
 	border: 1px solid;
+	background-color: #333;
+	color: white;
+	font-family: Arial, sans-serif;
+    font-size: 2.5em;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    line-height: 1.2;
 }
 
-#footer{
+.row {
+	margin-top: 20px;
+}
+
+.form-group{
+	margin-top : 15px;
+}
+
+/*======================================================================
+                          Button styling
+=======================================================================*/
+.btn.btn-link{
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 13px;
+	margin: 30px auto;
+	display: block;
+	text-decoration: none;
+	font-size: 16px;
+	text-align: center;
+}
+
+.btn.btn-link:hover{
+	filter: brightness(0.85);
+}
+
+.btn-blue{
+	background-color: #008CBA; /* Blue */
+	border: none;
+	color: white;
+	padding: 10px 13px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+.btn-blue:hover{
+	filter: brightness(0.85);
+}
+
+.btn-delete {
+	margin-left: 5px;
+    display: inline-block;
+    color: red;
+    padding: 10px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.btn-delete:hover {
+    transform: scale(1.1);
+}
+
+.btn-delete i {
+    margin-right: 5px;
+}
+
+
+/*========================================================================
+                         Footer styling
+========================================================================*/
+
+#footer {
 	text-align: center;
 	padding: 20px;
-	color: dark;
+	background-color: #333;
+	color: white;
 	margin-top : 15px;
 	bottom: 0; left: 0; right: 0;
 	position: fixed;
@@ -195,44 +264,102 @@ echo "body {
 echo "html
 	head
 		meta(charset='utf-8')
-		meta(name='viewport',content='width=device-width,initial-scale=1')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
 		title <LOGO>
-		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
-		link(href='/template.css',rel='stylesheet')
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css', rel='stylesheet')
+		link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel='stylesheet')
+		link(href='/template.css', rel='stylesheet')
 	body
 		.container
-			.row
-				.col.text-center
+			.row.text-center
+				.col
 					h1#title <HEADER>
+			nav.navbar.navbar-expand-lg.navbar-light.bg-light
+				.container-fluid
+					button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+						span.navbar-toggler-icon
+					.collapse.navbar-collapse#navbarNav
+						ul.navbar-nav.ml-auto.mx-auto
+							li.nav-item
+								a.nav-link(href='/page/index')
+									i.fas.fa-home
+									|  Home
+							li.nav-item
+								a.nav-link(href='/pages')
+									i.fas.fa-list-ul
+									|  List
+							li.nav-item
+								a.nav-link(href='/upload')
+									i.fas.fa-cloud-upload-alt
+									|  Upload
+							li.nav-item
+								a.nav-link(href='/files')
+									i.fas.fa-folder-open
+									|  Files
+							li.nav-item
+								a.nav-link(href='/config')
+									i.fas.fa-cog
+									|  Settings
 			.row
 				.col
 					block content
-			div#footer <FOOTER>" > "$directory_name/template"
+			div#footer <FOOTER>
 
+		script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')" > "$directory_name/template"
 
 # Creation of the template.pug file
 echo "html
 	head
 		meta(charset='utf-8')
-		meta(name='viewport',content='width=device-width,initial-scale=1')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
 		title $website_name
-		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css',rel='stylesheet')
-		link(href='/template.css',rel='stylesheet')
+		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css', rel='stylesheet')
+		link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel='stylesheet')
+		link(href='/template.css', rel='stylesheet')
 	body
 		.container
-			.row
-				.col.text-center
+			.row.text-center
+				.col
 					h1#title $website_name
+			nav.navbar.navbar-expand-lg.navbar-light.bg-light
+				.container-fluid
+					button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+						span.navbar-toggler-icon
+					.collapse.navbar-collapse#navbarNav
+						ul.navbar-nav.ml-auto.mx-auto
+							li.nav-item
+								a.nav-link(href='/page/index')
+									i.fas.fa-home
+									|  Home
+							li.nav-item
+								a.nav-link(href='/pages')
+									i.fas.fa-list-ul
+									|  List
+							li.nav-item
+								a.nav-link(href='/upload')
+									i.fas.fa-cloud-upload-alt
+									|  Upload
+							li.nav-item
+								a.nav-link(href='/files')
+									i.fas.fa-folder-open
+									|  Files
+							li.nav-item
+								a.nav-link(href='/config')
+									i.fas.fa-cog
+									|  Settings
 			.row
 				.col
 					block content
-			div#footer &copy; Copyright 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr" > "$directory_name/template.pug"
+			div#footer &copy; 2023 - albi.grainca@uha.fr - batuhan.goker@uha.fr
+
+		script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js')"> "$directory_name/template.pug"
+
 
 # Creation of the page.pug file
 echo "extends template
 block content
 	!= content
-	a(href='/pageedit/'+name) edit" > "$directory_name/page.pug"
+	a(href='/pageedit/'+name, class='btn-blue') edit" > "$directory_name/page.pug"
 
 # Creation of the pageedit.pug file
 echo "extends template
@@ -249,11 +376,10 @@ block content
 		each page in pages
 			li
 				a(href='/page/'+page.name)=page.name
-				|  (
-				a(href='/pagedel/'+page.name) del
-				| )
+				a(href='/pagedel/'+page.name, class='btn-delete')
+					i.fas.fa-trash
 		li(style='list-style-type:none')
-			a(href='/pagenew') new" > "$directory_name/pages.pug"
+			a(href='/pagenew', class='btn-blue') new page" > "$directory_name/pages.pug"
 
 # Creation of the pagenew.pug file
 echo "extends template
@@ -275,7 +401,7 @@ block content
 			li
 				a(href='/'+file)=file
 		li(style='list-style-type:none')
-			a(href='/upload') upload" > "$directory_name/files.pug"
+			a(href='/upload', class='btn-blue') upload" > "$directory_name/files.pug"
 
 # Creation of the upload.pug file
 echo "extends template
@@ -309,6 +435,47 @@ block content
 chmod -R a+rwx "$directory_name"/config.sh
 chmod -R a+rwx "$directory_name"/template
 chmod -R a+rwx "$directory_name"/template.pug
+
+# Create index page
+echo "const db = require('monk')('127.0.0.1:27017/$db_name');
+const pages = db.get('pages');
+
+const createIndexPage = async () => {
+  	try {
+		// Check if the admin account already exists
+		const indexDoc = await pages.findOne({ name: 'index' });
+		if (indexDoc) {
+			console.log('The page already exists.');
+			return;
+		}
+		const name = 'index';
+		const content = '# Welcome to your new site!\n\n'
+			+ '## Website guide\n\n'
+			+ 'There is a navigation menu above from which you can navigate through the pages:\n'
+			+ '- the home section will bring you back to the homepage.\n'
+			+ '- the list section will redirect you to a page that will exhaustively list your page creations.\n'
+			+ '- the upload page allows you to upload files to the site.\n'
+			+ '- the files section is a list of the files that make up your site.\n'
+			+ '- finally, the settings section will allow you to change general information about your site such as the site logo, the site name, etc.\n\n'
+			+ '## Let\'s start!\n\n'
+			+ 'You can start personalizing your site by editing your welcome message or by going to the list section to create a new page';
+
+    	const newPage = {
+      		name: name,
+      		content: content
+    	};
+    	await pages.insert(newPage);
+    	console.log('New page created successfully!');
+  	} catch (err) {
+    	console.error('An error occurred while creating the page:', err);
+  	} finally {
+    	db.close();
+  	}
+};
+
+// Call the function to create a new page
+createIndexPage();" > "$directory_name/createIndexPage.js"
+
 
 # Creation of the serveur.js file
 echo "const express = require('express');
@@ -374,7 +541,7 @@ app.get('/pagedel/:name',(req,res)=>{
 });
 
 app.get('/',(req,res)=>{
-	res.redirect('/pages');
+	res.redirect('/page/index');
 });
 
 // FILES
@@ -421,10 +588,13 @@ app.listen(port, () => {
 # Confirm the creation of the folders
 echo "Site généré dans le répertoire $directory_name."
 
+# Create the index page
+node "$directory_name"/createIndexPage.js 
+
 # Launch the service
 node "$directory_name"/server.js &
 sleep 2
-google-chrome http://localhost:$port/
+firefox http://localhost:$port/
 EOF
 
 #########################################
@@ -445,7 +615,7 @@ port="$2"
 # Start the server.js script
 node "$directory_name"/server.js & 
 sleep 2
-google-chrome http://localhost:$port/
+firefox http://localhost:$port/
 EOF
 
 ######################
@@ -469,9 +639,9 @@ pid=$(fuser -n tcp -k $port 2> /dev/null)
 # Check if the process has been found and killed
 if [ -n "$pid" ]
 then
-  echo "Processus arrêté avec succès (PID : $pid)"
+  echo "Process stopped successfully (PID: $pid)"
 else
-  echo "Aucun processus en cours d'exécution sur le port $port"
+  echo "No processes running on the port $port"
 fi
 EOF
 
@@ -479,6 +649,7 @@ EOF
 # Create the script that allows to delete a site
 cat << 'EOF' > "$directory_name/delete.sh"
 #!/bin/bash
+
 # Check if an argument has been supplied
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <directory_to_delete>"
@@ -544,7 +715,7 @@ sed -i "s/\(^[\t ]*title\).*\$/\1 $escaped_new_name/" "$directory/template.pug"
 # Start the site with the new port
 node "$directory/server.js" &
 sleep 2
-google-chrome http://localhost:$new_port/
+firefox http://localhost:$new_port/
 EOF
 
 # Creation of files for the original site
@@ -1196,7 +1367,8 @@ block content
   div.form
     form(onsubmit='submitForm(event)', action='/createSite', method='POST')
       label(for='directory') Directory name:
-      input#directory(type='text', name='directory', pattern='[A-Za-z0-9_-]+', placeholder="Example: my_new_site", onfocus="this.placeholder = ''", title="Special characters and spaces are not accepted", class='form-control', required)
+      input#directory(type='text', name='directory', pattern='[A-Za-z0-9_-]+', placeholder="Example: my_new_site", onfocus="this.placeholder = ''", title="Special characters and spaces are not accepted", class='form-control', onblur='checkDirectoryNameAvailability(event)', required)
+      span#error-message-directory
       br
       label(for='name') Website name:
       input#name(type='text', name='name', placeholder="Example: my new site!", onfocus="this.placeholder = ''", title="Enter the desired site name", class='form-control', onblur='checkSiteNameAvailability(event)', required)
@@ -1215,20 +1387,46 @@ block content
         function submitForm(event) {
           event.preventDefault();
 
+          const directoryInput = document.querySelector('#directory');
           const portInput = document.querySelector('#port');
           const nameInput = document.querySelector('#name');
           const dbnameInput = document.querySelector('#dbname');
 
-          // Check if port and name are valid
+          // Check the validity of inputs
+          const directoryValid = directoryInput.style.borderColor !== 'red';
           const portValid = portInput.style.borderColor !== 'red';
           const nameValid = nameInput.style.borderColor !== 'red';
           const dbnameValid = dbnameInput.style.borderColor !== 'red';
 
-          if (portValid && nameValid && dbnameValid) {
+          if (directoryValid && portValid && nameValid && dbnameValid) {
             alert('Wait a few seconds, your site is being created. This operation may take several seconds.');
             event.target.submit();
           } else {
             alert('Please correct the errors in the form before submitting.');
+          }
+        }
+
+        async function checkDirectoryNameAvailability(event){
+          const dtnameInput = event.target;
+          const dtname = dtnameInput.value;
+          const errorMessageSpan = document.querySelector('#error-message-directory');
+
+          if (dtname) {
+            try {
+              const response = await fetch(`/isDirectoryNameUsed/${encodeURIComponent(dtname)}`);
+              const data = await response.json();
+
+              if (data.dtnameUsed) {
+                dtnameInput.style.borderColor = 'red';
+                errorMessageSpan.textContent = 'Directory name already used';
+                errorMessageSpan.style.color = 'red';
+              } else {
+                dtnameInput.style.borderColor = 'green';
+                errorMessageSpan.textContent = '';
+              }
+            } catch (error) {
+              console.error('Error checking directory name availability:', error);
+            }
           }
         }
 
@@ -1327,7 +1525,7 @@ block content
         input(type='text', name='name', id='name', placeholder="Example: my new site!", onfocus="this.placeholder = ''", onblur='checkSiteNameAvailability(event)', required)
         span#error-message-name
         label(for="port") New Port:
-        input(type='text', name='port', id='port', pattern='^([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$',  placeholder="Example: 2030", onfocus="this.placeholder = ''", onblur='checkPortAvailability(event)', required)
+        input(type='text', name='port', id='port', pattern='^(?!3030)([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$',  placeholder="Example: 2030", onfocus="this.placeholder = ''", onblur='checkPortAvailability(event)', required)
         span#error-message-port
         input(type='submit', value='Update Site')
 
@@ -1479,7 +1677,7 @@ block content
               button#button-submit(type='submit', onclick='return confirmStart()', disabled=!isAdmin) Start
             form.form-inline(action='/deploySite', method='post')
               input(type='hidden', name='id', value=site._id)
-              button.button-style-blue(type='submit', onclick='return confirmDeploy()', disabled=!isAdmin) Deploy
+              button.button-style-blue(type='submit', onclick='return confirmDeploy()', disabled=true) Deploy
       script.
         document.addEventListener('DOMContentLoaded', function() {
           const executions = document.querySelectorAll('span.netstat');
@@ -1715,7 +1913,6 @@ EOF
 
 ############
 
-
 # Give all permisions for this files
 
 chmod -R a+rwx "$directory_name"
@@ -1911,6 +2108,21 @@ app.get('/isDbNameUsed/:dbname', isAuth, async (req, res) => {
 	}
 });
 
+// Handle GET request to check if a directory name is used
+app.get('/isDirectoryNameUsed/:dtname', isAuth, async (req, res) => {
+	try {
+	  	const dtname = req.params.directory;
+	  	// Check if a site with the specified directory name exists in the database
+	  	const dtnameExists = await sitesCollection.findOne({ dtname });
+	  	// Return a JSON response indicating whether the directory name is used or not
+	  	res.json({ dtnameUsed: !!dtnameExists });
+	} catch (err) {
+	  	console.error('Error checking directory name availability:', err);
+	  	// Return a 500 Internal Server Error response if an error occurs
+	  	res.status(500).json({ dtnameUsed: false });
+	}
+});
+
 // Handle GET request for '/login' route
 app.get('/login', isNotAuth, (req, res) => {
 	res.render('login', { isAuthenticated: req.isAuthenticated, isAdmin: req.isAdmin });
@@ -2081,68 +2293,77 @@ app.get('/list', isAuth, async (req, res) => {
 });
 
 // Handle POST request for '/deleteSite' route
-app.post('/deleteSite', isAuth, (req, res) => {
+app.post('/deleteSite', isAuth, async (req, res) => {
 	// Extract the value of 'id' from the request body
 	const id = req.body.id;
-	// Find the site by its ID in the sites collection
-	sitesCollection.findOne({ _id: id })
-		.then((site) => {
-			const directory = site.directory;
-			const portSite = site.port;
-			// Execute a shell command to stop the site using the specified port
-			exec(root + '/stop.sh ' + portSite);
-			// Execute a shell command to delete the site directory
-			exec(root + '/delete.sh ' + directory);
-			// Remove the site from the sites collection
-			sitesCollection.remove({ _id: id }, function (err) {
-				if (err) throw err;
-				res.redirect('list');
-			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		// Find the site by its ID in the sites collection	
+		const site = await sitesCollection.findOne({ _id: id });
+		const directory = site.directory;
+		const portSite = site.port;
+		const dbSiteName = site.dbname;
+		// Execute a shell command to stop the site using the specified port
+		exec(root + '/stop.sh ' + portSite);
+		// Execute a shell command to delete the site directory
+		exec(root + '/delete.sh ' + directory);
+		// Remove the site db
+		const MongoClient = require('mongodb').MongoClient;
+		const mongoURL = 'mongodb://127.0.0.1:27017/' + dbSiteName;
+		const client = new MongoClient(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
+		// Connect to the MongoDB server
+		await client.connect();
+		// Access the database
+		const dbSite = client.db();
+		// Drop the database associated with the site
+		await dbSite.dropDatabase();
+		// Close the database connection
+		await client.close();
+		// Remove the site from the sites collection
+		await sitesCollection.remove({ _id: id });
+		// Redirect to the 'list' page
+		res.redirect('list');
+	} catch (err) {
+	  	console.error(err);
+	}
 });
 
 // Handle POST request for '/stopSite' route
-app.post('/stopSite', isAuth, (req, res) => {
+app.post('/stopSite', isAuth, async (req, res) => {
 	// Extract the value of 'id' from the request body
 	const id = req.body.id;
-	// Find the site by its ID in the sites collection
-	sitesCollection.findOne({ _id: id })
-		.then((site) => {
-			const portSite = site.port;
-			// Execute a shell command to stop the site using the specified port
-			exec(root + '/stop.sh ' + portSite);
-			// Delay the redirect to the 'list' page by 1 second
-			setTimeout(function() {
-				res.redirect('list');
-			}, 1000);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		// Find the site by its ID in the sites collection
+		const site = await sitesCollection.findOne({ _id: id });
+		const portSite = site.port;
+		// Execute a shell command to stop the site using the specified port
+		exec(root + '/stop.sh ' + portSite);
+		// Delay the redirect to the 'list' page by 1 second
+		setTimeout(function() {
+			res.redirect('list');
+		}, 1000);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 // Handle POST request for '/startSite' route
-app.post('/startSite', isAuth, (req, res) => {
+app.post('/startSite', isAuth, async (req, res) => {
 	// Extract the value of 'id' from the request body
 	const id = req.body.id;
-	// Find the site by its ID in the sites collection
-	sitesCollection.findOne({ _id: id })
-		.then((site) => {
-			const directory = site.directory;
-			const portSite = site.port;
-			// Execute a shell command to start the site using the specified directory and port
-			exec(root + '/start.sh ' + directory + ' ' + portSite);
-			// Delay the redirect to the 'list' page by 1 second
-			setTimeout(function() {
-				res.redirect('list');
-			}, 1000);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
+		// Find the site by its ID in the sites collection
+		const site = await sitesCollection.findOne({ _id: id })
+		const directory = site.directory;
+		const portSite = site.port;
+		// Execute a shell command to start the site using the specified directory and port
+		exec(root + '/start.sh ' + directory + ' ' + portSite);
+		// Delay the redirect to the 'list' page by 1 second
+		setTimeout(function() {
+			res.redirect('list');
+		}, 1000);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 const isPortUsed = (port) => {
@@ -2232,12 +2453,12 @@ app.post('/updateSite', isAuth, async (req, res) => {
 
 // Handle GET request for '/admin' route
 app.get('/admin', isAuth, isAdmin, async (req, res) => {
-  // Retrieve the token from the request cookies
+	// Retrieve the token from the request cookies
 	const token = req.cookies.token;
 	// If no token is found, send a 401 Unauthorized response
 	if (!token) return res.status(401).send('Access denied. Please log in.');
 	try {
-    // Verify the token using the secret key
+		// Verify the token using the secret key
 		const decoded = jwt.verify(token, `${process.env.SECRET_KEY}`);
 		// Get userIf from the token
 		const userId = decoded.userId;
@@ -2247,7 +2468,7 @@ app.get('/admin', isAuth, isAdmin, async (req, res) => {
 		const unapprovedUsers = [];
 		const approvedUsers = [];
 		for (let user of users) {
-      if (user._id == userId)
+			if (user._id == userId)
 				continue;
 			if (user.approved == false)
 				unapprovedUsers.push(user);
@@ -2448,4 +2669,4 @@ node "$directory_name"/createAdmin.js
 cd "$directory_name"/
 node server.js &
 sleep 2
-google-chrome http://localhost:3030/
+firefox http://localhost:3030/

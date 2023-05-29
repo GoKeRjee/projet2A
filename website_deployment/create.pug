@@ -5,7 +5,8 @@ block content
   div.form
     form(onsubmit='submitForm(event)', action='/createSite', method='POST')
       label(for='directory') Directory name:
-      input#directory(type='text', name='directory', pattern='[A-Za-z0-9_-]+', placeholder="Example: my_new_site", onfocus="this.placeholder = ''", title="Special characters and spaces are not accepted", class='form-control', required)
+      input#directory(type='text', name='directory', pattern='[A-Za-z0-9_-]+', placeholder="Example: my_new_site", onfocus="this.placeholder = ''", title="Special characters and spaces are not accepted", class='form-control', onblur='checkDirectoryNameAvailability(event)', required)
+      span#error-message-directory
       br
       label(for='name') Website name:
       input#name(type='text', name='name', placeholder="Example: my new site!", onfocus="this.placeholder = ''", title="Enter the desired site name", class='form-control', onblur='checkSiteNameAvailability(event)', required)
@@ -24,20 +25,46 @@ block content
         function submitForm(event) {
           event.preventDefault();
 
+          const directoryInput = document.querySelector('#directory');
           const portInput = document.querySelector('#port');
           const nameInput = document.querySelector('#name');
           const dbnameInput = document.querySelector('#dbname');
 
-          // Check if port and name are valid
+          // Check the validity of inputs
+          const directoryValid = directoryInput.style.borderColor !== 'red';
           const portValid = portInput.style.borderColor !== 'red';
           const nameValid = nameInput.style.borderColor !== 'red';
           const dbnameValid = dbnameInput.style.borderColor !== 'red';
 
-          if (portValid && nameValid && dbnameValid) {
+          if (directoryValid && portValid && nameValid && dbnameValid) {
             alert('Wait a few seconds, your site is being created. This operation may take several seconds.');
             event.target.submit();
           } else {
             alert('Please correct the errors in the form before submitting.');
+          }
+        }
+
+        async function checkDirectoryNameAvailability(event){
+          const dtnameInput = event.target;
+          const dtname = dtnameInput.value;
+          const errorMessageSpan = document.querySelector('#error-message-directory');
+
+          if (dtname) {
+            try {
+              const response = await fetch(`/isDirectoryNameUsed/${encodeURIComponent(dtname)}`);
+              const data = await response.json();
+
+              if (data.dtnameUsed) {
+                dtnameInput.style.borderColor = 'red';
+                errorMessageSpan.textContent = 'Directory name already used';
+                errorMessageSpan.style.color = 'red';
+              } else {
+                dtnameInput.style.borderColor = 'green';
+                errorMessageSpan.textContent = '';
+              }
+            } catch (error) {
+              console.error('Error checking directory name availability:', error);
+            }
           }
         }
 
@@ -112,5 +139,3 @@ block content
             }
           }
         }
-
-
