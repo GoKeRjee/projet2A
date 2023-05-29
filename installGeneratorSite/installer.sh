@@ -2111,9 +2111,9 @@ app.get('/isDbNameUsed/:dbname', isAuth, async (req, res) => {
 // Handle GET request to check if a directory name is used
 app.get('/isDirectoryNameUsed/:dtname', isAuth, async (req, res) => {
 	try {
-	  	const dtname = req.params.directory;
+	  	const dtname = req.params.dtname;
 	  	// Check if a site with the specified directory name exists in the database
-	  	const dtnameExists = await sitesCollection.findOne({ dtname });
+	  	const dtnameExists = await sitesCollection.findOne({ directory: dtname });
 	  	// Return a JSON response indicating whether the directory name is used or not
 	  	res.json({ dtnameUsed: !!dtnameExists });
 	} catch (err) {
