@@ -1251,7 +1251,7 @@ input[type=text], select {
 /*========================================================================
                          MESSAGES 
 ========================================================================*/
-#error-message-name, #error-message-port, #error-message-dbname {
+#error-message-name, #error-message-port, #error-message-dbname, #error-message-directory {
     display: block;
     margin-top: 5px;
   }
@@ -1373,9 +1373,11 @@ block content
       label(for='name') Website name:
       input#name(type='text', name='name', placeholder="Example: my new site!", onfocus="this.placeholder = ''", title="Enter the desired site name", class='form-control', onblur='checkSiteNameAvailability(event)', required)
       span#error-message-name
+      br
       label(for='port') Port:
-      input#port(type='text', name='port', pattern='^(?!3030)([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$',  placeholder="Example: 2030", onfocus="this.placeholder = ''", title="Enter the desired site port", class='form-control', onblur='checkPortAvailability(event)', required)
+      input#port(type='text', name='port', pattern='([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$',  placeholder="Example: 2030", onfocus="this.placeholder = ''", title="Enter the desired site port", class='form-control', onblur='checkPortAvailability(event)', required)
       span#error-message-port
+      br
       label(for='dbname') Database name:
       input#dbname(type='text', name='dbname', pattern='[A-Za-z0-9_-]+', placeholder="Example: my_db_name", onfocus="this.placeholder = ''", title="Special characters and spaces are not accepted", class='form-control', onblur='checkDatabaseNameAvailability(event)', required)
       span#error-message-dbname
@@ -1461,16 +1463,22 @@ block content
 
           if (port) {
             try {
-              const response = await fetch(`/isPortUsed/${encodeURIComponent(port)}`);
-              const data = await response.json();
-
-              if (data.portUsed) {
+              if(port == 3030){
                 portInput.style.borderColor = 'red';
-                errorMessageSpan.textContent = 'Port already used';
+                errorMessageSpan.textContent = 'Port 3030 cannot be used';
                 errorMessageSpan.style.color = 'red';
               } else {
-                portInput.style.borderColor = 'green';
-                errorMessageSpan.textContent = '';
+                const response = await fetch(`/isPortUsed/${encodeURIComponent(port)}`);
+                const data = await response.json();
+
+                if (data.portUsed) {
+                  portInput.style.borderColor = 'red';
+                  errorMessageSpan.textContent = 'Port already used';
+                  errorMessageSpan.style.color = 'red';
+                } else {
+                  portInput.style.borderColor = 'green';
+                  errorMessageSpan.textContent = '';
+                }
               }
             } catch (error) {
               console.error('Error checking port availability:', error);
@@ -1521,12 +1529,15 @@ block content
             option(value=site._id) #{site.name}
         input(type='hidden', name='id', id='id', value=sites[0]._id)
         br
+        br
         label(for="name") New Name:
         input(type='text', name='name', id='name', placeholder="Example: my new site!", onfocus="this.placeholder = ''", onblur='checkSiteNameAvailability(event)', required)
         span#error-message-name
+        br
         label(for="port") New Port:
         input(type='text', name='port', id='port', pattern='^(?!3030)([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$',  placeholder="Example: 2030", onfocus="this.placeholder = ''", onblur='checkPortAvailability(event)', required)
         span#error-message-port
+        br
         input(type='submit', value='Update Site')
 
         script.
