@@ -528,7 +528,7 @@ input[type=text], select {
 /*========================================================================
                          MESSAGES 
 ========================================================================*/
-#error-message-name, #error-message-port, #error-message-dbname {
+#error-message-name, #error-message-port, #error-message-dbname, #error-message-directory {
     display: block;
     margin-top: 5px;
   }
