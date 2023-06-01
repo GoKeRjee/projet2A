@@ -1,78 +1,74 @@
-# README - Installation and Deployment Guide
+# README - English Translation
 
-This README provides instructions for installing and deploying the website. It also includes information on how to navigate and use the different pages of the site.
+## 1 - Installation and Site Deployment:
 
-## Installation
+### 1.1 - Installation Steps
+Within the provided zip folder, you will find a bash script named "installer.sh" along with this README file. There is no initial installation or configuration required. You simply need to execute this script, which will handle the installations for you. To do this, follow these steps:
+   - Navigate to the directory containing the script (the script will create the project folder in the current directory, so make sure the script is in the desired directory)
+   - Open a terminal
+   - Enter the command: ```chmod -R a+rwx installer.sh```
+   - Enter the command: ```./installer.sh```
 
-### Installation Steps
+By following these few steps, the installations will begin. Please be patient for a few minutes and ensure you have an active internet connection, as the script will install several modules.
 
-1. Inside the downloaded zip folder, you will find a bash script named "installer.sh". Initially, there is no need for any installation or configuration. Simply run this script, and it will handle the installations for you. Follow these steps:
-   - Navigate to the directory where the script is located (the script will create the project folder in the current directory, so make sure the script is in the desired directory).
-   - Open a terminal.
-   - Enter the command: ```chmod -R a+rwx installer.sh```.
-   - Enter the command: ```./installer.sh```.
+The script is configured to automatically launch a tab to display the site once installations are completed. By default, the site opens in Firefox, so if Firefox is not installed on your machine, the site may not display. If this is the case, do not worry: launch your preferred browser and type in the following link:
+   - http://localhost:3030/
 
-   If you follow these steps correctly, the installations will begin. Please be patient as the process may take a few minutes. Make sure you are connected to the internet, as the script will install required modules.
-
-   The script is configured to automatically launch the site once the installations are complete. By default, the site will open in Google, so if Google is not installed on your machine, the site may not display. In that case, don't worry. Simply open your preferred browser and enter the following link:
-   - [http://localhost:3030/](http://localhost:3030/)
-
-2. Once you are on the site, an admin account is automatically created for you. It is your responsibility to log in with these credentials and change the password to a different one.
+Once you are on the site, a default administrator account is created for you. It is your duty to login using these credentials and change the password to a different one.
    - Email: ```admin@example.com```
    - Password: ```adminPassword```
 
-   Alternatively, you can create your own account and then log in with the default account to give yourself full rights over the created account. However, remember to delete the default account after use!
+You also have the option to use this default account once only, i.e., you can create your own account then login with the default account to grant all rights to the account you have created. However, remember to delete the default account after use!
 
-### Restarting the Site
+### 1.2 - Site Restart in Case of Issues:
 
-If, for any reason, your machine shuts down or the site becomes inaccessible, you can restart the service by entering the following commands in the terminal (make sure you are in the project directory):
-- ```sudo systemctl start mongod```
-- ```node server.js```
+If for any reason your machine turns off, or the site becomes inaccessible, you can restart the service by typing the following commands into the terminal (ensure you're in the project directory):
+   - ```sudo systemctl start mongod```
+   - ```node server.js```
 
-### Troubleshooting
+### 1.3 - Troubleshooting:
+If your site stops working and you don't know why, here are some useful guidelines:
 
-If your site is not working and you are unsure why, here are some useful instructions:
+- If the MongoDB service isn't running, this might explain why you can't connect to the site, or access certain pages. You can check the status of the service with the following command: ```sudo systemctl status mongod```
+  Start the service if it's not active with the following command: ```sudo systemctl start mongod```
 
-- If the MongoDB service is not running, it may explain why you are unable to connect to the site or access certain pages. You can check the status of the service using the command: `sudo systemctl status mongod`. If it is not active, start the service using the command: ```sudo systemctl start mongod```.
+## 2 - User Documentation:
 
-## User Documentation
+Once you reach the index page, a message is displayed to guide users in navigating the site. To go further, here are some important instructions for using the site effectively:
 
-Once you reach the index page, you will receive a message guiding you through the site navigation. For further information, here are some important details to effectively use the site:
+### 2.1 - Admin Page
 
-### Admin Page
+This page will only be visible if you are a user with administrative rights. It's a user management page. Here you will find two lists:
+- A list of users who have registered and are waiting to be approved (actions: approve or delete the request)
+- A list of approved users (with possible actions like disapproving the user, or changing their site rights)
 
-This page is only visible to users with administrator rights. It serves as a user management page where you will find two lists:
-- List of users who have registered and are awaiting approval (actions: approve or delete the request).
-- List of approved users (with actions such as disapproving the user or changing their rights on
+### 2.2 - Create Page:
 
- the site).
+This page is dedicated exclusively to site creation.
 
-### Create Page
+There is a form to provide the details of the site to be created:
 
-This page is exclusively dedicated to site creation.
+- The site directory
+- The site title
+- The port you wish to use
+- The database name
+You should note that if the desired port or site name is already in use, the site will notify you and you will need to consider a different port/site name. Also, make sure to read the instructions for creating a site. For example, special characters and blank spaces are not accepted in the "directory name" field.
+After clicking the "Create" button, a confirmation message appears,
 
-There is a form to provide the site information:
-- Site directory
-- Site title
-- Desired port
-- Database name
+ and the site is created within the following 15 seconds. It is then possible to check the site status (ON or OFF).
+By default, port 3030 is used for the base site, so it cannot be used to create a site.
 
-Note that if the desired port or site name is already in use, the site will notify you, and you will need to choose a different port/site name. Also, make sure to read the instructions for creation carefully. For example, special characters and empty spaces are not allowed in the "directory name" field.
+### 2.3 - Edit Page
 
-After clicking the "create" button, a confirmation message will appear, and the site will be created within 15 seconds. You can then check the status of the site (ON or OFF).
+The "Edit" page allows authorized users to make modifications to a previously created site or sites. You have the option to change either the name of your site or the port that allows access to the site.
 
-### Edit Page
+### 2.4 - List Page
 
-This edit page allows authorized users to make modifications to previously created sites.
+This page displays a list of sites that have been created. This page is designed to display only the essential information and allows you to pause the site, restart it, or delete it. Currently, a simple click performs the actions associated with the buttons. If you're worried about making a mistake, don't worry: a "Are you sure you want to delete site XXX?" message has been set up to avoid unintentional clicks. One final feature, which is to deploy the site, was considered, but unfortunately, we were not able to implement it, so this action is not possible.
 
-### List Page
+Please note: if you do not have specific rights to the site, you will only be able to view the list of sites. The proposed actions are only valid for users with rights.
 
-On this page, you will find a list of the created sites. The page is designed to display essential information and provide options to pause, relaunch, or delete the site. Currently, a single click performs the actions associated with the buttons. If you are concerned about making a wrong action, don't worry. A message "Are you sure you want to delete site XXX?" is implemented to prevent accidental clicks. Additionally, you can deploy the site with a single click.
+### 2.5 - Settings Page
+If a user wishes to change their password, they can visit the "Settings" page which allows the user to change their password.
 
-Note: If you do not have specific rights for the site, you can only view the list of sites. The actions mentioned are only available to users with appropriate rights.
-
-### Settings Page
-
-If a user wishes to change their password, they can visit the settings page, which allows them to modify their password.
-
-You will also find login and registration pages that do not require specific instructions. However, note that a newly registered user cannot log in until an administrator approves the registration. This helps prevent malicious registrations or unwanted visitors.
+The login and registration pages do not require specific instructions. However, it should be noted that a newly registered user will not be able to login until an administrator has approved the registration. This prevents malicious users or simply undesirable visitors from registering.
